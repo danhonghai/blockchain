@@ -1,0 +1,83 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row" style="height: 50rem;">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_0.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_0.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669 active" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_1.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<div class="col col-md-9">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  	<div class="card-header info-header font-1">
+				    {{userInfo.fundSite ? lang.lang208 : lang.lang214}}{{lang.lang215}} <small ng-if="userInfo.fundSite">( {{lang.lang229}} )</small>
+				  	</div>
+				  	<div class="card-body info-body">
+						<form class="info-form" novalidate name="myForm" >
+						  	<div class="form-group">
+						  		<label>{{userInfo.fundSite ? lang.lang511 : lang.lang215}}</label>
+						  		<div class="new_tipbox" >
+							      	<div class="tip_tishi" ng-show="myForm.currentFundCode.$dirty &&  myForm.currentFundCode.$error.required">
+					                    {{lang.lang232}}
+					                </div>
+						      	</div>
+						      	<input type="password" class="form-control"  name="currentFundCode" ng-model="params.currentFundCode" maxlength="16" required >
+						  	</div>
+						  	<div class="form-group">
+						  		<label>{{userInfo.fundSite ? lang.lang512 : lang.lang230}}</label>
+						  		<div class="new_tipbox" >
+							      	<div class="tip_tishi" ng-show="myForm.preFundCode.$dirty &&  myForm.preFundCode.$error.required">
+					                    {{lang.lang350}}
+					                </div>
+					                <div class="tip_tishi" ng-show="params.currentFundCode && preFundCode && params.currentFundCode != preFundCode">
+					                    {{lang.lang127}}
+					                </div>
+						      	</div>
+						      	<input type="password" class="form-control" name="preFundCode" ng-model="preFundCode" maxlength="16" required  >
+						  	</div>
+						  	<div class="form-group">
+						  		<label>{{lang.lang42}}</label>
+						  		<div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="myForm.imageCode.$dirty && myForm.imageCode.$error.required">
+                                        {{lang.lang43}}
+                                    </div>
+                                </div>
+						      	<div class="input-group">
+								  	<input type="text" class="form-control" required ng-model="params.imageCode" name="imageCode" >
+								  	<div class="input-group-append" ng-click="getCaptcha()" >
+								    	<button class="btn btn-outline-secondary padding0" style="border-color:#0e1224;" type="button"><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" alt={{lang.lang42}} ></button>
+								  	</div>
+								</div>
+						  	</div>
+						  	<div class="form-group">
+						  		<label>{{lang.lang231}}</label>
+						  		<div class="new_tipbox" >
+							      	<div class="tip_tishi" ng-show="myForm.phoneCode.$dirty && myForm.phoneCode.$error.required">{{lang.lang244}}</div>
+						      	</div>
+						      	<div class="input-group">
+								  	<input type="text" class="form-control" required ng-model="params.phoneCode" name="phoneCode" >
+								  	<div class="input-group-append">
+								    	<button class="btn btn-code" type="button" ng-click="getphoneCodefun()" id="sendButton_fund" >{{lang.lang46}}</button>
+								  	</div>
+								</div>
+								<!-- <div class="tipbox">
+													                <div class="tip_tishi" ng-show="myForm.currentFundCode.$dirty &&  myForm.currentFundCode.$error.required">
+													                    {{lang.lang232}}
+													                </div>
+													                <div class="tip_tishi" ng-show="myForm.preFundCode.$dirty &&  myForm.preFundCode.$error.required">
+													                    {{lang.lang350}}
+													                </div>
+													                <div class="tip_tishi" ng-show="params.currentFundCode && preFundCode && params.currentFundCode != preFundCode">
+													                    {{lang.lang127}}
+													                </div>
+														      	</div> -->
+						  	</div>
+					  		<button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="myForm.$invalid || params.currentFundCode != preFundCode" ng-click="setFundPwd()" >{{lang.lang208}}</button>
+						</form>
+				  	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

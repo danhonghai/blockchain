@@ -1,0 +1,192 @@
+<div ng-if="language == 1" class="container-full  helpcenter bg-body" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3">
+                <div class="business_title b-menu">
+                    <span class="border-152669 bottom-split" ng-class="{active:currentTypes == 1}" ng-click="loadDataes(1)">注册</span>
+                    <span class="border-152669 bottom-split" ng-class="{active:currentTypes == 2}" ng-click="loadDataes(2)">设置谷歌验证码</span>
+                    <span class="border-152669 bottom-split" ng-class="{active:currentTypes == 3}" ng-click="loadDataes(3)">充值</span>
+                    <span class="border-152669 bottom-split" ng-class="{active:currentTypes == 4}" ng-click="loadDataes(4)">提币</span>
+                    <span class="border-152669 bottom-split" ng-class="{active:currentTypes == 5}" ng-click="loadDataes(5)">交易</span>
+                </div>
+            </div>
+            <div class="col col-md-9">
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 1">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        注册
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.进入哈耶克首页，点击右上角的“注册”按钮。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_1.png" alt="image.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.哈耶克支持手机号注册和邮箱注册两种方式，默认为手机注册，用户可根据适合自己的方式选择。输入后手机/邮箱会收到相关验证信息。新用户需要认真阅读服务条款，免责声明和隐私政策，同意后方可完成注册。</p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/help_2.png" alt="image.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 2">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        设置谷歌验证码
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">为了保证哈耶克用户资金安全，哈耶克平台引进谷歌验证系统，哈耶克用户需要绑定后才可进行交易、充币、提币等操作。</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.使用手机下载谷歌验证器，iOS用户登陆App Store，搜索Google Authenticator，下载Google Authenticator；安卓用户登陆应用商店或利用手机浏览器搜索“谷歌验证器”下载。</p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/help_3.png" alt="xz.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">iOS版下载链接：</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">https://itunes.apple.com/cn/app/google-authenticator/id388497605?mt=8</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">安卓版下载链接：</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">http://shouji.baidu.com/software/22417419.html</p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.安装后，iOS用户可以点击右上角“+”，选择“扫描条形码”或者“手动输入验证码”，安卓用户只可以选择“手动输入验证码”，输入相关信息后选择“√”保存。</p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/help_4.png" alt="sfyzq.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/help_5.png" alt="sdsr.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">3.扫描哈耶克绑定页面中显示的二维码或手动输入密钥，此时您手机中的谷歌验证器APP将生成一串6位数字的验证码，填入空格，点击绑定。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_6.png" alt="bdggyz.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">4.手机丢失，谷歌验证码丢失怎么办？</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">a.强烈建议您在绑定谷歌验证码时，将密钥或二维码保存下来，万一手机丢失，可以在新手机上重新绑定。</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">b.如果您忘记备份密钥或二维码，请将手持身份证照片和联系电话邮件发送至官方邮件申请解绑谷歌验证码，待客服人员处理后，您可以重新绑定新的谷歌验证码。</p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 3">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        充值
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.点击“资产中心”，选择想要充币的币种。在这里以BTC为例，点击“充币”。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_7.png" alt="zichan.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.然后就可以查看您的BTC充币地址，直接将币到这个地址即可。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_8.png" alt="chongbi.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 4">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        提币
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.点击“资产中心”，选择想要充币的币种。在这里以BTC为例，点击“提币”。如果您之前未设置过资金密码，请先设置资金密码。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_9.png" alt="tibi.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.首次提币，需要首先添加提币地址。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_10.png" alt="shouciti.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">3.在添加页面，填写您的个人钱包地址、标签信息，输入短信手机验证码、邮箱验证码、谷歌验证码等安全验证后，点击确认提币地址即可添加成功。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_11.png" alt="dizhi.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">4.返回提币页面后，选择地址，输入数量，点击确定即可提币。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_12.png" alt="dizhi2.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 5">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        交易
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">点击“币币交易”，选择索要交易的交易对，即可进行交易。</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">以ETH/BTC为例，填写价格并填写买入或者卖出量，点击绿色或者红色按钮，及挂单成功。当由相应价格的卖方和买方挂单时，系统将自动撮合成交。</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/help_13.png" alt="xianjia.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="language == 2" class="container-full  helpcenter bg-body" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3">
+                <div class="business_title b-menu">
+                    <span ng-class="{active:currentTypes == 1}" ng-click="loadDataes(1)">Sign Up</span>
+                    <span ng-class="{active:currentTypes == 2}" ng-click="loadDataes(2)">Set Google Authenticator</span>
+                    <span ng-class="{active:currentTypes == 3}" ng-click="loadDataes(3)">Deposit</span>
+                    <span ng-class="{active:currentTypes == 4}" ng-click="loadDataes(4)">Withdraw coin</span>
+                    <span ng-class="{active:currentTypes == 5}" ng-click="loadDataes(5)">Exchange</span>
+                </div>
+            </div>
+            <div class="col col-md-9">
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 1">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        Sign Up
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.Enter into Hayek's home page and click the "register" button at the top right corner.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_1.png" alt="image.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.Hayek supports registration through mobile phone number and email.  The default is mobile phone number registration.  Users can choose their own way. The mobile phone or email box will receive relevant verification information after input.  New users are suggested to read the terms of service, disclaimers and privacy policy carefully before they can complete the registration.</p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/helpEn_2.png" alt="image.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p>&nbsp;</p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 2">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        Set Google Authenticator
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">In order to ensure the safety of the funds of Hayek’s users, the Google Authentication system is introduced into Hayek platform.  Hayek users need to be authorized before they can conduct transactions, deposit and withdraw coins.</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.The user should first use mobile phone to download Google Authenticator.  IOS users need to download Google Authenticator from Apple Store. Android users need to log in the application store or use their mobile browsers to search for and download Google Authenticator.</p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/helpEn_3.png" alt="xz.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">Download link for IOS:</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">https://itunes.apple.com/cn/app/google-authenticator/id388497605?mt=8</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">Download link for Android:</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">http://shouji.baidu.com/software/22417419.html</p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.After installation, IOS users can click on the upper right corner of the "+" and select "scan bar code" or "manual input validation code"; Android users can only select "manual input validation code", and choose "√" for save after inputting relevant information.</p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/helpEn_4.png" alt="sfyzq.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p style="margin: 1rem;text-align: center;"><img title="" src="/img/helpEn_5.png" alt="sdsr.png" width="852" height="395" style="height: auto; max-width: 90%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">3.Scan the QR code shown in the binding page of Hayek or manually input the secret key.  At this point, the Google Authenticator APP in your mobile phone will generate a list of 6 digits verification code; please fill it in the blanks and click for the authorize.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_6.png" alt="bdggyz.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">4.How to do when your mobile phone is lost or the Google Authentication code is lost? </p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">a.We strongly recommend you to save the secret key or QR code when you link the Google verification code.  In case your phone is lost, you can authorize again on the new phone.</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">b.If you forget to save the secret key or QR code, please sent to the official email box with a photo that you are holding your photo ID and your contract number and email to apply for cancellation of previously authorized Google verification code.  After the customer service staff verified, you can authorize the new Google verification code.</p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 3">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        Deposit
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.Click "Balance" to select the coin you want to deposit.  Take BTC as an example, please click "deposit coin".</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_7.png" alt="zichan.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.Then you can check your BTC coin address and directly send the coin to this address.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_8.png" alt="chongbi.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 4">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        Withdraw coin
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">1.Click "Balance" to select the coin you want to withdraw.  Take BTC as an example, please click "withdraw coin".  If you have not set the fund password before, please set it first.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_9.png" alt="tibi.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">2.For the first withdrawal, the withdrawal address should be added first.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_10.png" alt="shouciti.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">3.In the adding page, please fill in your personal wallet address and label information, input SMS mobile phone verification code, email verification code and Google authentication code and other security verification, then you can click the confirmation and add the address successfully.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_11.png" alt="dizhi.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                        <p>&nbsp;</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">4.After returning to the withdrawal page, select the address and input the amount, then you can click OK to withdraw the coin.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_12.png" alt="dizhi2.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;" ng-show="currentTypes == 5">
+                    <div class="card-header info-header border-152669 font-1 ">
+                        Exchange
+                    </div>
+                    <div class="article-body">
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">Click "Exchange", select the exchange pairs, then proceed to transaction.</p>
+                        <p class="font-2" style="margin: 1rem 1rem;font-size: 14px;">Take ETH/BTC as an example, you should fill in the price and the purchase/sale amount, click the green or red button, and the entry orders will be successful. When the seller and the buyer conduct Post-Orders at the corresponding price, the system will automatically match for execution.</p>
+                        <p style="margin: 1rem;"><img title="" src="/img/helpEn_13.png" alt="xianjia.png" width="852" height="395" style="height: auto; max-width: 100%;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

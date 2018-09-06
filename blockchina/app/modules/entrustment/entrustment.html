@@ -1,0 +1,113 @@
+<!-- 委托管理 -->
+<style>
+.page-color {
+    color: #fff;
+}
+</style>
+<div class="container-full entrustment bg-body">
+    <div class="container">
+        <div class="row" style="margin-top: 1rem; padding-bottom: 1rem;">
+            <div class="col">
+                <div class="business div-block" style="padding: 0px; padding-bottom: 1rem; min-height: 33rem;">
+                    <div class="business_title font-1">
+                        <div class="fr" ng-show="currentType == 1 || currentType == 2 || currentType == 3">
+                            <span ng-class="{true: 'awardactive active', false: ''}[selectTimes == 1]" ng-click="selectTime(1)" style="border-bottom: none;">{{lang.lang70}}</span>
+                            <span ng-class="{true: 'awardactive active', false: ''}[selectTimes == 2]" ng-click="selectTime(2)" style="border-bottom: none;">{{lang.lang71}}</span>
+                            <span ng-class="{true: 'awardactive active', false: ''}[selectTimes == 3]" ng-click="selectTime(3)" style="border-bottom: none;">{{lang.lang97}}</span>
+                        </div>
+                        <span ng-class="{true: 'awardactive active', false: ''}[currentType == 1]" ng-click="loadData(1,1)">{{lang.lang98}}</span>
+                        <span ng-class="{true: 'awardactive active', false: ''}[currentType == 2]" ng-click="loadData(1,2)">{{lang.lang99}}</span>
+                        <span ng-class="{true: 'awardactive active', false: ''}[currentType == 3]" ng-click="loadDatas(1,3)">{{lang.lang100}}</span>
+                    </div>
+                    <div class="transfer_cen" style="padding:0 .5rem; font-size: 12px;" ng-show="currentType == 1">
+                        <div class="row pt08 div-block font-3" style="margin: 0px -7px;padding-bottom: .8rem;">
+                            <div class="col col-md-2" style="padding-left: 1.5rem;">{{lang.lang101}}</div>
+                            <div class="col">{{lang.lang102}}</div>
+                            <div class="col">{{lang.lang103}}</div>
+                            <div class="col">{{lang.lang104}}</div>
+                            <div class="col">{{lang.lang105}}</div>
+                            <div class="col">{{lang.lang106}}</div>
+                            <div class="col">{{lang.lang107}}</div>
+                            <div class="col">{{lang.lang108}}</div>
+                            <div class="col">{{lang.lang57}}</div>
+                            <div class="col">{{lang.lang58}}</div>
+                        </div>
+                        <div class="row pt08" ng-repeat="item in datalist">
+                            <div class="col col-md-2" style="padding-left: 1rem;width: 150px">{{item.time | date: 'yyyy-MM-dd HH:mm'}}</div>
+                            <div class="col">{{item.trade}}</div>
+                            <div class="col ng-binding d25" ng-class="{true:'d25', false:'bd4'}[item.direct==1]">{{item.type==1?lang.lang109:lang.lang110}}{{item.direct==1?lang.lang70:lang.lang71}}</div>
+                            <div class="col">{{item.type==2?lang.lang110:(item.price |number:6)}}</div>
+                            <div class="col" ng-if="item.type == 1">{{item.num | number:4}}</div>
+                            <div class="col" ng-if="item.type != 1">{{item.num == 0 ? '--' : (item.num | number:4)}}</div>
+                            <div class="col" ng-if="item.entrustTrade">{{item.entrustTrade |number:6}}</div>
+                            <div class="col" ng-if="!item.entrustTrade">0.000000</div>
+                            <div class="col" ng-if="item.successNum">{{item.successNum |number:4}}</div>
+                            <div class="col" ng-if="!item.successNum">0.0000</div>
+                            <div class="col" ng-if="item.successMoney">{{item.successMoney |number:6}}</div>
+                            <div class="col" ng-if="!item.successMoney">0.000000</div>
+                            <div class="col">{{item.status==0?lang.lang89:item.status==1?lang.lang93:item.status==2?lang.lang94:item.status==3?lang.lang95:lang.lang96}}</div>
+                            <div class="col"><a href="" class="btn_cancel eff" ng-click="dele(item.id)">{{lang.lang111}}</a></div>
+                        </div>
+                    </div>
+                    <div class="business_cen" style="padding:0 .5rem; font-size: 12px;" ng-show="currentType == 2">
+                        <div class="row pt08 div-block font-3" style="margin: 0px -7px;padding-bottom: .8rem;">
+                            <div class="col col-md-2" style="padding-left: 1.5rem;">{{lang.lang101}}</div>
+                            <div class="col">{{lang.lang102}}</div>
+                            <div class="col">{{lang.lang103}}</div>
+                            <div class="col">{{lang.lang104}}</div>
+                            <div class="col">{{lang.lang105}}</div>
+                            <div class="col">{{lang.lang112}}</div>
+                            <div class="col">{{lang.lang107}}</div>
+                            <div class="col">{{lang.lang108}}</div>
+                            <div class="col">{{lang.lang57}}</div>
+                        </div>
+                        <div class="row pt08" ng-repeat="item in datalist">
+                            <div class="col col-md-2" style="padding-left: 1.5rem;">{{item.time | date: 'yyyy-MM-dd HH:mm'}}</div>
+                            <div class="col">{{item.trade}}</div>
+                            <div class="col ng-binding d25" ng-class="{true:'d25', false:'bd4'}[item.direct==1]">{{item.type==1?lang.lang109:lang.lang110}}{{item.direct==1?lang.lang70:lang.lang71}}</div>
+                            <div class="col">{{item.type==2?lang.lang110:(item.price |number:6)}}</div>
+                            <div class="col" ng-if="item.type == 1">{{item.num | number:4}}</div>
+                            <div class="col" ng-if="item.type != 1">{{item.num == 0 ? '--' : (item.num | number:4)}}</div>
+                            <div class="col" ng-if="item.successAvgPrice">{{item.successAvgPrice |number:6}}</div>
+                            <div class="col" ng-if="!item.successAvgPrice">0.000000</div>
+                            <div class="col" ng-if="item.successNum">{{item.successNum |number:4}}</div>
+                            <div class="col" ng-if="!item.successNum">0.0000</div>
+                            <div class="col" ng-if="item.successMoney">{{item.successMoney |number:6}}</div>
+                            <div class="col" ng-if="!item.successMoney">0.000000</div>
+                            <div class="col">{{item.status==0?lang.lang89:item.status==1?lang.lang93:item.status==2?lang.lang94:item.status==3?lang.lang95:lang.lang96}}</div>
+                        </div>
+                    </div>
+                    <div class="business_cen" style="padding:0 .5rem; font-size: 12px;" ng-show="currentType == 3">
+                        <div class="row pt08 div-block font-3" style="margin: 0px -7px;padding-bottom: .8rem;">
+                            <div class="col col-md-2" style="padding-left: 1.5rem;">{{lang.lang417}}</div>
+                            <!-- {{lang.lang101}} -->
+                            <div class="col">{{lang.lang102}}</div>
+                            <div class="col">{{lang.lang113}}</div>
+                            <div class="col">{{lang.lang114}}</div>
+                            <div class="col">{{lang.lang107}}</div>
+                            <div class="col">{{lang.lang108}}</div>
+                            <div class="col">{{lang.lang83}}</div>
+                        </div>
+                        <div class="row pt08" ng-repeat="item in datalist1">
+                            <div class="col col-md-2" style="padding-left: 1.5rem;">{{item.time | date: 'yyyy-MM-dd HH:mm'}}</div>
+                            <div class="col">{{item.trade}}</div>
+                            <div class="col" ng-class="{true:'d25', false:'bd4'}[item.direct==1]">{{item.type==1?lang.lang109:lang.lang110}}{{item.direct==1?lang.lang70:lang.lang71}}</div>
+                            <div class="col">{{item.price |number:6}}</div>
+                            <div class="col" ng-if="item.successNum != 0">{{item.successNum |number:4}}</div>
+                            <div class="col" ng-if="item.successNum == 0">--</div>
+                            <div class="col" ng-if="item.successMoney != 0">{{item.successMoney |number:6}}</div>
+                            <div class="col" ng-if="item.successMoney == 0">--</div>
+                            <div class="col">{{item.handFee?item.handFee:0 | number:8}} {{item.unit}}</div>
+                        </div>
+                    </div>
+                    <my-pagination style="position: absolute;bottom: 0px;" ng-show="datalist.length != 0 && currentType != 3" page-option="option" class="text-center pagebox"></my-pagination>
+                    <h3 class="text-center text-secondary" ng-show="datalist.length == 0 && currentType != 3"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></h3>
+                    <!--  <h3 style="margin-top: 50px;" class="text-center text-secondary" ng-show="datalist.length == 0 && currentType != 3">{{lang.lang59}}</h3> -->
+                    <my-pagination style=" position: absolute;bottom: 0px;" ng-show="datalist1.length != 0 && currentType == 3" page-option="options" class="text-center pagebox"></my-pagination>
+                    <h3 class="text-center text-secondary" ng-show="datalist1.length == 0 && currentType == 3"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></h3>
+                    <!--  <h3 style="margin-top: 50px;" class="text-center text-secondary" ng-show="datalist1.length == 0 && currentType == 3">{{lang.lang59}}</h3> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

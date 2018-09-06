@@ -1,0 +1,505 @@
+.navbar-nav .active a {
+    color: #489AFF !important;
+}
+
+.footerWrap{
+    padding: 3rem 1rem;
+    background: #081957;
+}
+
+.weixin .qrcode {
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    display: inline-block;
+    left: -76px;
+    top: 65px;
+    opacity: 0;
+}
+
+.qrcodess {
+    background: url(../img/foot_1.png) no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+     &:hover {
+        background: url(../img/foot_1_h.png) no-repeat;
+    } 
+}
+
+.qr {
+    background: url(../img/foot_2.png) no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+     &:hover {
+        background: url(../img/foot_2_h.png) no-repeat;
+    } 
+}
+
+.qrc {
+    background: url(../img/foot_3.png) no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+     &:hover {
+        background: url(../img/foot_3_h.png) no-repeat;
+    } 
+}
+
+.qrco {
+    background: url(../img/foot_4.png) no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+     &:hover {
+        background: url(../img/foot_4_h.png) no-repeat;
+    } 
+}
+
+.telegram {
+    background: url(../img/foot_5.png) no-repeat;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    &:hover {
+        background: url(../img/foot_5_h.png) no-repeat;
+    }
+}
+
+.footernav {
+    .icon {
+        width: 11rem;
+        position: relative;
+        left: -12px;
+    }
+}
+
+
+.weixin:hover img.qrcode {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.none {
+    display: none;
+}
+
+.layout-root {
+    position: fixed;
+    background: #E74C3C;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+
+.layout-content {
+    line-height: 44px;
+    font-weight: 300;
+    font-size: 1em;
+    color: #fff;
+    text-indent: 10px;
+}
+
+.layout-content .code {
+    line-height: 22px;
+    text-align: center;
+}
+
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+a,
+button {
+    outline: none;
+}
+
+.dialog-footer button {
+    border: none;
+    padding: 0.6em 1.2em;
+    background: #2196F3;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    display: block;
+    margin: 3px auto;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #152f66;
+}
+
+/* button:hover,
+button:active,
+button:focus {
+    border: none;
+} */
+
+
+
+
+
+
+/* ---------------------弹窗样式 -------------------*/
+
+.dialog-face {
+    position: fixed;
+    background: #0E1224;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+
+    -webkit-animation-duration: 500ms;
+    -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+    animation-duration: 500ms;
+}
+
+.dialog-face.slipBottom[opacity="0"] {
+    display: none;
+}
+
+.dialog-face.slipUp {
+    opacity: 0.7;
+    -webkit-animation-name: dialogFaceSlipToUp;
+    -moz-animation-name: dialogFaceSlipToUp;
+    -o-animation-name: dialogFaceSlipToUp;
+    animation-name: dialogFaceSlipToUp;
+}
+
+.dialog-face.slipBottom {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-animation-name: dialogFaceSlipToBottom;
+    -moz-animation-name: dialogFaceSlipToBottom;
+    -o-animation-name: dialogFaceSlipToBottom;
+    animation-name: dialogFaceSlipToBottom;
+}
+
+.dialog-root {
+    position: fixed;
+    z-index: 2000;
+    left: 50%;
+
+    -webkit-animation-duration: 500ms;
+    -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-perspective: 1300px;
+    -moz-perspective: 1300px;
+    perspective: 1300px;
+}
+
+.dialog-root.slipUp {
+    top: 50%;
+    opacity: 1;
+
+    -webkit-animation-name: dialogSlipToUp;
+    -moz-animation-name: dialogSlipToUp;
+    -o-animation-name: dialogSlipToUp;
+    animation-name: dialogSlipToUp;
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.dialog-root.slipBottom {
+    top: 100%;
+    opacity: 0.3;
+    -webkit-animation-duration: 500ms;
+    -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-animation-name: dialogSlipToBottom;
+    -moz-animation-name: dialogSlipToBottom;
+    -o-animation-name: dialogSlipToBottom;
+    animation-name: dialogSlipToBottom;
+    -webkit-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+
+.dialog-wrapper {
+    background: url(../img/bg_zwkf.png) no-repeat;
+    background-size: 100%;
+    width: 635px;
+    height: 375px;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 30px #3a33da;
+
+    -webkit-animation-duration: 500ms;
+    -moz-animation-duration: 500ms;
+    -o-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-transform-origin: 50% 100%;
+    -moz-transform-origin: 50% 100%;
+    -ms-transform-origin: 50% 100%;
+    -o-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+}
+
+.dialog-wrapper.slipUp {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    -ms-transform: rotateX(0deg);
+    -o-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-animation-name: contentSlipToUp;
+    -moz-animation-name: contentSlipToUp;
+    -o-animation-name: contentSlipToUp;
+    animation-name: contentSlipToUp;
+}
+
+.dialog-wrapper.slipBottom {
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    -ms-transform: rotateX(90deg);
+    -o-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+    -webkit-animation-name: contentSlipToBottom;
+    -moz-animation-name: contentSlipToBottom;
+    -o-animation-name: contentSlipToBottom;
+    animation-name: contentSlipToBottom;
+}
+
+.dialog-header {
+    height: 75px;
+    background: #d94839;
+    text-align: center;
+}
+
+.dialog-header span {
+    font-size: 28px;
+    line-height: 75px;
+    color: #F6CBC6;
+}
+
+.dialog-content {
+    font-weight: 300;
+    font-size: 1.15em;
+    color: #fff;
+    padding: 15px 40px 20px 40px;
+    margin: 0;
+}
+
+
+.dialog-content p {
+    margin: 0;
+    padding: 10px 0;
+}
+
+.dialog-footer {}
+
+
+
+
+
+
+/* ---------------------动画关键帧 -------------------*/
+
+@keyframes dialogFaceSlipToUp {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes dialogFaceSlipToBottom {
+    0% {
+        opacity: 0.7;
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+@keyframes dialogSlipToUp {
+    0% {
+        top: 100%;
+        opacity: 0.3;
+    }
+    100% {
+        top: 50%;
+        opacity: 1;
+    }
+}
+
+@keyframes dialogSlipToBottom {
+    0% {
+        top: 50%;
+        opacity: 1;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    100% {
+        top: 100%;
+        opacity: 0.3;
+        -webkit-transform: translate(-50%, 0);
+        -moz-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+        -o-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes contentSlipToUp {
+    0% {
+        -webkit-transform: rotateX(90deg);
+        -moz-transform: rotateX(90deg);
+        -ms-transform: rotateX(90deg);
+        -o-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+    }
+    100% {
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        -ms-transform: rotateX(0deg);
+        -o-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+}
+
+@keyframes contentSlipToBottom {
+    0% {
+        -webkit-transform: rotateX(0deg);
+        -moz-transform: rotateX(0deg);
+        -ms-transform: rotateX(0deg);
+        -o-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+    }
+    60% {
+        -webkit-transform: rotateX(60deg);
+        -moz-transform: rotateX(60deg);
+        -ms-transform: rotateX(60deg);
+        -o-transform: rotateX(60deg);
+        transform: rotateX(60deg);
+    }
+    100% {
+        -webkit-transform: rotateX(90deg);
+        -moz-transform: rotateX(90deg);
+        -ms-transform: rotateX(90deg);
+        -o-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+    }
+}
+
+#holder {
+    margin: 20px auto 0 auto;
+    width: 555px;
+    height: 120px;
+}
+
+.cntSeparator {
+    display: block;
+    color: #fff;
+    font-size: 64px;
+    font-weight: 800;
+    text-align: center;
+    width: 40px;
+}
+
+.navbar-toggle::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 0.255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: 0.4em solid;
+    border-right: .4em solid transparent;
+    border-bottom: 0;
+    border-left: .4em solid transparent;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.dropdown-menu a:hover {
+    color: #489AFF !important;
+}
+
+//导航栏
+.doc_head{
+    width: 100%;
+    height: 69px;
+    position: relative;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    .head_nav{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding-right: 30px;
+        margin-bottom: 0;
+        li{
+            position: relative;
+            margin-left: 105px;
+            height: 59px;
+            z-index: 2;
+            line-height: 59px;
+            white-space: nowrap;
+            a{
+                color: #E0D5F3 !important;
+            }
+            a.active,a:hover{
+                color: #008DFF !important;
+            }
+        }
+        li.head-padding{
+            flex: 1;
+        }
+        li.dropBlock{
+            .user_menu{
+                top:22px !important;
+            }
+            .lang_menu{
+                top:0px !important;
+                background-color: transparent;
+            }
+            .dropdown-item{
+                line-height: 20px;
+                color: #FFFFFF !important;
+                &:hover{
+                    background: #008DFF;
+                }
+            }
+        }
+        #navbarDropdown:hover{
+            color: #008DFF !important;
+            border-color: #008DFF;
+        };
+        li.head-login,li.head-user{
+            margin-left: 160px;
+        }
+        li.head-re{
+            margin-left: 30px;
+        }
+    }
+}

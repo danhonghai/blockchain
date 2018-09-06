@@ -1,0 +1,166 @@
+<div class="advertising container ptop-3">
+  <div class="page-title">发布广告</div>
+  <div class="advertising-main">
+    <form [formGroup]="myForm">
+      <div class="form-group">
+        <label class="form-label">我要</label>
+        <div class="row" style="margin-bottom: 40px;">
+          <div class="col-md-5">
+            <select class="form-control" formControlName="direct" >
+              <option value="1">购买</option>
+              <option value="2">出售</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <select class="form-control" (change)="selectFiatCoin($event)">
+              <option *ngFor="let item of coinList" [value]="item | json">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="col-1 text-center" style="line-height: 38px;"><i class="icon-interchange"></i></div>
+          <div class="col-md-5">
+            <select class="form-control" formControlName="transBaseType" (change)="selectBaseCoin($event)" >
+              <option value="1">CNY</option>
+              <option value="2">SGD</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" >数字价格设置</label>
+        <div class="row">
+          <div class="col-md-5">
+            <input type="text" style="width: 0;height: 0;border:none;float: left;">
+            <input type="text" class="form-control" placeholder="数量" formControlName="amount" autocomplete="off" >
+            <small class="form-text text-muted" *ngIf="myForm.get('direct').value == 2">可出售余额：<span class="c659EFF">{{lastAccount}} {{coinName}}</span></small><!-- 售出时显示 -->
+          </div>
+          <div class="col-1" style="line-height: 38px;font-size: 16px;"><span>{{coinName}}</span></div>
+          <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="单价" formControlName="perPrice" >
+            <!-- <small class="form-text text-muted" *ngIf="myForm.get('direct').value == 2" >当前市场最低售价：<span class="c659EFF">52000 CNY</span></small> --><!-- 售出时显示 -->
+            <!-- <small class="form-text text-muted" *ngIf="myForm.get('direct').value == 1" >当前市场最高售价：<span class="c659EFF">52000 CNY</span></small> --><!-- 购买时显示 -->
+          </div>
+          <div class="col-1" style="line-height: 38px;font-size: 16px;"><span>{{baseCoinName}}</span></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-5 c659EFF" style="font-size:20px;font-weight: bold;">总价：{{(myForm.get('amount').value * myForm.get('perPrice').value) ?  myForm.get('amount').value * myForm.get('perPrice').value : 0 }} CNY</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" >交易限制</label>
+        <div class="row">
+          <div class="col-md-5">
+            <input type="text" class="form-control" formControlName="minPrice" >
+            <small class="form-text">最小限额<span class="text-muted">（一次交易的最低的交易限制）</span></small>
+          </div>
+          <div class="col-1" style="line-height: 38px;font-size: 16px;"><span>{{baseCoinName}}</span></div>
+          <div class="col-md-5">
+            <input type="text" class="form-control" formControlName="maxPrice" >
+            <small class="form-text">最大限额<span class="text-muted">（一次交易的最高的交易限制）</span></small>
+          </div>
+          <div class="col-1" style="line-height: 38px;font-size: 16px;"><span>{{baseCoinName}}</span></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" >交易方式</label>
+        <div class="row">
+          <div class="col" >
+            <div class="form-check d-inline-block" style="margin-right: 20px" *ngFor="let item of paymentInfoList" >
+              <input class="form-check-input" type="checkbox" id="Check{{item.transMode}}" [value]="item.transMode" (click)="clickPayModel($event);" style="top:10px;" >
+              <label class="form-check-label" for="Check{{item.transMode}}">
+                  <i class="wx" *ngIf="item.transMode == 2"></i>
+                  <i class="zfb" *ngIf="item.transMode == 3"></i>
+                  <i class="ylk" *ngIf="item.transMode == 1"></i>
+                  <i class="paypal" *ngIf="item.transMode == 4"></i>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label class="form-label" >对方限制&nbsp;&nbsp;&nbsp;&nbsp;需对方至少完成几笔交易</label>
+        <div class="row">
+          <div class="col-11">
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <label class="form-label" >对方限制</label>
+        <div class="row">
+          <!-- <div class="col-6">
+            <small class="form-text text-muted c659EFF">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="userCheck" formControlName="isLimited"  >
+                <label class="form-check-label" for="userCheck"><span class="text-primary cursorClass">需对方完成实名认证</span></label>
+              </div>
+            </small>
+          </div> -->
+          <div class="col-5">
+            <small class="form-text text-muted c659EFF">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="highCheck" >
+                <label class="form-check-label" for="highCheck"><span class="text-primary cursorClass">需对方完成高级认证</span></label>
+              </div>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" >资金密码</label>
+        <div class="row">
+          <div class="col-11">
+            <input type="password" style="width: 0;height: 0;border:none;">
+            <input type="password" class="form-control" formControlName="fundsPwd" autocomplete="off" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group tipbox">
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['amount']) || myForm.get('amount').pristine" >
+          申请数量必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('decimal', ['amount']) || myForm.get('amount').pristine" >
+          申请数量不合法
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['perPrice']) || myForm.get('perPrice').pristine" >
+          申请单价必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('towBits', ['perPrice']) || myForm.get('perPrice').pristine" >
+          申请单价不合法
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['minPrice']) || myForm.get('minPrice').pristine" >
+          最小限额必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('towBits', ['minPrice']) || myForm.get('minPrice').pristine" >
+          最小限额不合法
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['maxPrice']) || myForm.get('maxPrice').pristine" >
+          最大限额必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('towBits', ['maxPrice']) || myForm.get('maxPrice').pristine" >
+          最大限额不合法
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['fundsPwd']) || myForm.get('fundsPwd').pristine" >
+          资金密码必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['phoneCheck']) || myForm.get('phoneCheck').pristine" >
+          请勾选交易规则
+        </div>
+      </div>
+      <div style="margin-top: 60px;margin-bottom: 20px;font-size: 12px;">
+      <div class="form-check text-center">
+        <input class="form-check-input" type="checkbox" id="phoneCheck" formControlName="phoneCheck" >
+        <label class="form-check-label" for="phoneCheck">
+          我已知晓并同意<span class="text-primary cursorClass">《交易规则》</span>
+        </label>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-659EFF" style="padding:10px 140px;" [disabled]="myForm.invalid" (click)="applyPublish()"  >发布广告</button>
+    </div>
+    </form>
+  </div>
+</div>

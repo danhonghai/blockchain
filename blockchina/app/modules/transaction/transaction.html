@@ -1,0 +1,456 @@
+<div class="container-full transaction bg-body">
+	<div id="wrap">
+		<div id="sidebar">
+			<div class="sidebar">
+				<div class="exchange_image" style="display: block;" id="exchange_image">
+					<a href="">
+						<img ng-if="language==1" style="width: 100%; height: 106px" class="hb-day" ui-sref="logged.invitefriends" src="img/pic_invite_zh.png">
+						<img ng-if="language==2" style="width: 100%; height: 106px" class="hb-day" ui-sref="logged.invitefriends" src="img/pic_invite_en.png">
+					</a>
+				</div>
+				<div class="transaction-assets transaction-bg" style="margin-top: 10px;padding: 10px;background: #081957;">
+					<i class="fa fa-eye"></i> 
+	    			{{lang.lang514}}
+	    			<p>{{accounttotle.btc | number:6}} <strong>BTC</strong>  ≈ {{accounttotle.cny | number:2}} <strong>CNY</strong></p> <!---->
+	    		</div>
+				<div class="coinmarket">
+					<div class="coinmarket_tit row div-block">
+						<div class="col text-center" ng-repeat="w in backdata" ng-click="getejmarket(w.marketCode,$index)" ng-class="{true:'active', false:''}[w.success]"><a>{{w.marketName}}</a></div>
+					</div>
+					<div class="coinmarket_cen row" style="height: 19.15rem;">
+						<div class="col coinmarket_cenright" ng-click="">
+							<div class="row">
+								<div class="col text-left">{{lang.lang15}}</div>
+								<div class="col text-center">{{lang.lang284}}</div>
+								<div class="col text-right">{{lang.lang285}}</div>
+							</div>
+							<div ng-if="transactionpair.length>0" class="row coindublist" ng-repeat="t in transactionpair" ng-click="changemarket($index)" ng-class="{true:'active', false:''}[t.success]">
+								<div class="col text-left">{{t.transName}}</div>
+								<div class="col text-center" data-toggle="tooltip" data-placement="top" title="{{t.currentPrice * exchangerate[buyselltypes[1].coinName] | number:2}} CNY">{{t.currentPrice | number:6}}</div>
+								<div class="col text-right"><span ng-class="{true:'d25',false:'bd4'}[t.oneDayGains>0]">{{t.oneDayGains | number:2}}%</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="realtime position-relative">
+					<div class="realtime_tit"><span>{{lang.lang286}}</span></div>
+					<div class="realtime_cen" style="height: 50.8rem; overflow-y: auto; padding-top: 30px" >
+						<div class="row" style="position: absolute;width: 100%;margin-bottom: 30px;top: 42px;left: 0;background: #081957;height: 30px;line-height: 30px;z-index: 999;padding-left: 15px;">
+							<div class="col padding0" style="min-width: 12%;">{{lang.lang287}}</div>
+							<div class="col padding0" style="min-width: 27%; text-align: center;">{{lang.lang16}}({{buyselltypes[1].coinName}})</div>
+							<div class="col padding0" style="min-width: 27%; text-align: center;">{{lang.lang82}}({{buyselltypes[0].coinName}})</div>
+							<div class="col padding0" style="min-width: 34%; text-align: center">{{lang.lang80}}</div>
+						</div>
+						<div class="row pt08" ng-repeat="b in pagerightdata.orders">
+							<div class="col padding0" ng-class="{true:'d25',false:'bd4'}[b.direct==1]" style="min-width: 12%;">{{b.direct==1? lang.lang70: lang.lang71 }}</div>
+							<div class="col padding0" ng-class="{true:'d25',false:'bd4'}[b.direct==1]" style="min-width: 27%; text-align: center;">{{b.price | number:6}}</div>
+							<div class="col padding0" style="min-width: 27%; text-align: center;">{{b.totalAmount | number:4}}</div>
+							<div class="col padding0" style="min-width: 34%; text-align: center">{{b.time | date:'MM-dd HH:mm'}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="realtime" style="position: relative;">
+					<div class="realtime_tit"><a href="javascript:" class="fr" style="color: #008DFF; margin-right: .8rem; font-family: '宋体';" ui-sref="logged.noticelist">{{lang.lang314}}>></a><span>{{lang.lang421}}</span></div>
+					<div class="realtime_cen" style=" height: 17.7rem;">
+						<ul ng-if="noticelists.length>0">
+							<li ng-repeat="n in noticelists" style="line-height: 2rem;" ng-click="linknotice(n.id)"><span class="fr font-3">{{n.createdTime | date:'MM-dd HH:mm'}}</span><a class="font-1" style="display: inline-block;width: 70%;height: 2rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" href="javascript:">{{n.title}}</a></li>
+						</ul>
+						<h5 ng-if="!noticelists.length" class="text-center " style="line-height: 3rem; color: #008DFF; "><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br>{{lang.lang59}}</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<div class="row">
+				<div class="col">
+					<div class="kline" style="position: relative; background: #081957; margin-top: 10px;">
+						<div class="row" style="margin: 0; background: #0E1F5D; height: 2.7rem; line-height: 2.7rem;width: 100%;">
+							<div style="width: 12%; padding-left: 1%;">
+								<span style="font-size: 1.4rem;font-weight: bold;" ng-click="changemartype()">{{object.title}}</span>
+							</div>
+							<div style="width: 27%; text-align: center;">
+								<span style="color: {{klinedata.color}}; font-size: 1.4rem;font-weight: bold;">{{pagerightdata.tradeMarketRes.currentPrice | number:6}} <img ng-if="klinedata.color=='#25968D'" src="img/top.png"><img ng-if="klinedata.color!='#25968D'" src="img/down.png"></span> <i style="font-size: 0.8rem; font-style: normal;">≈ {{pagerightdata.tradeMarketRes.currentPrice * exchangerate[buyselltypes[1].coinName] | number:2}} CNY</i></div>
+							<div style=" width: 11%; text-align: center;">
+								<i style="font-size: 0.8rem; font-style: normal;">{{lang.lang17}}：</i>
+								<span ng-if="pagerightdata.tradeMarketRes.oneDayGains != 'null'" ng-class="{true:'d25',false:'bd4'}[pagerightdata.tradeMarketRes.oneDayGains>0]" style="font-size: 0.8rem;">{{pagerightdata.tradeMarketRes.oneDayGains | number:2}}%</span>
+								<span class="d25" ng-if="!pagerightdata.tradeMarketRes.oneDayGains == 'null' ">--</span>
+								</div>
+							<div  style=" width: 15%; text-align: center;">
+								<i style="font-size: 0.8rem; font-style: normal;">{{lang.lang18}}：</i>
+								<span class="d25" ng-if="pagerightdata.tradeMarketRes.oneDayMaxPrice != 0" style="font-size: 0.8rem;" >{{pagerightdata.tradeMarketRes.oneDayMaxPrice | number:6}}</span>
+								<span ng-if="pagerightdata.tradeMarketRes.oneDayMaxPrice == 0">--</span>
+								</div>
+							<div  style=" width: 15%; text-align: center;">
+								<i style="font-size: 0.8rem; font-style: normal;">{{lang.lang19}}：</i>
+								<span class="bd4" ng-if="pagerightdata.tradeMarketRes.oneDayMinPrice" style="font-size: 0.8rem;">{{pagerightdata.tradeMarketRes.oneDayMinPrice | number:6}}</span>
+								<span ng-if="!pagerightdata.tradeMarketRes.oneDayMinPrice">--</span>
+								</div>
+							<div  style=" width: 19%; text-align: right; padding-right: 1%;">
+								<i style="font-size: 0.8rem; font-style: normal;">{{lang.lang20}}：</i>
+								<span ng-if="pagerightdata.tradeMarketRes.oneDayDealNum" style="font-size: 0.8rem;">{{pagerightdata.tradeMarketRes.oneDayDealNum | number:4}}&nbsp;&nbsp;{{buyselltypes[0].coinName}}</span>
+								<span ng-if="!pagerightdata.tradeMarketRes.oneDayDealNum">--</span>
+							</div>
+						</div>
+						<div class="row" style="margin: 0; background: #0E1F5D; height: 2.7rem; line-height: 2.7rem;width: 100%;position: absolute;z-index: 2;">
+							<div class="col text-center font-2" style="padding-left: 5px; padding-right: 5px;cursor: pointer;" ng-repeat="k in klinetypes" ng-class="{true:'active',false:''}[k.success]" ng-click="showkinefun($index)">{{k.name}}</div>
+							<div class="col"></div>
+							<div class="col"></div>
+							<div class="col"></div>
+							<div class="col"></div>
+							<div class="col"></div>
+							<div class="col"></div>
+							<div class="col"></div>
+							<div class="col"></div>
+						</div>
+						<div id="main1" style="width: 100%; height: 464px"></div>
+						<!-- <div ng-if="!klinetypes[0].success" id="volume" style="width: 100%;height:140px;"></div> -->
+					</div>
+				</div>
+			</div>
+			<!-- <iframe src="charting_library" style="width: 100%; height: 500px;" frameborder="0"></iframe> -->
+			<div class="wrapin">
+				<div class="wrapinleft">
+					<div class="business">
+						<div class="business_title">
+							<span ng-repeat="jytype in jytypes" ng-click="jytypefun($index)" ng-class="{true:'active', false:''}[jytype.success]">{{jytype.name}}</span>
+						</div>
+						<div class="business_cen">
+							<div class="row" ng-if="jytypes[0].success">
+								<div class="col">
+									<div class="buysell">
+										<div ng-show="islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<span class="fl" style="color:#DEDFE1;">{{lang.lang66}}： {{accountdata.marketaccound - (buydata.price*buydata.number?buydata.price*buydata.number:0) | number:6}} {{buyselltypes[1].coinName}}</span>
+											<span class="fr eff" ui-sref="logged.recharge_capital({id:buyselltypes[1].coinId,coinName:buyselltypes[1].coinName})" style="cursor: pointer">{{lang.lang292}}</span>
+										</div>
+										<div ng-if="!islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<a href="javascript:" class="eff" ui-sref="logged.login">{{lang.lang4}}</a> {{lang.lang293}} <a href="javascript:" class="eff" ui-sref="logged.register">{{lang.lang29}}</a> {{lang.lang294}}
+										</div>
+										<div class="buysell_cen">
+											<p style="color: #9AA8DF; margin-bottom:0; padding-left: .5rem; margin-top: .5rem; line-height: 2.2rem;">{{lang.lang70}}{{buyselltypes[0].coinName}}</p>
+											<form  novalidate name="buyForm">
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang295}}</label>
+												  </div>
+												  <input type="text" class="form-control" ng-keyup="buypriceNoNum()" name="price" ng-model="buydata.price" style=" border:1px solid #283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;">
+												  <!-- <input type="text" class="form-control" style=" border-color:#283b7d;background: #1A2A60;" ng-model="buydata.price" fdc-filter="buydata.price"> -->
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[1].coinName}}</label>
+												  </div>
+												</div>
+												<!-- <p style="color:#9AA8DF;">≈ {{buydata.price*6.56}} CNY</p> -->
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang82}}</label>
+												  </div>
+												  <input type="text" class="form-control" ng-keyup="buynumNoNum()" name="number" ng-model="buydata.number" style=" border-color:#283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[0].coinName}}</label>
+												  </div>
+												  
+												</div>
+												<!-- <input type="range" ng-model="buydata.number" min="0.01" max="{{accountdata.marketaccound/klinedata.price*0.9}}" step="0.01" style="margin-bottom: 1rem;"> -->
+												<div class="row" style="margin: 0; margin-bottom: 5px;">
+													<div class="col padding0">
+														<button class="btn btn-outline-info btn-sm" ng-disabled="!islogin" ng-click="buynumfun(0.1)">10%</button>
+													</div>
+													<div class="col text-center padding0">
+														<button class="btn btn-outline-info btn-sm" ng-disabled="!islogin" ng-click="buynumfun(0.25)">25%</button>
+													</div>
+													<div class="col text-center padding0">
+														<button class="btn btn-outline-info btn-sm" ng-disabled="!islogin" ng-click="buynumfun(0.5)">50%</button>
+													</div>
+													<div class="col text-center padding0">
+														<button class="btn btn-outline-info btn-sm" ng-disabled="!islogin" ng-click="buynumfun(0.75)">75%</button>
+													</div>
+													<div class="col text-right padding0">
+														<button class="btn btn-outline-info btn-sm" ng-disabled="!islogin" ng-click="buynumfun(1)">100%</button>
+													</div>
+												</div>
+												<p style="color:#9AA8DF;">{{lang.lang296}}：{{buydata.price*buydata.number | number:6}} {{buyselltypes[1].coinName}} ≈ {{buydata.price*buydata.number * exchangerate[buyselltypes[1].coinName] | number:2}} CNY</p>
+												<div class="tipbox" style="margin-bottom: .5rem;">
+												    <div class="tip_tishi" ng-show="buyForm.price.$error.required">
+										             	{{lang.lang297}}
+										            </div>
+										            <div class="tip_tishi" ng-show="buyForm.price.$error.pattern">
+										             	{{lang.lang298}}
+										            </div>
+													<div class="tip_tishi" ng-show="buyForm.number.$error.required">
+										                {{lang.lang299}}
+										            </div>
+										            <div class="tip_tishi" ng-show="buyForm.number.$error.pattern">
+										                {{lang.lang300}}
+										            </div>
+										      	</div>
+												<button ng-if="!islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #25968D; border:1px solid #25968D; cursor: pointer;" ui-sref="logged.login">{{lang.lang4}}or{{lang.lang29}} {{lang.lang70}}{{buyselltypes[0].coinName}}</button>
+												<button ng-if="islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #25968D; border:1px solid #25968D; cursor: pointer;" ng-disabled="buyForm.$invalid" ng-click="buysellfun('buy')">{{lang.lang70}}</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="col" style="padding-left:10px;">
+									<div class="buysell">
+										<div ng-show="islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<span class="fl" style="color:#DEDFE1;">{{lang.lang66}}： {{accountdata.baseaccound - (selldata.number?selldata.number:0) | number:6}} {{buyselltypes[0].coinName}}</span>
+											<span class="fr eff" ui-sref="logged.recharge_capital({id:buyselltypes[0].coinId,coinName:buyselltypes[0].coinName})" style="cursor: pointer">{{lang.lang292}}</span>
+										</div>
+										<div ng-if="!islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<a href="javascript:" class="eff" ui-sref="logged.login">{{lang.lang4}}</a>	{{lang.lang293}}  <a href="javascript:" class="eff" ui-sref="logged.register">{{lang.lang29}}</a> {{lang.lang294}}
+										</div>
+										<div class="buysell_cen">
+											<p style="color: #9AA8DF; margin-bottom:0; padding-left: .5rem; margin-top: .5rem; line-height: 2.2rem;">{{lang.lang71}}{{buyselltypes[0].coinName}}</p>
+											<form  novalidate name="sellForm">
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;background: #1A2A60;border-radius: 2px;">{{lang.lang301}}</label>
+												  </div>
+												  <input type="text" class="form-control" ng-keyup="sellpriceNoNum()" name="price" ng-model="selldata.price" style=" border-color:#283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;background: #1A2A60">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[1].coinName}}</label>
+												  </div>
+												</div>
+
+												<!-- <p style="color:#9AA8DF;">≈ {{selldata.price*6.56}} CNY</p> -->
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang82}}</label>
+												  </div>
+												  <input type="text" class="form-control" ng-keyup="sellnumNoNum()" name="number" ng-model="selldata.number" style=" border-color:#283b7d;background: #1A2A60 ;font-size: 0.8rem;color: #fff;">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[0].coinName}}</label>
+												  </div>
+												  
+												</div>
+												<!-- <input type="range" ng-model="selldata.number" min="0.01" max="{{accountdata.baseaccound}}" step="0.01" style="margin-bottom: 1rem;"> -->
+												<div class="row" style="margin: 0; margin-bottom: 5px;">
+													<div class="col padding0">
+														<button class="btn btn-outline-danger btn-sm" ng-disabled="!islogin" ng-click="sellnumfun(0.1)">10%</button>
+													</div>
+													<div class="col text-center padding0">
+														<button class="btn btn-outline-danger btn-sm" ng-disabled="!islogin" ng-click="sellnumfun(0.25)">25%</button>
+													</div>
+													<div class="col text-center padding0">
+														<button class="btn btn-outline-danger btn-sm" ng-disabled="!islogin" ng-click="sellnumfun(0.5)">50%</button>
+													</div>
+													<div class="col text-center padding0">
+														<button class="btn btn-outline-danger btn-sm" ng-disabled="!islogin" ng-click="sellnumfun(0.75)">75%</button>
+													</div>
+													<div class="col text-right padding0">
+														<button class="btn btn-outline-danger btn-sm" ng-disabled="!islogin" ng-click="sellnumfun(1)">100%</button>
+													</div>
+												</div>
+												<p style="color:#9AA8DF;">{{lang.lang296}}：{{selldata.price*selldata.number | number:6}} {{buyselltypes[1].coinName}} ≈ {{selldata.price*selldata.number * exchangerate[buyselltypes[1].coinName] | number:2}} CNY</p>
+												<div class="tipbox" style="margin-bottom: .5rem;">
+												    <div class="tip_tishi" ng-show="sellForm.price.$error.required">
+										             	{{lang.lang302}}
+										            </div>
+										            <div class="tip_tishi" ng-show="sellForm.price.$error.pattern">
+										             	{{lang.lang303}}
+										            </div>
+													<div class="tip_tishi" ng-show="sellForm.number.$error.required">
+										                {{lang.lang304}}
+										            </div>
+										            <div class="tip_tishi" ng-show="sellForm.number.$error.pattern">
+										                {{lang.lang305}}
+										            </div>
+										      	</div>
+												<button ng-if="!islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #BD4E4E; border:1px solid #BD4E4E; cursor: pointer;" ui-sref="logged.login">{{lang.lang4}}or{{lang.lang29}}{{lang.lang71}}{{buyselltypes[0].coinName}}</button>
+												<button ng-if="islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #BD4E4E; border:1px solid #BD4E4E; cursor: pointer;" ng-disabled="sellForm.$invalid" ng-click="buysellfun('sell')">{{lang.lang71}}</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" ng-if="jytypes[1].success">
+								<div class="col">
+									<div class="buysell">
+										<div ng-if="islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<span class="fl" style="color:#DEDFE1;">{{lang.lang66}}： {{accountdata.marketaccound - buydata.price | number:6}} {{buyselltypes[1].coinName}}</span>
+											<span class="fr eff" ui-sref="logged.recharge_capital({id:buyselltypes[1].coinId,coinName:buyselltypes[1].coinName})" style="cursor: pointer">{{lang.lang292}}</span>
+										</div>
+										<div ng-if="!islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<a href="javascript:" class="eff" ui-sref="logged.login">{{lang.lang4}}</a> {{lang.lang293}} <a href="javascript:" class="eff" ui-sref="logged.register">{{lang.lang29}}</a> {{lang.lang294}}
+										</div>
+										<div class="buysell_cen">
+											<p style="color: #9AA8DF; margin-bottom:0; padding-left: .5rem; margin-top: .5rem; line-height: 2.2rem;">{{lang.lang70}}{{buyselltypes[0].coinName}}</p>
+											<form  novalidate name="buyForm">
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang295}}</label>
+												  </div>
+												  <input type="text" class="form-control" name="price" disabled value={{lang.lang306}} style=" border-color:#283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[1].coinName}}</label>
+												  </div>
+												</div>
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang296}}</label>
+												  </div>
+												  <input type="text" class="form-control" ng-keyup="buypriceNoNum()" name="price" ng-model="buydata.price" style=" border:1px solid #283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[1].coinName}}</label>
+												  </div>
+												  
+												</div>
+										
+												<div class="tipbox" style="margin-bottom: .5rem;">
+													<div class="tip_tishi" ng-show="buyForm.price.$error.required">
+										                {{lang.lang307}}
+										            </div>
+										            <div class="tip_tishi" ng-show="buyForm.price.$error.pattern">
+										                {{lang.lang308}}
+										            </div>
+										      	</div>
+												<button ng-if="!islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #25968D; border:1px solid #25968D; cursor: pointer;" ui-sref="logged.login">{{lang.lang4}}or{{lang.lang29}} {{lang.lang70}}{{buyselltypes[0].coinName}}</button>
+												<button ng-if="islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #25968D; border:1px solid #25968D; cursor: pointer;" ng-disabled="buyForm.$invalid" ng-click="buysellfun('buy')">{{lang.lang70}}</button>
+											</form>
+										</div>
+									</div>
+								</div>
+								<div class="col">
+									<div class="buysell">
+										<div ng-if="islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<span class="fl" style="color:#DEDFE1;">{{lang.lang66}}： {{accountdata.baseaccound-selldata.number | number:6}} {{buyselltypes[0].coinName}}</span>
+											<span class="fr eff" ui-sref="logged.recharge_capital({id:buyselltypes[0].coinId,coinName:buyselltypes[0].coinName})" style="cursor: pointer">{{lang.lang292}}</span>
+										</div>
+										<div ng-if="!islogin" class="buysell_tit" style="overflow: hidden; border-bottom:1px solid #1a2a60; line-height: 3rem;">
+											<a href="javascript:" class="eff" ui-sref="logged.login">{{lang.lang4}} </a> {{lang.lang293}} <a href="javascript:" class="eff" ui-sref="logged.register">{{lang.lang29}}</a> {{lang.lang294}}
+										</div>
+										<div class="buysell_cen">
+											<p style="color: #9AA8DF; margin-bottom:0; padding-left: .5rem; margin-top: .5rem; line-height: 2.2rem;">{{lang.lang71}}{{buyselltypes[0].coinName}}</p>
+											<form  novalidate name="sellForm">
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang301}}</label>
+												  </div>
+												  <input type="text" class="form-control" name="price" disabled value={{lang.lang309}} style=" border-color:#283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[1].coinName}}</label>
+												  </div>
+												</div>
+												<div class="input-group mb-3 input-group-lg">
+												  <div class="input-group-prepend">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{lang.lang140}}</label>
+												  </div>
+												  <input type="text" class="form-control" ng-keyup="sellnumNoNum()" name="number" ng-model="selldata.number" style=" border-color:#283b7d;background: #1A2A60; font-size: 0.8rem;color: #fff;">
+												  <div class="input-group-append" style="margin-left: -1px;">
+												    <label class="input-group-text font-1" style=" border-color:#283b7d;background: #1A2A60;border-radius: 2px;">{{buyselltypes[0].coinName}}</label>
+												  </div>
+												  
+												</div>
+										
+												<div class="tipbox" style="margin-bottom: .5rem;">
+													<div class="tip_tishi" ng-show="sellForm.number.$error.required">
+										                {{lang.lang310}}
+										            </div>
+										            <div class="tip_tishi" ng-show="sellForm.number.$error.pattern">
+										                {{lang.lang311}}
+										            </div>
+										      	</div>
+												<button ng-if="!islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #BD4E4E; border:1px solid #BD4E4E; cursor: pointer;" ui-sref="logged.login">{{lang.lang4}}or{{lang.lang29}} {{lang.lang71}}{{buyselltypes[0].coinName}}</button>
+												<button ng-if="islogin" type="button" class="btn btn-primary btn-md btn-block" style="background: #BD4E4E; border:1px solid #BD4E4E; cursor: pointer;" ng-disabled="sellForm.$invalid" ng-click="buysellfun('sell')">{{lang.lang71}}</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="chartdiv" style=" height: 430px; margin-top: 10px; background: #081957;"></div>
+				</div>
+				<div class="wrapinright">
+					<div class="realtime">
+						<!-- <div class="realtime_tit"><span>盘口</span></div> -->
+						<div class="realtime_cen" style="padding: 0px; height: 53.5rem;">
+							<div class="row text-center" style=" height: 2.7rem;line-height: 2.7rem;text-align: center;background-color: #0e1f5d;">
+								<div class="col padding0" style="min-width: 12%;">{{lang.lang135}}</div>
+								<div class="col padding0" style="min-width: 27%; text-align: center;">{{lang.lang16}}({{buyselltypes[1].coinName}})</div>
+								<div class="col padding0" style="min-width: 27%; text-align: center;">{{lang.lang82}}({{buyselltypes[0].coinName}})</div>
+								<div class="col padding0" style="min-width: 34%; text-align: center">{{lang.lang312}}({{buyselltypes[0].coinName}})</div>
+							</div>
+							<div style="height: 21.28rem; position: relative;">
+								<div ng-repeat="out in [0,1,2,3,4,5,6,7,8,9]">
+									<div style="position: absolute; width: {{pagerightdata.applyOut[9-$index].totalAmount/pagerightdata.maxoutprice*100}}%; top: {{36*$index}}px; height: 1.9rem; background: #5d3131; right: 0px; opacity: 0.4;"></div>
+									<div class="row text-center" style="width:100%; cursor: pointer;position: absolute; padding: 6px 0; top: {{36*$index}}px" ng-click="Quicksellfun(pagerightdata.applyOut[9-$index].price, pagerightdata.applyOut[9-$index].amount)">
+											<div class="col col-md-1 padding0 bd4" style="min-width: 12%;">{{lang.lang142}}{{10-$index}}</div>
+											<div class="col padding0  bd4" style="min-width: 27%; text-align: center;" ng-if="pagerightdata.applyOut[9-$index].price" data-toggle="tooltip" data-placement="top" title="{{pagerightdata.applyOut[9-$index].price * exchangerate[buyselltypes[1].coinName] | number:2}} CNY">{{pagerightdata.applyOut[9-$index].price | number:6}}</div>
+											<div class="col padding0  bd4" style="min-width: 27%; text-align: center;" ng-if="!pagerightdata.applyOut[9-$index].price">--</div>
+											<div class="col padding0" style="min-width: 27%; text-align: center;" ng-if="pagerightdata.applyOut[9-$index].amount">{{pagerightdata.applyOut[9-$index].amount | number:4}}</div>
+											<div class="col padding0  bd4" style="min-width: 27%; text-align: center;" ng-if="!pagerightdata.applyOut[9-$index].amount">--</div>
+											<div class="col padding0" style="min-width: 34%; text-align: center" ng-if="pagerightdata.applyOut[9-$index].totalAmount">{{pagerightdata.applyOut[9-$index].totalAmount | number:4}}</div>
+											<div class="col padding0  bd4" style="min-width: 27%; text-align: center;" ng-if="!pagerightdata.applyOut[9-$index].totalAmount">--</div>
+									</div>
+								</div>
+							</div>
+							<div class="newprice" style=" background: #112367;padding-left: 1rem;text-align: center; cursor: pointer;" ng-click="Quicksellfun(pagerightdata.tradeMarketRes.currentPrice, pagerightdata.orders[0].amount)">
+								<p style="height: 4rem; margin-bottom: 0px; font-size: 14px;">{{lang.lang284}}：<span style="color: #bd4e4e; font-size: 20px; line-height: 36px;">{{pagerightdata.tradeMarketRes.currentPrice | number:6}}</span> {{buyselltypes[1].coinName}}<br>  ≈ {{pagerightdata.tradeMarketRes.currentPrice * exchangerate[buyselltypes[1].coinName] | number:2}} CNY</p>
+									<!-- <p style="height: 1.7rem; line-height: 1.7rem; margin-bottom: 0px;font-size: 0.8rem; color: #ccc;">≈ {{pagerightdata.orders[0].price * 6.56 | number:2}} CNY</p> -->
+							</div>
+							<div style="height: 22.28rem; position: relative;">
+								<div ng-repeat="in in [0,1,2,3,4,5,6,7,8,9]">
+									<div style="position: absolute; width: {{pagerightdata.applyIn[$index].totalAmount/pagerightdata.maxinprice*100}}%; top: {{36*$index}}px; height: 1.9rem; background: #1f4e4a; right: 0px; opacity: 0.4;"></div>
+									<div class="row text-center" style="width:100%; cursor: pointer;position: absolute; padding: 6px 0; top: {{36*$index}}px" ng-click="Quicksellfun(pagerightdata.applyIn[$index].price, pagerightdata.applyIn[$index].amount)">
+										<div class="col col-md-1 padding0 d25" style="min-width: 12%;">{{lang.lang313}}{{$index+1}}</div>
+										<div class="col padding0  d25" style="min-width: 27%; text-align: center;" ng-if="pagerightdata.applyIn[$index].price" data-toggle="tooltip" data-placement="top" title="{{pagerightdata.applyIn[$index].price * exchangerate[buyselltypes[1].coinName] | number:2}} CNY">{{pagerightdata.applyIn[$index].price | number:6}}</div>
+										<div class="col padding0  d25" style="min-width: 27%; text-align: center;" ng-if="!pagerightdata.applyIn[$index].price">--</div>
+										<div class="col padding0" style="min-width: 27%; text-align: center;" ng-if="pagerightdata.applyIn[$index].amount">{{pagerightdata.applyIn[$index].amount | number:4}}</div>
+										<div class="col padding0  d25" style="min-width: 27%; text-align: center;" ng-if="!pagerightdata.applyIn[$index].amount">--</div>
+										<div class="col padding0" style="min-width: 34%; text-align: center" ng-if="pagerightdata.applyIn[$index].totalAmount">{{pagerightdata.applyIn[$index].totalAmount | number:4}}</div>
+										<div class="col padding0  d25" style="min-width: 27%; text-align: center;" ng-if="!pagerightdata.applyIn[$index].totalAmount">--</div>
+									</div>
+								</div>
+							</div>
+							<div style="height: 2rem; line-height: 2rem; text-align: center; color: #008DFF; cursor: pointer; font-family: '宋体';" ng-click="depthlink()">{{lang.lang314}}>></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="business">
+						<div class="business_title">
+							<div class="fr">
+								<span style="border-bottom: none;" ng-repeat="cztype in cztypetits" ng-class="{true:'active', false:''}[cztype.success]" ng-click="cztypetitfun($index)">{{cztype.name}}</span>
+								<span style="border-bottom: none; color: #008DFF;" ui-sref="logged.entrustment">{{lang.lang315}}</span>
+							</div>
+							<span ng-repeat="apply in applytits" ng-class="{true:'active', false:''}[apply.success]" ng-click="applytitfun($index)">{{apply.name}}</span>
+						</div>
+						<div class="business_cen" style="padding:0 .5rem;height:330px;overflow-y: auto;">
+							<div class="row pt08 margin0 font-3" style="margin-right: 0; margin-left: 0;">
+								<div class="col col-md-2">{{lang.lang101}}</div>
+								<div class="col">{{lang.lang102}}</div>
+								<div class="col">{{lang.lang103}}</div>
+								<div class="col">{{lang.lang104}}</div>
+								<div class="col">{{lang.lang105}}</div>
+								<div class="col" ng-if="applytits[0].success">{{lang.lang106}}</div>
+								<div class="col" ng-if="applytits[1].success">{{lang.lang112}}</div>
+								<div class="col">{{lang.lang107}}</div>
+								<div class="col">{{lang.lang108}}</div>
+								<div class="col">{{lang.lang57}}</div>
+								<div class="col" ng-if="applytits[0].success">{{lang.lang58}}</div>
+							</div>
+							<div class="row pt08 margin0" style="margin-right: 0; margin-left: 0;" ng-repeat="d in pageapplydatas">
+								<div class="col col-md-2">{{d.time | date:'yyyy-MM-dd HH:mm'}}</div>
+								<div class="col">{{d.trade}}</div>
+								<div class="col" ng-class="{true:'d25', false:'bd4'}[d.direct==1]">{{d.type==1? lang.lang109: lang.lang110 }}{{d.direct==1? lang.lang70: lang.lang71 }}</div>
+								<div class="col">{{d.type != 1 ?  lang.lang110 : (d.price | number:6)}}</div>
+								<div class="col" ng-if="d.type == 1">{{d.num | number:4}}</div>
+								<div class="col" ng-if="d.type != 1">{{d.num == 0 ?  '--' : (d.num | number:4)}}</div>
+								<div class="col" ng-if="applytits[0].success">{{d.entrustTrade | number:6}}</div>
+								<div class="col" ng-if="applytits[1].success">{{d.successAvgPrice | number:6}}</div>
+								<div class="col">{{d.successNum | number:4}}</div>
+								<div class="col">{{d.successMoney | number:6}}</div>
+								<div class="col"">{{d.status==0? lang.lang89 :d.status==1? lang.lang93 : d.status==2? lang.lang94 :d.status==3? lang.lang95 :lang.lang96 }}</div>
+								<div class="col eff" ng-if="applytits[0].success" style="cursor: pointer;" ng-click="dele(d.id)">{{lang.lang111}}</div>
+							</div>
+							<h5 ng-if="pageapplydatas.length==0 " class="text-center " style="line-height: 3rem; color: #4D5B97;margin-top:80px;"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></h5>
+
+							<p class="text-center " ng-if="!islogin " style="line-height: 3rem;  color: #008DFF; margin-top: 35px;"><a class="eff " href="javascript: "  ui-sref="logged.login "><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;">{{lang.lang316}}</span></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

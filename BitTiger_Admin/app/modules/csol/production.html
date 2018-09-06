@@ -1,0 +1,241 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">产品列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <!--          <div class="form-group">
+                   <label class="control-label">产品名称：</label>
+                   <input type="text" class="form-control" placeholder="产品名称" ng-model="params.programName">
+               </div> -->
+                        <div class="form-group">
+                            <label class="control-label">产品名称卡类型：</label>
+                            <select class="form-control" ng-model="params.cardType">
+                                <option value="">全部</option>
+                                <option value="1">王者卡</option>
+                                <option value="2">黄金卡</option>
+                                <option value="3">白金卡</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">状态：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="0">未开始</option>
+                                <option value="1">抢购中</option>
+                                <option value="2">已售罄 </option>
+                                <option value="3">已结束 </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                        <div class="form-group navbar-right">
+                            <button type="button" class="btn btn-info" ng-click="addCoin()"><i class="fa fa-plus"></i>添加产品</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>产品名称</th>
+                            <th>活动名称</th>
+                            <th>总量(张)</th>
+                            <th>库存(张)</th>
+                            <th>价格(BTC)</th>
+                            <th>价格(ETH)</th>
+                            <th>赠送(HYK)</th>
+                            <th>限购数量</th>
+                            <th>备注</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 添加产品 -->
+<div class="modal fade add_coin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加产品</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">产品名称：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="coinParams.cardType" name="cardType" required>
+                                <option value=""> 请选择场次</option>
+                                <option value="1">王者卡</option>
+                                <option value="2">黄金卡</option>
+                                <option value="3">白金卡</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="myForm.cardType.$error.required">请选择产品名称</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">关联活动：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="coinParams.cardProgramId" name="cardProgramId" required>
+                                <option value="">活动列表下拉框</option>
+                                <option ng-repeat="item in poinList" value="{{item.id}}">{{item.programName}}</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="myForm.cardProgramId.$error.required">请选择关联活动</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">产品总量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.cardAmount" name="cardAmount" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.cardAmount.$error.required">产品总量必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.cardAmount.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">BTC价格：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="cardBtcPrice" class="form-control" ng-model="coinParams.cardBtcPrice" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">
+                            <span style="color:#d70000;" ng-show="myForm.cardBtcPrice.$error.required">BTC价格必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.cardBtcPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">ETH价格：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="cardEthPrice" class="form-control" ng-model="coinParams.cardEthPrice" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">
+                            <span style="color:#d70000;" ng-show="myForm.cardEthPrice.$error.required">ETH价格必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.cardEthPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">赠送HYK量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.cardCredit" name="cardCredit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.cardCredit.$error.required">赠送HYK量必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.cardCredit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">限购量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.buyLimit" name="buyLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.buyLimit.$error.required">限购量必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.buyLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">备注：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="cardRmark" ng-model="coinParams.cardRmark" required>
+                            <span style="color:#d70000;" ng-show="myForm.cardRmark.$error.required">备注必填</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="savecoin()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改产品 -->
+<div class="modal fade add_coinees" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改产品</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="mForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">产品名称：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="zNnss.cardType" name="cardType" required>
+                                <option value=""> 请选择场次</option>
+                                <option value="1">王者卡</option>
+                                <option value="2">黄金卡</option>
+                                <option value="3">白金卡</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="mForm.cardType.$error.required">请选择产品名称</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">关联活动：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="zNnss.cardProgramId" name="cardProgramId" required>
+                                <option value="">活动列表下拉框</option>
+                                <option ng-repeat="item in poinList" value="{{item.id}}">{{item.programName}}</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="mForm.cardProgramId.$error.required">请选择关联活动</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">产品总量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="zNnss.cardAmount" name="cardAmount" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="mForm.cardAmount.$error.required">产品总量必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.cardAmount.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">BTC价格：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="cardBtcPrice" class="form-control" ng-model="zNnss.cardBtcPrice" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">
+                            <span style="color:#d70000;" ng-show="mForm.cardBtcPrice.$error.required">BTC价格必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.cardBtcPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">ETH价格：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="cardEthPrice" class="form-control" ng-model="zNnss.cardEthPrice" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">
+                            <span style="color:#d70000;" ng-show="mForm.cardEthPrice.$error.required">ETH价格必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.cardEthPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">赠送HYK量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="zNnss.cardCredit" name="cardCredit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="mForm.cardCredit.$error.required">赠送HYK量必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.cardCredit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">限购量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="zNnss.buyLimit" name="buyLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="mForm.buyLimit.$error.required">限购量必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.buyLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">备注：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="cardRmark" ng-model="zNnss.cardRmark" required>
+                            <span style="color:#d70000;" ng-show="mForm.cardRmark.$error.required">备注必填</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="mForm.$invalid" ng-click="amendDit()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

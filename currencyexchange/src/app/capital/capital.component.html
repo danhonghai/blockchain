@@ -1,0 +1,150 @@
+<div class="capital container ptop-3">
+  <div class="page-title capital-header">我的资产<!-- <span class="float-right capital-num">总资产折合：<span class="c659EFF">0.00000001 BTC</span></span> --></div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" ></th>
+        <th scope="col" >法币账户</th>
+        <th scope="col" >币币账户</th>
+        <th scope="col" ></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of accountRes">
+        <td>{{item.coinName}}</td>
+        <td><p>可用：{{item.fiatAccount.available}}  {{item.coinName}}</p><p>冻结：{{item.fiatAccount.freeze}}  {{item.coinName}}</p></td>
+        <td><p>可用：{{item.coinAccount.available}}  {{item.coinName}}</p><p>冻结：{{item.coinAccount.freeze}}  {{item.coinName}}</p></td>
+        <td>
+          <!-- <button type="button" class="btn btn-659EFF mr-3">充值</button> -->
+          <button type="button" class="btn btn-659EFF" data-toggle="modal" data-target="#exampleModal" (click)="openExampleModal(item)" >划转</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="asset-flow">资产流水
+    <!-- <div class="position-relative float-right">
+      <img src="./assets/images/icon_search.png" alt="搜索" class="search-icon">
+      <input type="text" class="search-input" placeholder="类型/币种" >
+    </div> -->
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" >
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              类型
+            </a>
+            <div class="dropdown-menu down-menu">
+              <a class="dropdown-item cursorClass" [class.selected]="currentAssetType == 0" (click)="selectAssetType(0)" >全部</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentAssetType == 1" (click)="selectAssetType(1)" >买入</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentAssetType == 2" (click)="selectAssetType(2)" >卖出</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentAssetType == 3" (click)="selectAssetType(3)" >转入</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentAssetType == 4" (click)="selectAssetType(4)" >转出</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentAssetType == 5" (click)="selectAssetType(5)" >充值</a>
+            </div>
+          </div>
+        </th>
+        <th scope="col" >
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              币种
+            </a>
+            <div class="dropdown-menu down-menu">
+              <a class="dropdown-item cursorClass" (click)="switchCoin(item.coinId,i)"
+                [class.selected]="currentCoinIndex == i" *ngFor="let item of coinList;let i = index " >{{item.name}}</a>
+            </div>
+          </div>
+        </th>
+        <th scope="col" >数量</th>
+        <th scope="col" class="text-right" style="padding-right: 100px;">时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataList">
+        <td>{{item.assetType == 1 ? '买入' : item.assetType == 2 ? '卖出' : item.assetType == 3 ? '转入' : item.assetType == 4 ? '转出' : '充值'}}</td>
+        <td>{{item.coinName}}</td>
+        <td>{{item.amount}} {{item.coinName}}</td>
+        <td class="text-right" style="padding-right: 100px;" >{{item.flowTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center" style="margin-top:40px;" *ngIf="option.total != 0">
+    <app-pagination (pageChange)="queryFun($event)" [option]="option"></app-pagination>
+  </div>
+  <app-no-data [dataLength]="dataList.length"></app-no-data>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">资产划转</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  novalidate [formGroup]="myForm" >
+          <div class="form-group">
+            <label class="form-label">币种</label>
+            <div class="row" style="margin-bottom: 40px;">
+              <div class="col-12">
+                <!-- <input type="text" class="form-control" value="{{currentCoin.coinName}}" readonly > -->
+                <select class="form-control" formControlName="coinId"  (change)="selectCoin($event)">
+                  <option *ngFor="let item of coinList" value="{{item.coinId}}">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" >账户</label>
+            <div class="row">
+              <div class="col-5">
+                <select class="form-control" formControlName="accountFirst"  (change)="selectAccount($event,1)">
+                  <option value="1">法币账户</option>
+                  <option value="2">币币账户</option>
+                </select>
+                <small class="form-text text-muted">余额：<span class="c659EFF">{{params.firstMoney}}  {{currentCoin.coinName}}</span></small>
+              </div>
+              <div class="col-2 text-center">
+                转至
+                <i class="icon-arrow"></i>
+              </div>
+              <div class="col-5">
+                <select class="form-control" formControlName="accountLast" (change)="selectAccount($event,2)" >
+                  <option value="1">法币账户</option>
+                  <option value="2">币币账户</option>
+                </select>
+                <small class="form-text text-muted">余额：<span class="c659EFF">{{params.lastMoney}}  {{currentCoin.coinName}}</span></small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" >数量</label>
+            <div class="row">
+              <div class="col-12 position-relative">
+                <input type="text" class="form-control" formControlName="amount" ><span class="c659EFF do-all" (click)="choiceAll()">全部</span>
+                <small class="form-text text-muted">可转数量：<span class="c659EFF">{{params.firstMoney}}  {{currentCoin.coinName}}</span></small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group tipbox">
+            <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['amount']) || myForm.get('amount').pristine">
+              数量必填
+            </div>
+            <div class="tip_tishi" [hidden]="!myForm.hasError('decimal', ['amount']) || myForm.get('amount').pristine">
+              数量不符合要求
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-659EFF w-50" [disabled]="myForm.invalid" (click)="transfer()" >立即划转</button>
+        <button type="button" class="btn btn-E2E4EB w-50" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

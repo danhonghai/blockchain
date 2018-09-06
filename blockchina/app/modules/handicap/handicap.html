@@ -1,0 +1,49 @@
+<div class="container-full handicap bg-body" style="padding-left:15px;padding-right:15px">
+	<div class="container">
+		<div class="container_tit div-block font-1">
+			{{lang.lang133}}
+		</div>
+		<div class="container_cen row" style=" min-height: 668px;" ng-if="pagerightdata.applyIn">
+
+			<div class="col container_left div-block">
+				<div class="buytit">{{lang.lang134}}</div>
+				<div class="row" style="margin: 0px; height: 30px; background: #112367;line-height: 30px;margin-left: -15px;margin-right: -15px;color:#9AA8DF;">
+					<div class="col">{{lang.lang135}}</div>
+					<div class="col text-center">{{lang.lang136}}({{transmarkets[1]}})</div>
+					<div class="col text-center">{{lang.lang137}}({{transmarkets[0]}})</div>
+					<div class="col text-right">{{lang.lang138}}({{transmarkets[0]}})</div>
+				</div>
+
+				<div class="tishi" ng-if="pagerightdata.applyIn.length==0" style="text-align: center; line-height: 5rem;"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></div>
+				<div class="buycen" ng-repeat="buy in pagerightdata.applyIn">
+					<div class="speedright" style=" width: {{pagerightdata.applyIn[$index].totalAmount/pagerightdata.maxinprice*100}}%;"></div>
+					<div class="row">
+						<div class="col">{{lang.lang352}}{{$index+1}}</div>
+						<div class="col text-center">{{buy.price | number:6}}</div>
+						<div class="col text-center">{{buy.amount | number:4}}</div>
+						<div class="col text-right">{{buy.totalAmount | number:4}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="col container_right div-block">
+				<div class="selltit">{{lang.lang139}}</div>
+				<div class="row" style="margin: 0px; height: 30px; background: #112367;line-height: 30px;margin-left: -15px;margin-right: -15px;color:#9AA8DF;">
+					<div class="col">{{lang.lang138}}({{transmarkets[0]}})</div>
+					<div class="col text-center">{{lang.lang140}}({{transmarkets[0]}})</div>
+					<div class="col text-center">{{lang.lang141}}({{transmarkets[1]}})</div>
+					<div class="col text-right">{{lang.lang135}}</div>
+				</div>
+				<div class="tishi" ng-if="pagerightdata.applyOut.length==0" style="text-align: center; line-height: 5rem;"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></div>
+				<div class="sellcen" ng-repeat="sell in pagerightdata.applyOut">
+					<div class="speedleft" style=" width: {{pagerightdata.applyOut[$index].totalAmount/pagerightdata.maxoutprice*100}}%;"></div>
+					<div class="row">
+						<div class="col">{{sell.totalAmount | number:4}}</div>
+						<div class="col text-center">{{sell.amount | number:4}}</div>
+						<div class="col text-center">{{sell.price | number:6}}</div>
+						<div class="col text-right">{{lang.lang142}}{{$index+1}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

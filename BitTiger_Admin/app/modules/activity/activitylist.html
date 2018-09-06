@@ -1,0 +1,435 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">世界杯竞猜</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">主队：</label>
+                            <input type="text" class="form-control" placeholder="主队" ng-model="params.masterTeam">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">客队：</label>
+                            <input type="text" class="form-control" placeholder="客队" ng-model="params.guestTeam">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">状态：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="0">未启用</option>
+                                <option value="1">进行中</option>
+                                <option value="2">已关闭(停止竞猜)</option>
+                                <option value="3">已结束(进行积分结算)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">截止时间：</label>
+                            <input size="16" type="text" ng-model="params.deadline" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                        <div class="form-group navbar-right">
+                            <button type="button" class="btn btn-info" ng-click="addCoin()"><i class="fa fa-plus"></i>添加比赛</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>主队</th>
+                            <th>主队(英)</th>
+                            <th>客队</th>
+                            <th>客队(英)</th>
+                            <th>场次</th>
+                            <th>赔率</th>
+                            <th>竞猜状态</th>
+                            <th>截止时间</th>
+                            <th>参与人数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 新增弹窗 -->
+<div class="modal fade add_coin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加比赛</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="masterTeam" class="form-control" ng-model="coinParams.masterTeam" required pattern="^[\u4e00-\u9fa5]{2,5}" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="myForm.masterTeam.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.masterTeam.$error.pattern">格式为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队名称英文：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="masterTeamEn" class="form-control" ng-model="coinParams.masterTeamEn" required pattern="^(?!_)([A-Za-z ]+)$" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="myForm.masterTeamEn.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.masterTeamEn.$error.pattern">格式为英文字母</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队国旗：</label>
+                        <div class="col-xs-8 imgFileWrap">
+                            <input name="masterPic" type="file" class="file imgFile" value="上传国旗">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="guestTeam" class="form-control" ng-model="coinParams.guestTeam" required pattern="^[\u4e00-\u9fa5]{2,5}" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="myForm.guestTeam.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.guestTeam.$error.pattern">格式为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队名称英文：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="guestTeamEn" class="form-control" ng-model="coinParams.guestTeamEn" required pattern="^(?!_)([A-Za-z ]+)$" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="myForm.guestTeamEn.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.guestTeamEn.$error.pattern">格式为英文字母</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队国旗：</label>
+                        <div class="col-xs-8 imgFileWraps">
+                            <input name="guestPic" type="file" class="file imgFiles" value="上传国旗">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">赔率：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">胜
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="winOdds" class="form-control" ng-model="coinParams.winOdds" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$" ng-blur="checkUserName()">
+                            </p>
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">平
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="flatOdds" class="form-control" ng-model="coinParams.flatOdds" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$" ng-blur="checkUserName()">
+                            </p>
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">负
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="failOdds" class="form-control" ng-model="coinParams.failOdds" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$" ng-blur="checkUserName()">
+                            </p>
+                        </div>
+                        <div class="tipbox col-xs-8">
+                            <div class="col-xs-8" style=" margin-left: 106px;">
+                                <div class="tip_tishi ng-binding" ng-show="myForm.winOdds.$error.required">数据必填</div>
+                                <div class="tip_tishi ng-binding" ng-show="myForm.flatOdds.$error.required">数据必填</div>
+                                <div class="tip_tishi ng-binding" ng-show="myForm.failOdds.$error.required">数据必填</div>
+                                <div class="tip_tishi ng-binding" ng-show="myForm.winOdds.$error.pattern">数据不合规范</div>
+                                <div class="tip_tishi ng-binding" ng-show="myForm.flatOdds.$error.pattern">数据不合规范</div>
+                                <div class="tip_tishi ng-binding" ng-show="myForm.failOdds.$error.pattern">数据不合规范</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">截止时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="coinParams.deadline " readonly class="form_datetime form-control" required>
+                            <span style="color:#d70000;" ng-show="myForm.deadline.$error.required">数据必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">场次:</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="coinParams.period" name="period" required>
+                                <option value=""> 请选择场次</option>
+                                <option value="0">小组赛</option>
+                                <option value="1">8强赛</option>
+                                <option value="2">4强赛</option>
+                                <option value="3">半决赛</option>
+                                <option value="4">决赛</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="myForm.period.$error.required">请选择场次</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">是否发布：</label>
+                        <div class="account">
+                            <div class="col-sm-4" style="margin-top: 0.5rem;">
+                                <input class="radio-inline" type="radio" name="status" value="0" ng-model="coinParams.status" ng-checked="true">
+                                <label style="font-weight: normal;">不发布</label>
+                            </div>
+                            <div class="col-sm-4" style="margin-top: 0.5rem;">
+                                <input class="radio-inline" type="radio" name="status" value="1" ng-model="coinParams.status">
+                                <label style="font-weight: normal;">发布</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="savecoin()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 查看详情弹框 -->
+<div class="modal audit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">查看详情</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="ckForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="masterTeam" class="form-control" ng-model="auditParams.masterTeam" disabled="disabled">
+                            <!--   <div style="padding-top: 5px;">{{auditParams.masterTeam}}</div> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队名称英文：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="masterTeamEn" class="form-control" ng-model="auditParams.masterTeamEn" disabled="disabled">
+                            <!-- <div style="padding-top: 5px;">{{auditParams.masterTeamEn}}</div> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队国旗：</label>
+                        <div class="col-xs-8 imgFileWrap">
+                            <div class="image-wrap">
+                                <a class="example-image-link" data-lightbox="example-set"> <img class="example-image" ng-src="{{auditParams.masterPic}}"  width="150" height="150"/></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="guestTeam" class="form-control" ng-model="auditParams.guestTeam" disabled="disabled">
+                            <!--  <div style="padding-top: 5px;">{{auditParams.guestTeam}}</div> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队名称英文：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="guestTeamEn" class="form-control" ng-model="auditParams.guestTeamEn" disabled="disabled">
+                            <!--  <div style="padding-top: 5px;">{{auditParams.guestTeamEn}}</div> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队国旗：</label>
+                        <div class="col-xs-8 imgFileWraps">
+                            <div class="image-wrap">
+                                <a class="example-image-link" data-lightbox="example-set"> <img class="example-image" ng-src="{{auditParams.guestPic}}"  width="150" height="150"/></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">赔率：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">胜
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="winOdds" class="form-control" ng-model="auditParams.winOdds" disabled="disabled">
+                            </p>
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">平
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="flatOdds" class="form-control" ng-model="auditParams.flatOdds" disabled="disabled">
+                            </p>
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">负
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="failOdds" class="form-control" ng-model="auditParams.failOdds" disabled="disabled">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">截止时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="auditParams.deadline " readonly class="form_datetime form-control" required disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">场次:</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;" ng-bind="auditParams.period == 0?'小组赛':auditParams.period == 1?'8强赛':auditParams.period == 2?'4强赛':auditParams.period == 3?'半决赛':'决赛'"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">是否发布：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;" ng-bind="auditParams.status == 0?'不发布':'发布'"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改弹框 -->
+<div class="modal fade add-admin-modal in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改比赛</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="xgForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="masterTeam" class="form-control" ng-model="condition.masterTeam" required pattern="^[\u4e00-\u9fa5]{2,5}" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="xgForm.masterTeam.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="xgForm.masterTeam.$error.pattern">格式为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队名称英文：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="masterTeamEn" class="form-control" ng-model="condition.masterTeamEn" required pattern="^(?!_)([A-Za-z ]+)$" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="xgForm.masterTeamEn.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="xgForm.masterTeamEn.$error.pattern">格式为英文字母</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">主队国旗：</label>
+                        <div class="col-xs-8 imgFileWrap">
+                            <input name="masterPic" type="file" class="file imgFile" value="上传国旗">
+                            <!--  <a class="example-image-link" data-lightbox="example-set"> <img class="example-image" ng-src="{{condition.tradeImgs}}"  width="150" height="150"/></a> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="guestTeam" class="form-control" ng-model="condition.guestTeam" required pattern="^[\u4e00-\u9fa5]{2,5}" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="xgForm.guestTeam.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="xgForm.guestTeam.$error.pattern">格式为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队名称英文：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="guestTeamEn" class="form-control" ng-model="condition.guestTeamEn" required pattern="^(?!_)([A-Za-z ]+)$" ng-blur="checkUserName()">
+                            <span style="color:#d70000;" ng-show="xgForm.guestTeamEn.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="xgForm.guestTeamEn.$error.pattern">格式为英文字母</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">客队国旗：</label>
+                        <div class="col-xs-8 imgFileWraps">
+                            <input name="guestPic" id="input-b2" type="file" class="file imgFiles" value="上传国旗">
+                            <!--  <a class="example-image-link" data-lightbox="example-set"> <img class="example-image" ng-src="{{condition.tradeImg}}"  width="150" height="150"/></a> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">赔率：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">胜
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="winOdds" class="form-control" ng-model="condition.winOdds" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$" ng-blur="checkUserName()" disabled="disabled" >
+                            </p>
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">平
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="flatOdds" class="form-control" ng-model="condition.flatOdds" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$" ng-blur="checkUserName()" disabled="disabled" >
+                            </p>
+                            <p style="float: left;line-height: 30px;margin-right: 3rem;">负
+                                <input style="margin-left: 0.5rem;width: 50px;float: right;" type="text" name="failOdds" class="form-control" ng-model="condition.failOdds" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$" ng-blur="checkUserName()" disabled="disabled" >
+                            </p>
+                        </div>
+                        <div class="tipbox col-xs-8">
+                            <div class="col-xs-8" style=" margin-left: 106px;">
+                                <div class="tip_tishi ng-binding" ng-show="xgForm.winOdds.$error.required">数据必填</div>
+                                <div class="tip_tishi ng-binding" ng-show="xgForm.flatOdds.$error.required">数据必填</div>
+                                <div class="tip_tishi ng-binding" ng-show="xgForm.failOdds.$error.required">数据必填</div>
+                                <div class="tip_tishi ng-binding" ng-show="xgForm.winOdds.$error.pattern">数据不合规范</div>
+                                <div class="tip_tishi ng-binding" ng-show="xgForm.flatOdds.$error.pattern">数据不合规范</div>
+                                <div class="tip_tishi ng-binding" ng-show="xgForm.failOdds.$error.pattern">数据不合规范</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">截止时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="condition.deadline " readonly class="form_datetime form-control" required>
+                            <span style="color:#d70000;" ng-show="xgForm.deadline.$error.required">数据必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">场次:</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="condition.period" name="period" required>
+                                <option value=""> 请选择场次</option>
+                                <option value="0">小组赛</option>
+                                <option value="1">8强赛</option>
+                                <option value="2">4强赛</option>
+                                <option value="3">半决赛</option>
+                                <option value="4">决赛</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="xgForm.period.$error.required">请选择场次</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">是否发布：</label>
+                        <div class="account">
+                            <div class="col-sm-4" style="margin-top: 0.5rem;">
+                                <input class="radio-inline" type="radio" name="status" value="0" ng-model="condition.status" ng-checked="true">
+                                <label style="font-weight: normal;">不发布</label>
+                            </div>
+                            <div class="col-sm-4" style="margin-top: 0.5rem;">
+                                <input class="radio-inline" type="radio" name="status" value="1" ng-model="condition.status">
+                                <label style="font-weight: normal;">发布</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="xgForm.$invalid" ng-click="amendDit()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 结算弹框 -->
+<div class="modal fade abortive-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="width: 460px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">审核</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="shForm" novalidate>
+                    <div class="form-group" style="margin-bottom:10px;" style="margin-bottom:15px">
+                        <label class="control-label" style="margin-top: -4px;">主队:</label>
+                        <div class="account">
+                            <div class="col-sm-2">
+                                <input class="radio-inline" type="radio" name="resultType" value="0" ng-model="adminParamss.resultType" ng-checked="true">
+                                <label style="font-weight: normal;">胜</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="radio-inline" type="radio" name="resultType" value="1" ng-model="adminParamss.resultType">
+                                <label style="font-weight: normal;">平</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="radio-inline" type="radio" name="resultType" value="2" ng-model="adminParamss.resultType">
+                                <label style="font-weight: normal;">负</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="shForm.$invalid" ng-click="verify()">确定</button>
+               <!--  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button> -->
+            </div>
+        </div>
+    </div>
+</div>

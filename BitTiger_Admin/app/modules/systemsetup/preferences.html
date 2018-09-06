@@ -1,0 +1,173 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">提币手续费设置</a>
+            </div>
+            <div class="widget-content example_alt_pagination" style="margin-bottom: 20px;">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <button type="button" class="btn btn-info" ng-click="addCoin()"><i class="fa fa-plus"></i>添加提币手续费</button>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>币种</th>
+                            <th>提币手续费</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+            <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">交易手续费设置</a>
+        </div>
+        <div class="widget-content example_alt_pagination" style="margin-bottom: 20px;">
+            <div class="search-box">
+                <form class="form-inline" role="form">
+                    <button type="button" class="btn btn-info" ng-click="addCoins()"><i class="fa fa-plus"></i>添加交易手续费</button>
+                </form>
+            </div>
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="examples">
+                <thead>
+                    <tr>
+                        <th>交易市场</th>
+                        <th>交易手续费</th>
+                        <th>可挂单时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<!-- 添加详情弹窗 提币-->
+<div class="modal fade add_coin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">{{coinParams.id ? "修改" : "添加"}}提币手续费</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">提币币种：</label>
+                        <input type="text" class="form-control" style="width:  250px;" name="name" ng-model="coinParams.name" style="padding-right: 15px;" required>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="myForm.name.$error.required">数据必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">提币手续费：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="value" ng-model="coinParams.value" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">%
+                        <br>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="myForm.value.$error.required">提币手续费必填</span>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="myForm.value.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">备注：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="remark" ng-model="coinParams.remark">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="viewDit()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加详情弹窗 交易-->
+<div class="modal fade add_coins" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">{{coinParams.id ? "修改" : "添加"}}交易手续费</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="mjyForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">交易市场：</label>
+                        <input type="text" required class="form-control" style="width:  250px;" name="name" ng-model="coinParams.name" style="padding-right: 15px;">
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="mjyForm.name.$error.required">数据必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">交易手续费：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="value" ng-model="coinParams.value" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">%
+                        <!-- onkeyup="value=value.replace(/[^1234567890-]+/g,'')" -->
+                        <br>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="mjyForm.value.$error.required">交易手续费必填</span>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="mjyForm.value.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">可挂单时间：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="value1" ng-model="coinParams.value1" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">
+                        <br>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="mjyForm.value1.$error.required">可挂单时间必填</span>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="mjyForm.value1.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">备注：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="remark" ng-model="coinParams.remark">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="mjyForm.$invalid" ng-click="viewDits()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 设置 弹出框-->
+<div class="modal fade add_coinsss" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">设置</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="szForm" novalidate>
+                    <div class="form-group" ng-if="category == 1">
+                        <label class="control-label col-xs-4" style="width: 115px;">提币手续费：</label>
+                        <input type="text" class="form-control" style="width:  250px;display: inline-block;" name="value" ng-model="borrowInfo.value" style="padding-right: 15px;" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">%
+                        <br>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="szForm.value.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group" ng-if="category == 2">
+                        <label class="control-label col-xs-4" style="width: 115px;">交易手续费：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="value" ng-model="borrowInfo.value" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">%
+                        <br>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="szForm.value.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group" ng-if="category == 2">
+                        <label class="control-label col-xs-4" style="width: 115px;">可挂单时间：</label>
+                        <input type="text" class="form-control" style="padding-right: 15px;width: 250px;display: inline-block;" name="value1" ng-model="borrowInfo.value1" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">
+                        <br>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="szForm.value1.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label " style="text-align: right;width: 100px;margin-right: 15px;">是否启用：</label>
+                        <select class="form-control " style="width: 250px; " selected="selected " ng-model="borrowInfo.status " id="ismenu" name="status">
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="szForm.$invalid" ng-click="update()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

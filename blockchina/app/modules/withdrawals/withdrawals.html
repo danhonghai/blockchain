@@ -1,0 +1,211 @@
+<div class="container-full bg-body" style="padding-top: 6rem;overflow: hidden;">
+	<div class="container"  style="position: relative;min-height: 900px;padding: 0 0 500px;zoom: 1;">
+		<div class="row" style="height: 45rem;">
+			  <div class="col col-md-3">
+                <ul class="userinfoside" >
+                    <li class="side-item active b-menu border-152669" ui-sref="logged.assetscentre_capital"><img style="margin-right: 15px;" src="img/zczhh.png">{{lang.lang32}}</li>
+                    <li class="side-item b-menu border-152669" ui-sref="logged.capitalflow_capital"><img style="margin-right: 15px;" src="img/security_0.png">{{lang.lang33}}</li>
+                </ul>
+            </div>
+			<div class="col col-md-9">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header border-152669 font-1">
+				    <a class="fr text-primary" href="javascript:" ui-sref="logged.address_capital" style="font-size:14px">{{lang.lang34}}</a>{{lang.lang69}}
+				  </div>
+				  <div class="card-body info-body">
+				    <form class="info-form" name="withdrawForm" novalidate>
+				    	<div class="form-group">
+                            <label>{{lang.lang35}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.coinId.$dirty && withdrawForm.coinId.$error.required">
+			                    	{{lang.lang49}}
+				                </div>
+					      	</div>
+                            <select class="custom-select" name="coinId" ng-model="data.coinId" ng-change="changecoin()" ng-options="c.id as c.name for c in coinlists" required>					
+							</select>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang36}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.coinAddress.$dirty && withdrawForm.coinAddress.$error.required">
+			                    	{{lang.lang322}}
+				                </div>
+					      	</div>
+                            <select class="custom-select" name="coinAddress" ng-model="data.coinAddress" ng-options="a.account as a.account for a in addresslists" required >
+								<option value="">{{lang.lang322}}</option>
+							</select>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang323}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.coinAmount.$dirty && withdrawForm.coinAmount.$error.required">
+			                    	{{lang.lang324}}
+				                </div>
+				                <!-- <div class="tip_tishi" ng-show="withdrawForm.coinAmount.$dirty && withdrawForm.coinAmount.$error.pattern">
+				                			                    	{{lang.lang330}}
+				                </div> -->
+					      	</div>
+                            <div class="input-group"><!-- pattern="^(([1-9]\d*(\.\d{0,8})?)|(0\.\d{0,7}[1-9]))$" -->
+							  	<input type="text" name="coinAmount" ng-model="data.coinAmount" class="form-control" required >
+							  	<span class="input-group-text font-2 code-bg" id="basic-addon2" style="border:none;margin-left: -6px;font-size: 12px;">{{pagedata.coinName}}</span>
+							</div>
+							<div class="cE45555" style=" line-height: 2.2rem;">{{lang.lang66}}{{pagedata.coinAvailable | number:8}} {{pagedata.coinName}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang325}}</label>
+                            <div class="input-group"><!-- required pattern="^(([1-9]\d*(\.\d{0,8})?)|(0\.\d{0,7}[1-9]))$" -->
+							  <input type="text" name="sysFee" ng-model="data.coinFee" class="form-control"  disabled ng-value="data.coinFee">
+							    <span  style="border:none;margin-left: -6px;font-size: 12px;" class="input-group-text font-2 code-bg" id="basic-addon2">{{pagedata.coinName}}</span>
+							</div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang328}}</label>
+                            <div class="input-group">
+							  <input type="text" disabled ng-value="(data.coinAmount-data.coinFee)?(data.coinAmount-data.coinFee):0 | number:8" class="form-control">
+							    <span  style="border:none;margin-left: -6px;font-size: 12px;" class="input-group-text font-2 code-bg" id="basic-addon2">{{pagedata.coinName}}</span>
+							</div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang42}}：</label>
+                            <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="withdrawForm.capCode.$dirty && withdrawForm.capCode.$error.required">
+                                        {{lang.lang43}}
+                                    </div>
+                                </div>
+                            <div class="input-group">
+                                <input type="text" ng-model="imgdata.capCode" name="capCode" class="form-control" required>
+                                <div class="input-group-append" ng-click="getCaptcha()">
+                                    <button class="btn code-bg padding0" type="button" ><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" ></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang231}} {{userInfo.phoneFilter}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.code.$dirty && withdrawForm.code.$error.required">
+			                    	{{lang.lang185}}
+				                </div>
+					      	</div>
+                            <div class="input-group" ng-if="userInfo.phoneFilter">
+                                <input type="text" class="form-control" required name="code" ng-model="data.code" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_phone',userInfo.phone,1)" id="sendButton_phone" >{{lang.lang46}}</button>
+                                </div>
+                            </div>
+                            <div class="form-control-plaintext font-2" ng-if="!userInfo.phoneFilter"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang461}} <a class="text-primary" ui-sref="logged.setmobile_userinfo">{{lang.lang462}} >></a></div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang119}} {{userInfo.emailFilter}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.emailCode.$dirty && withdrawForm.emailCode.$error.required">
+			                    	{{lang.lang227}}
+				                </div>
+					      	</div>
+                            <div class="input-group" ng-if="userInfo.emailFilter">
+                                <input type="text" class="form-control" required name="emailCode" ng-model="data.emailCode" >
+                                <div class="input-group-append">
+                                    <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_email',userInfo.email,2)" id="sendButton_email" >{{lang.lang46}}</button>
+                                </div>
+                            </div>
+                            <div class="form-control-plaintext font-2" ng-if="!userInfo.emailFilter"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang467}} <a class="text-primary" ui-sref="logged.setemail_userinfo">{{lang.lang210}} >></a></div>
+                        </div>
+						<div class="form-group">
+                            <label>{{lang.lang47}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.ggCode.$dirty && withdrawForm.ggCode.$error.required">
+			                    	{{lang.lang48}}
+				                </div>
+				                <div class="tip_tishi" ng-show="withdrawForm.ggCode.$dirty && withdrawForm.ggCode.$error.pattern">
+			                    	{{lang.lang333}}
+				                </div>
+					      	</div>
+                            <input ng-if="userInfo.googleAuth" type="text" name="ggCode" ng-model="data.ggCode" class="form-control" required pattern="^\d{6}$">
+                            <div class="form-control-plaintext font-2" ng-if="!userInfo.googleAuth"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang463}} <a class="text-primary" ui-sref="logged.verifygoogle_userinfo">{{lang.lang211}} >></a></div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{lang.lang215}}</label>
+                            <div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="withdrawForm.capitalPwd.$dirty && withdrawForm.capitalPwd.$error.required">
+			                    	{{lang.lang329}}
+				                </div>
+					      	</div>
+                            <input ng-if="userInfo.fundSite" type="password" name="capitalPwd" ng-model="data.capitalPwd" class="form-control" required>
+                            <div class="form-control-plaintext font-2" ng-if="!userInfo.fundSite"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang464}} <a class="text-primary" ui-sref="logged.setfundpwd_userinfo">{{lang.lang215}} >></a></div>
+                        </div>
+                        <div class="form-group" ng-if="!userInfo.identification">
+                            <label>{{lang.lang359}}</label>
+                            <div class="form-control-plaintext font-2"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang465}} <a class="text-primary" ui-sref="logged.realname_userinfo">{{lang.lang359}} >></a></div>
+                        </div>
+						<div class="tipbox" style="margin-bottom: 1rem;">
+							<div class="tip_tishi" ng-show="!userInfo.phoneFilter || !userInfo.emailFilter || !userInfo.googleAuth || !userInfo.fundSite || !userInfo.identification">
+		                    	{{lang.lang466}}
+			                </div>
+					      	<!-- <div class="tip_tishi" ng-show="withdrawForm.coinId.$dirty && withdrawForm.coinId.$error.required">
+					      			                    	{{lang.lang49}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.drawCoinAddress.$dirty && withdrawForm.drawCoinAddress.$error.required">
+					      			                    	{{lang.lang37}}
+					      				                </div>
+					      								<div class="tip_tishi" ng-show="withdrawForm.num.$dirty && withdrawForm.num.$error.required">
+					      			                    	{{lang.lang324}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.num.$dirty && withdrawForm.num.$error.pattern">
+					      			                    	{{lang.lang330}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.code.$dirty && withdrawForm.code.$error.required">
+					      			                    	{{lang.lang185}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.emailCode.$dirty && withdrawForm.emailCode.$error.required">
+					      			                    	{{lang.lang227}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.ggCode.$dirty && withdrawForm.ggCode.$error.required">
+					      			                    	{{lang.lang48}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.ggCode.$dirty && withdrawForm.ggCode.$error.pattern">
+					      			                    	{{lang.lang333}}
+					      				                </div>
+					      				                <div class="tip_tishi" ng-show="withdrawForm.capitalPwd.$dirty && withdrawForm.capitalPwd.$error.required">
+					      			                    	{{lang.lang329}}
+					      				                </div> -->
+				    	</div>
+						<button type="submit" ng-click="withdrawfun()" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="withdrawForm.$invalid  || !userInfo.emailFilter || !userInfo.googleAuth || !userInfo.fundSite || !userInfo.identification"">{{lang.lang69}}</button>
+						<h5 class="font-1" style="line-height: 2rem; margin-top: 1rem; font-size: 1rem;">{{lang.lang334}}</h5>
+						<ul class="font-2" ng-if="language == 1">
+                            <li style="line-height: 1.5rem;">1.最小提币数量为：{{pagedata.minDrawNumber}}{{pagedata.coinName}}</li>
+                            <li style="line-height: 1.5rem;">2.为保障资金安全，当您账户安全策略变更、密码修改、使用新地址提币，我们会对提币进行人工审核，请耐心等待工作人员电话或邮件联系</li>
+                            <li style="line-height: 1.5rem;">3.请务必确认电脑及浏览器安全，防止信息被篡改或泄露</li>
+                        </ul>
+                        <ul class="font-2" ng-if="language == 2">
+                            <li style="line-height: 1.5rem;">1.Minimum withdraw amount：{{pagedata.minDrawNumber}}{{pagedata.coinName}}</li>
+                            <li style="line-height: 1.5rem;">2.In order to ensure the security of funds, when your account security policy changes, password changes, and the use of new withdrawal address, we will conduct an artificial review of the withdrawal, please wait for our staff to contact through phone or email</li>
+                            <li style="line-height: 1.5rem;">3.Make sure that computers and browsers are secure to prevent information from being tampered with or leaked</li>
+                        </ul>
+					</form>
+				  </div>
+				</div>
+				<!-- <div class="card" style="margin-bottom: 1rem;">
+				  <div class="card-header">
+				    提币记录
+				  </div>
+				  <div class="card-body">
+				    <div class="row" style="line-height: 3rem; margin:0 -1.3rem; ">
+						<div class="col col-md-4">充币地址</div>
+						<div class="col">充值币种</div>
+						<div class="col">充值数量</div>
+						<div class="col col-md-3">最后更新</div>
+						<div class="col">充币状态</div>
+					</div>
+					<div class="row" style="line-height: 3rem; margin:0 -1.3rem;">
+						<div class="col col-md-4" style="color: #6c6c6c;">Boid3HIO34HOhogdEior</div>
+						<div class="col" style="color: #6c6c6c;">{{pagedata.coinName}}</div>
+						<div class="col" style="color: #6c6c6c;">0.10000btc</div>
+						<div class="col col-md-3" style="color: #6c6c6c;">2018-3-16 10:22:28</div>
+						<div class="col" style="color: #6c6c6c;">成功</div>
+					</div>
+				  </div>
+				</div> -->
+			</div>
+
+		</div>
+	</div>
+</div> 

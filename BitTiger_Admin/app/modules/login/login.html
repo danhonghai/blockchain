@@ -1,0 +1,21 @@
+<div class="login-body">
+    <div class="login_box">
+   <!--      <div class="loginImg"><img src="images/login.png" alt=""></div> -->
+        <form class="form-signin" name="loginForm" novalidate>
+            <p class="form-signin-heading">HAYEKEX 后台管理系统</p>
+            <div class="login-wrap">
+                <input id="username" type="text" class="login-input" placeholder="请输入用户名"  name="userName" ng-model="params.userName" required>
+                <input id="password" type="password" class="login-input" placeholder="请输入密码" name="password" ng-model="params.password" required >
+                <div  class="btn-wrap">
+                    <button class="btn login-submit" type="button" ng-disabled="loginForm.$invalid" ng-click="login()">登录</button>
+                    <!-- <button class="btn login-submit" type="button" ui-sref="logged.index" >登录</button> -->
+                    <button class="btn login-reset" type="reset" >重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-if="alertshow" style=" background: rgba(0,0,0,0.4);width: 100%;height: 100%;z-index: 99998;left: 0px;top: 0px;position: fixed;"></div>
+<div ng-if="alertshow" class="alert alert-danger fade in" style=" position: fixed;z-index: 99999;width: 100%;left: 0;padding: 10px 15px;top: 0;text-align: center;border-radius: 0;">
+  <strong>{{alertmsg}}</strong>
+</div>

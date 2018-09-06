@@ -1,0 +1,173 @@
+<style>
+.modal-open {
+    overflow: hidden;
+    padding-right: 17px;
+    position: fixed !important;
+    top: -3400px;
+    height: 4400px;
+}
+.modal-dialog {
+    position: relative;
+    width: auto;
+    pointer-events: none;
+}
+</style>
+<!-- 首页 -->
+<div class="container-full  new_index bg-body">
+    <!-- banner -->
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade">
+        <div class="carousel-inner">
+            <div class="carousel-item" ng-class="{true:'active', false:''}[$index==0]" ng-repeat="banner in banners">
+                <a ng-href="{{banner.linkUrl ? banner.linkUrl : 'javaScript:void(0)'}}">
+                <img class="d-block w-100" ng-src="{{baseUrl}}{{banner.imgUrl}}" alt="{{banner.title}}">
+            </a>
+            </div>
+        </div>
+        <a class="carousel-control-prev left" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">上一页</span>
+      </a>
+        <a class="carousel-control-next right" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">下一页</span>
+      </a>
+    </div>
+    <div class="container-full notice_wrap">
+        <div class="container d-flex">
+            <div class="notice_item" ng-click="linknotice(noticelists[0].id)">
+                <div class="notice_inner">
+                    <i class="notice_img active"></i>
+                    <div class="notice_title">{{noticelists[0].title}}</div>
+                    <span class="notice_date">{{noticelists[0].updatedTime | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="notice_item" ng-click="linknotice(noticelists[1].id)">
+                <div class="notice_inner">
+                    <i class="notice_img"></i>
+                    <div class="notice_title">{{noticelists[1].title}}</div>
+                    <span class="notice_date">{{noticelists[1].updatedTime | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="notice_item" ng-click="linknotice(noticelists[2].id)">
+                <div class="notice_inner">
+                    <i class="notice_img"></i>
+                    <div class="notice_title">{{noticelists[2].title}}</div>
+                    <span class="notice_date">{{noticelists[2].updatedTime | date:'yyyy-MM-dd'}}</span>
+                </div>
+            </div>
+            <div class="notice_more_item" ui-sref="logged.noticelist">
+                <div class="notice_inner">
+                    <i class="notice_more_img"></i>
+                    <div class="notice_more">more</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container market_wrap">
+        <div class="market_header d-flex">
+            <div class="text-center market_tab" ng-repeat="b in backdata" ng-click="getejmarket(b.marketCode, $index)" ng-class="{true:'active', false:''}[b.success]">
+                <a class="market_border">
+                <i class="coinImg{{$index}}"></i>
+                <span class="market_name">{{b.marketName}}{{lang.lang14}}</span>
+                </a>
+            </div>
+        </div>
+        <table class="market_table">
+            <thead class="table-header">
+                <tr>
+                    <th style="padding-left: 30px;">{{lang.lang15}}</th>
+                    <th>{{lang.lang16}}</th>
+                    <th>{{lang.lang17}}</th>
+                    <th>{{lang.lang18}}</th>
+                    <th>{{lang.lang19}}</th>
+                    <th>{{lang.lang20}}</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <tr ng-repeat="m in transactionpair">
+                    <th scope="row" style="padding-left: 30px;" ng-bind="m.transName"></th>
+                    <th scope="row" ng-bind="m.currentPrice != null ? (m.currentPrice | number:6) : '--'"></th>
+                    <th scope="row" style="color: #ED4545;">{{m.oneDayGains != null ? (m.oneDayGains | number:2) : '--'}} <b ng-if="m.oneDayGains != null">%</b></th>
+                    <th scope="row" ng-bind="m.oneDayMaxPrice != null ? (m.oneDayMaxPrice | number:6) : '--'"></th>
+                    <th scope="row" ng-bind="m.oneDayMinPrice != null ? (m.oneDayMinPrice | number:6) : '--'"></th>
+                    <th scope="row" ng-bind="m.oneDayDealNum != null ? (m.oneDayDealNum | number:4) : '--'"></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="feature_wrap">
+        <div class="section">
+            <div class="feature">
+                <div class="feature_bg">
+                    <dl class="feature_1">
+                        <dt class="icon_feature_1"></dt>
+                        <dd>
+                            <div class="feature_title">{{lang.lang472}}</div>
+                            <p class="feature_content" style="width:400px;">{{lang.lang475}}
+                                <br>{{lang.lang476}}
+                                <br>{{lang.lang477}}
+                                <br>{{lang.lang478}}</p>
+                        </dd>
+                    </dl>
+                    <dl class="feature_2">
+                        <dd>
+                            <div class="feature_title">{{lang.lang473}}</div>
+                            <p class="feature_content" style="width:400px;">{{lang.lang479}}
+                                <br>{{lang.lang480}}</p>
+                        </dd>
+                        <dt class="icon_feature_2"></dt>
+                    </dl>
+                </div>
+                <dl class="feature_3">
+                    <dt class="icon_feature_3"></dt>
+                    <dd>
+                        <div class="feature_title">{{lang.lang474}}</div>
+                        <p class="feature_content" style="width:400px;">{{lang.lang481}}
+                            <br> {{lang.lang482}}
+                            <br> {{lang.lang483}}
+                        </p>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="container-full client" ng-class="{true:'client_zh', false:'client_en'}[language == 1]">
+        <div class="container">
+            <div class="client-content">
+                <h4 class="client-title">{{lang.lang484}}</h4>
+                <p class="client-info">{{lang.lang485}}</p>
+                <div>
+                    <button type="button" class="btn btn-3D4D94" data-toggle="modal" data-target="#exampleModalCenter" style="margin-right: 50px;"><i class="icon_iphone"></i>
+                        <span>iPhone</span>
+                        <!-- href="itms-services://?action=download-manifest&url=https://xxx.com/manifest.plist" -->
+                    </button>
+                    <button type="button" class="btn btn-3D4D94"><i class="icon_android"></i><span>Android</span></button>
+                </div>
+            </div>
+        </div>
+        <div class="container buy-now">
+            <h4 class="info_title">{{lang.lang486}}</h4>
+            <p class="info_content" style="margin-bottom: 86px;">{{lang.lang5}}</p>
+            <div ng-if="!isLogin">
+                <button class="btn btn-3D4D94 btn-login" style="margin-right: 50px;" ui-sref="logged.login">{{lang.lang4}}</button>
+                <button class="btn btn-3D4D94 btn-re" ui-sref="logged.register">{{lang.lang29}}</button>
+            </div>
+            <div ng-if="isLogin"><!--onclick="toggleDialog(true)" -->
+                <button class="btn btn-3D4D94 btn-re" ui-sref="logged.transaction" >{{lang.lang486}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 返回顶部onclick="function(){$("html, body").animate({scrollTop: 0}, 100);}" -->
+<div class="goTop" ng-click="gotTop()">
+    <i class="icon_top"></i>
+</div>
+<!-- 模态框二维码 -->
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="width: 200px;height:200px;text-align: center;margin: 0 auto;">
+            <img ng-src="img/ewm.png" alt="">
+            <p style="font-size: 18px;color: #5F71C2;">ios {{lang.lang515}}</p>
+        </div>
+    </div>
+</div> -->

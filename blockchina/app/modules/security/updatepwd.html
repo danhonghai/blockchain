@@ -1,0 +1,87 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row" style="height: 50rem;">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_0.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_0.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669 active" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_1.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<div class="col col-md-9">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header font-1">
+				    {{lang.lang245}} <small>( {{lang.lang246}} )</small>
+				  </div>
+				  <div class="card-body info-body">
+					<form class="info-form" novalidate name="myForm" >
+					  	<div class="form-group">
+						  	<label>{{lang.lang247}}</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.prePassword.$dirty && myForm.prePassword.$error.required">
+				                    {{lang.lang250}}
+				                </div>
+				                <div class="tip_tishi" ng-show="myForm.prePassword.$dirty && myForm.prePassword.$error.pattern">
+				                    {{lang.lang126}}
+				                </div>
+					      	</div>
+						    <input type="password" class="form-control" required ng-model="params.prePassword"  name="prePassword" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" >
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang248}}</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.currentPassword.$dirty && myForm.currentPassword.$error.required">
+				                    {{lang.lang251}}
+				                </div>
+				                <div class="tip_tishi" ng-show="myForm.currentPassword.$dirty && myForm.currentPassword.$error.pattern">
+				                    {{lang.lang126}}
+				                </div>
+					      	</div>
+						    <input type="password" class="form-control" required ng-model="params.currentPassword"  name="currentPassword" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" >
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang249}}</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.secondPwd.$dirty && myForm.secondPwd.$error.required">
+				                    {{lang.lang355}}
+				                </div>
+				                <div class="tip_tishi" ng-show="myForm.secondPwd.$dirty && myForm.secondPwd.$error.pattern">
+				                    {{lang.lang126}}
+				                </div>
+				                <div class="tip_tishi" ng-show="params.currentPassword && secondPwd && params.currentPassword != secondPwd">
+				                    {{lang.lang252}}
+				                </div>
+					      	</div>
+						    <input type="password" class="form-control" required ng-model="secondPwd"  name="secondPwd" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$" >
+					  	</div>
+					  	<!-- <div class="tipbox" style="margin-bottom: 1rem;">
+					      	<div class="tip_tishi" ng-show="myForm.prePassword.$dirty && myForm.prePassword.$error.required">
+			                    {{lang.lang250}}
+			                </div>
+			                <div class="tip_tishi" ng-show="myForm.prePassword.$dirty && myForm.prePassword.$error.pattern">
+			                    {{lang.lang126}}
+			                </div>
+			                <div class="tip_tishi" ng-show="myForm.currentPassword.$dirty && myForm.currentPassword.$error.required">
+			                    {{lang.lang251}}
+			                </div>
+			                <div class="tip_tishi" ng-show="myForm.currentPassword.$dirty && myForm.currentPassword.$error.pattern">
+			                    {{lang.lang126}}
+			                </div>
+			                <div class="tip_tishi" ng-show="myForm.secondPwd.$dirty && myForm.secondPwd.$error.required">
+			                    {{lang.lang355}}
+			                </div>
+			                <div class="tip_tishi" ng-show="myForm.secondPwd.$dirty && myForm.secondPwd.$error.pattern">
+			                    {{lang.lang126}}
+			                </div>
+			                <div class="tip_tishi" ng-show="params.currentPassword && secondPwd && params.currentPassword != secondPwd">
+			                    {{lang.lang252}}
+			                </div>
+			          	</div> -->
+					  	<button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="myForm.$invalid || params.currentPassword != secondPwd" ng-click="updatepwd()"  >{{lang.lang208}}</button>
+					</form>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

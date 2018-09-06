@@ -1,0 +1,191 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row" style="height: 50rem;">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_0.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669 active" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_1.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_0.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<div class="col col-md-9" >
+				<div class="realname div-block">
+					<div class="business_title border-152669">
+                        <span ng-class="{active:currentTab == 1}" ng-click="selectTab(1)">{{lang.lang147}}</span>
+                        <span ng-class="{active:currentTab == 2}"  ng-click="selectTab(2)">{{lang.lang516}}</span>
+	                </div>
+	            </div>
+				<!-- 未实名认证 -->
+				<div class="card div-block" style="margin-bottom: 1rem;" ng-if="!isRealName && currentTab == 1 && !showAuthHigh">
+				  <!-- <div class="card-header info-header">
+				    {{lang.lang147}}
+				  </div> -->
+				  <div class="card-body info-body">
+					<form class="info-form" novalidate name="myForm">
+					  	<div class="form-group">
+						  	<label>{{lang.lang149}}</label>
+						  	<!-- <div class="new_tipbox" >
+						  							      	<div class="tip_tishi" ng-show="myForm.country.$error.required">
+						  				                    	{{lang.lang156}}
+						  					                </div>
+						  						      	</div> -->
+						  	<select ng-show="language == 1" class="custom-select" name="country"  ng-model="params.country" ng-options=" item.id as item.name for item in countryList" required >
+						  		<option value="">{{lang.lang156}}</option>
+							</select>
+							<select ng-show="language == 2" class="custom-select" name="country"  ng-model="params.country" ng-options=" item.id as item.nameEn for item in countryList" required >
+						  		<option value="">{{lang.lang156}}</option>
+							</select>
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang150}}</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.realName.$dirty && myForm.realName.$error.required">
+				                    {{lang.lang157}}
+				                </div>
+					      	</div>
+						    <input type="text" class="form-control" name="realName"  ng-model="params.realName" required>
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang152}}</label>
+						  	<!-- <div class="new_tipbox" >
+						  							      	<div class="tip_tishi" ng-show="myForm.cardType.$dirty && myForm.cardType.$error.required">
+						  				                    	{{lang.lang158}}
+						  					                </div>
+						  						      	</div> -->
+						    <select ng-show="language == 1" class="custom-select" name="cardType"  ng-model="params.cardType" ng-options=" item.id as item.name for item in documentTypeInfo" required >
+						  		<option value="">{{lang.lang158}}</option>
+							</select>
+							<select ng-show="language == 2" class="custom-select" name="cardType"  ng-model="params.cardType" ng-options=" item.id as item.nameEn for item in documentTypeInfo" required >
+						  		<option value="">{{lang.lang158}}</option>
+							</select>
+					  	</div>
+					  	<div class="form-group">
+					  		<label>{{lang.lang154}}</label>
+					  		<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.idCardN0.$dirty && myForm.idCardN0.$error.required">
+				                    {{lang.lang159}}
+				                </div>
+					      	</div>
+					    	<input type="text" class="form-control" name="idCardN0"  ng-model="params.idCardN0" required >
+					  	</div>
+					  	<!-- <div class="tipbox" style="margin-bottom: 1rem;">
+					  						      	<div class="tip_tishi" ng-show="myForm.country.$error.required">
+					  			                    	{{lang.lang156}}
+					  				                </div>
+					  		<div class="tip_tishi" ng-show="myForm.realName.$error.required">
+					  				                    {{lang.lang157}}
+					  				                </div>
+					  				                <div class="tip_tishi" ng-show="myForm.cardType.$error.required">
+					  			                    	{{lang.lang158}}
+					  				                </div>
+					  		<div class="tip_tishi" ng-show="myForm.idCardN0.$error.required">
+					  				                    {{lang.lang159}}
+					  				                </div>
+					  				          	</div> -->
+					  	<button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="myForm.$invalid" ng-click="realnameFun()" >{{lang.lang121}}</button>
+					</form>
+				  </div>
+				</div>
+				<!-- 已认证 -->
+				<div class="card div-block" style="margin-bottom: 1rem;" ng-if="isRealName && currentTab == 1 && !showAuthHigh">
+				  	<div class="card-header info-header" style="color:#489aff;">{{lang.lang161}}</div>
+				  	<div class="card-body info-body info-form">
+					  	<div class="form-group">
+					  	<label>{{lang.lang162}}</label>
+						    <select ng-show="language == 1" class="custom-select" ng-model="realNameVerified.country" ng-options=" item.id as item.name for item in countryList" disabled >
+							</select>
+							<select ng-show="language == 2" class="custom-select" ng-model="realNameVerified.country" ng-options=" item.id as item.nameEn for item in countryList" disabled >
+							</select>
+					  	</div>
+					  	<div class="form-group">
+					  		<label>{{lang.lang150}}</label>
+					      	<input type="text" class="form-control"  ng-value="realNameVerified.realName" disabled>
+					  	</div>
+					  	<div class="form-group">
+					  		<label>{{lang.lang152}}</label>
+					    	<select ng-show="language == 1" class="custom-select"  ng-model="realNameVerified.cardType" ng-options=" item.id as item.name for item in documentTypeInfo" disabled >
+							</select>
+							<select ng-show="language == 2" class="custom-select"  ng-model="realNameVerified.cardType" ng-options=" item.id as item.nameEn for item in documentTypeInfo" disabled >
+							</select>
+					  	</div>
+					  	<div class="form-group">
+					  	<label>{{lang.lang154}}</label>
+					      	<input type="text" class="form-control" ng-value="realNameVerified.idCardN0" disabled >
+					  	</div>
+						<button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-click="realnameFun()" >{{lang.lang121}}</button>
+					  	</div>
+				</div>
+				<!-- 高级认证 -->
+				<div class="div-block" ng-if="currentTab == 1 && showAuthHigh" >
+					<div class="page-title">
+						<!-- <span>{{lang.lang360}}</span> -->
+						<span class="float-right cursorClass font-3" ng-if="currentStep == 1 || currentStep == 2 || currentStep == 3" ng-click="back()" ><i class="icon-back" style="margin-right: 10px;" ></i>{{lang.lang361}}</span>
+					</div>
+					<div class="highAuth-main text-center" ng-if="currentStep == 0" >
+						<img src="img/icon_high.png" alt="" ng-if="language == 1">
+						<img src="img/icon_highEn.png" alt="" ng-if="language == 2">
+					    <!-- <div class="image-auth position-relative">
+					      <div class="image-border"></div>
+					      <div class="pic">
+					        <img src="img/icon_auth2.png" alt="" >
+					        <p class="c659EFF mt-1">{{lang.lang362}}</p>
+					      </div>
+					      <div class="pic_auth">
+					        <img src="img/icon_auth1.png" alt="">
+					        <p class= "mt-1">{{lang.lang363}}</p>
+					      </div>
+					    </div> -->
+					    <button class="btn btn-default w-100" style="padding:10px 118px;margin-top: 100px;" ng-click="nextStep()" >{{lang.lang364}}</button>
+					</div>
+					<div class="highAuth-main" ng-if="currentStep == 1" >
+						<!-- <div class="highAuth-title" >{{lang.lang365}}</div> -->
+						<upload-picture attrtitle="{{lang.lang365}}" imgsrc="img/high_0.png" ></upload-picture>
+						<div class="text-center">
+					      <button class="btn btn-default w-100" style="padding:10px 118px;margin-top: 30px;" ng-click="nextStep()" ng-disabled="!dataParams.previewImgObj" >{{lang.lang121}}</button>
+					    </div>
+					</div>
+					<div class="highAuth-main" ng-if="currentStep == 2" >
+						<!-- <div class="highAuth-title" >{{lang.lang366}}</div> -->
+						<upload-picture attrtitle="{{lang.lang366}}" imgsrc="img/high_1.png" ></upload-picture>
+						<div class="text-center">
+					      <button class="btn btn-default w-100" style="padding:10px 118px;margin-top: 30px;" ng-click="nextStep()" ng-disabled="!dataParams.previewImgObj" >{{lang.lang121}}</button>
+					    </div>
+					</div>
+					<div class="highAuth-main" ng-if="currentStep == 3" >
+						<!-- <div class="highAuth-title" >{{lang.lang367}}</div> -->
+						<upload-picture attrtitle="{{lang.lang367}}" imgsrc="img/high_2.png" ></upload-picture>
+						<div class="text-center">
+					      <button class="btn btn-default w-100" style="padding:10px 118px;margin-top: 30px;" ng-click="nextStep()" ng-disabled="!dataParams.previewImgObj" >{{lang.lang368}}</button>
+					    </div>
+					</div>
+					<div class="highAuth-main text-center" ng-if="currentStep == 4">
+				      <img src="img/icon_card.png" alt="">
+				      <p style="margin-top: 50px;" class="font-2">{{lang.lang369}}</p>
+				  	</div>
+				  	<div class="highAuth-main text-center" ng-if="currentStep == 5">
+					    <img src="img/icon_unpass.png" alt="">
+					    <p style="margin-top: 50px;" ng-if="language == 1" class="font-2">抱歉您上传的照片由于{{result}}，审核未能通过；如需进行高级认证，可再次发起申请</p>
+					    <p style="margin-top: 50px;" ng-if="language == 2" class="font-2">Sorry, verification failed due to {{result}}, please apply again</p>
+					    <span class="cursorClass" ng-click="nextStep()" style="color: #489AFF">{{lang.lang371}}</span>
+				  	</div>
+				  	<div class="highAuth-main text-center" ng-if="currentStep == 6">
+					    <img src="img/icon_passing.png" alt="">
+					    <p style="margin-top: 50px;" class="font-2">{{lang.lang372}}</p>
+				  	</div>
+				  	<div class="highAuth-main text-center" ng-if="currentStep == 7">
+					    <img src="img/icon_pass.png" alt="">
+					    <p style="margin-top: 50px;color: #25968D;">{{lang.lang373}}</p>
+				  	</div>
+				</div>
+				<!-- 活体识别 -->
+				<div class="div-block" ng-if="currentTab == 2" >
+					<div class="font-2 text-center" style="padding:40px 20px;">
+						<img src="img/assay.png" alt="">
+						<div style="font-size: 16px;margin-top:18px;margin-bottom: 40px;">{{lang.lang517}}</div>
+					    <div class="font-3" style="font-size: 14px;">{{lang.lang518}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,168 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row" style="height: 50rem;">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_0.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_0.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669 active" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_1.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<!-- 修改邮箱 -->
+			<div class="col col-md-9" ng-if="userInfo.email">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header font-1">
+				    {{lang.lang216}} <small>( {{lang.lang217}} )</small>
+				  </div>
+				  <div class="card-body info-body">
+					<form class="info-form" novalidate name="myForm" >
+					  	<div class="form-group">
+						  	<label>{{lang.lang218}}：</label>
+						    <input type="text" class="form-control"  ng-value="userInfo.email" disabled >
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang42}}：</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.imageCode.$dirty &&  myForm.imageCode.$error.required">
+			                    	{{lang.lang184}}
+				                </div>
+					      	</div>
+						    <div class="input-group">
+							  	<input type="text" class="form-control" required ng-model="params.imageCode" name="imageCode" >
+							  	<div class="input-group-append" ng-click="getCaptcha()" >
+							    <button class="btn code-bg padding0" type="button"><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" alt={{lang.lang42}} ></button>
+							  </div>
+							</div>
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang219}}：</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.preEmailCode.$dirty &&  myForm.preEmailCode.$error.required">
+				                    {{lang.lang222}}
+				                </div>
+					      	</div>
+						    <div class="input-group">
+								<input type="text" class="form-control" required ng-model="params.preEmailCode" name="preEmailCode" >
+								<div class="input-group-append">
+								    <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_pre')" id="sendButton_pre" >{{lang.lang46}}</button>
+								</div>
+							</div>
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang220}}：</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&  myForm.currentEmail.$error.required">
+				                    {{lang.lang223}}
+				                </div>
+				                <div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&  myForm.currentEmail.$error.pattern">
+				                    {{lang.lang224}}
+				                </div>
+					      	</div>
+						    <input type="text" class="form-control" name="currentEmail" ng-model="params.currentEmail" required  pattern="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"  >
+					  	</div>
+					  	<div class="form-group">
+						  	<label>{{lang.lang221}}：</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.currentEmailCode.$dirty &&  myForm.currentEmailCode.$error.required">
+				                    {{lang.lang225}}
+				                </div>
+					      	</div>
+						    <div class="input-group">
+								<input type="text" class="form-control" required ng-model="params.currentEmailCode" name="currentEmailCode" >
+								<div class="input-group-append">
+								    <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_curr')" id="sendButton_curr" >{{lang.lang46}}</button>
+								</div>
+						    </div>
+					 	</div>
+					  	<!-- <div class="tipbox" style="margin-bottom: 1rem;">
+					  						      	<div class="tip_tishi" ng-show="myForm.imageCode.$dirty &&  myForm.imageCode.$error.required">
+					  			                    	{{lang.lang184}}
+					  				                </div>
+					  		<div class="tip_tishi" ng-show="myForm.preEmailCode.$dirty &&  myForm.preEmailCode.$error.required">
+					  				                    {{lang.lang222}}
+					  				                </div>
+					  				                <div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&  myForm.currentEmail.$error.required">
+					  				                    {{lang.lang223}}
+					  				                </div>
+					  				                <div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&  myForm.currentEmail.$error.pattern">
+					  				                    {{lang.lang224}}
+					  				                </div>
+					  				                <div class="tip_tishi" ng-show="myForm.currentEmailCode.$dirty &&  myForm.currentEmailCode.$error.required">
+					  				                    {{lang.lang225}}
+					  				                </div>
+					  				          	</div> -->
+					  	<button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="myForm.$invalid" ng-click="updateEmail()" >{{lang.lang208}}</button>
+					</form>
+				  </div>
+				</div>
+			</div>
+			<!-- 绑定邮箱 -->
+			<div class="col col-md-9" ng-if="!userInfo.email">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header font-1">
+				    {{lang.lang226}}
+				  </div>
+				  <div class="card-body info-body">
+					<form class="info-form" novalidate name="myForm">
+					  	<div class="form-group">
+						  	<label>{{lang.lang226}}：</label>
+						  	<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&   myForm.currentEmail.$error.required">
+			                    	{{lang.lang191}}
+				                </div>
+						  		<div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&   myForm.currentEmail.$error.pattern">
+				                    {{lang.lang192}}
+				                </div>
+					      	</div>
+						    <input type="text" class="form-control" name="currentEmail" ng-model="params.currentEmail" required  pattern="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" >
+					  	</div>
+					  	<div class="form-group">
+					  		<label>{{lang.lang42}}：</label>
+					  		<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.imageCode.$dirty &&   myForm.imageCode.$error.required">
+			                    	{{lang.lang184}}
+				                </div>
+					      	</div>
+					      	<div class="input-group">
+							  	<input type="text" class="form-control" required ng-model="params.imageCode" name="imageCode" >
+							  	<div class="input-group-append" ng-click="getCaptcha()" >
+							    	<button class="btn code-bg padding0" type="button"><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" alt={{lang.lang42}} ></button>
+							  	</div>
+							</div>
+					  	</div>
+					  	<div class="form-group">
+					  		<label>{{lang.lang119}}：</label>
+					  		<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.currentEmailCode.$dirty &&   myForm.currentEmailCode.$error.required">
+				                    {{lang.lang227}}
+				                </div>
+					      	</div>
+					      	<div class="input-group">
+							  	<input type="text" class="form-control" required ng-model="params.currentEmailCode" name="currentEmailCode" >
+							  	<div class="input-group-append">
+							    	<button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_bind')" id="sendButton_bind" >{{lang.lang46}}</button>
+							  	</div>
+							</div>
+					  	</div>
+					  	<!-- <div class="tipbox" style="margin-bottom: 1rem;">
+					  						      	<div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&   myForm.currentEmail.$error.required">
+					  			                    	{{lang.lang191}}
+					  				                </div>
+					  		<div class="tip_tishi" ng-show="myForm.currentEmail.$dirty &&   myForm.currentEmail.$error.pattern">
+					  				                    {{lang.lang192}}
+					  				                </div>
+					  				                <div class="tip_tishi" ng-show="myForm.imageCode.$dirty &&   myForm.imageCode.$error.required">
+					  			                    	{{lang.lang184}}
+					  				                </div>
+					  				                <div class="tip_tishi" ng-show="myForm.currentEmailCode.$dirty &&   myForm.currentEmailCode.$error.required">
+					  				                    {{lang.lang227}}
+					  				                </div>
+					  				          	</div> -->
+					  	<button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="myForm.$invalid" ng-click="bindEmail()" >{{lang.lang209}}</button>
+					</form>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

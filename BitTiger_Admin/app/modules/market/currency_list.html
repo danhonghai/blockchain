@@ -1,0 +1,67 @@
+<main>
+   	<div class="page-content"> 
+        <div class="content container" style="overflow:hidden;"> 
+    	    <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);"> 
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">币种管理</a> 
+            </div>
+        	<div class="widget-content example_alt_pagination">
+        		<div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">币种：</label>
+                            <input type="text" class="form-contirl" placeholder="请输入币种" ng-model="params.coinName">
+                        </div>
+                        <div class="form-group">   
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                        <div class="form-group navbar-right">   
+                            <button type="button" class="btn btn-info" ui-sref="logged.addCoin" ><i class="fa fa-plus"></i>新增币种</button>
+                        </div>
+                    </form>
+                </div>
+        	    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        	      	<thead>
+        		        <tr>
+        		            <th>币种</th>
+        		            <th>钱包地址</th>
+        		            <th>最小充币金额</th>
+        		            <th>最小提币金额</th>
+        		            <th>单次最大提币金额</th>
+                            <th>单日最大提币金额</th>
+        		            <th>单笔提现手续费</th>
+        		            <th>状态</th>
+                            <th>最新上架时间</th>
+        		            <th>操作</th>
+        		        </tr>
+        	        </thead>
+        	        <tbody>
+                	</tbody>
+        	  	</table>
+            </div>
+        </div> 
+   </div>
+</main>
+<!-- 确认弹窗 -->
+<div class="modal fade confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog " style="width: 300px;" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <p ng-if="currentStatus == 0">是否下架该币种？</p>
+                    <p ng-if="currentStatus == 1" >是否上架该币种？</p>
+                    <p ng-if="currentStatus == 2" >是否删除该币种？</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="coinConfirm()" >确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"  >取消</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+

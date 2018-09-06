@@ -1,0 +1,93 @@
+<div class="payment container ptop-3">
+  <div class="page-title">添加支付方式</div>
+  <div class="payment-main">
+    <form [formGroup]="myForm" >
+      <div class="form-group">
+        <label class="form-label">支付方式</label>
+        <div class="row">
+          <div class="col-md-8">
+            <select class="form-control" formControlName="payMode" >
+              <option value="1" >银行卡</option>
+              <option value="3" >支付宝</option>
+              <option value="2" >微信支付</option>
+              <option value="4" >PayPal</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">姓名</label>
+        <div class="row">
+          <div class="col-md-8">
+            <input type="text" style="width: 0;height: 0;border:none;">
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" *ngIf="myForm.value.payMode == 1">银行卡账号</label>
+        <label class="form-label" *ngIf="myForm.value.payMode == 3" >支付宝账号</label>
+        <label class="form-label" *ngIf="myForm.value.payMode == 2" >微信号</label>
+        <label class="form-label" *ngIf="myForm.value.payMode == 4" >PayPal号</label>
+        <div class="row">
+          <div class="col-md-8">
+            <input type="text" class="form-control" formControlName="accountNo" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="myForm.value.payMode == 2 || myForm.value.payMode == 3" >
+        <label class="form-label">二维码</label>
+        <div class="row">
+          <div class="col-md-8">
+           <app-previewimg [(previewImgObj)]="previewImgObj" ></app-previewimg>
+          </div>
+        </div>
+      </div>
+      <!-- 银联卡支付 -->
+      <div class="form-group" *ngIf="myForm.value.payMode == 1">
+        <label class="form-label">开户银行</label>
+        <div class="row">
+          <div class="col-md-8">
+            <input type="text" class="form-control" formControlName="bankName" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="myForm.value.payMode == 1" >
+        <label class="form-label">开户支行</label>
+        <div class="row">
+          <div class="col-md-8">
+            <input type="text" class="form-control" formControlName="bankAddress" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">资金密码</label>
+        <div class="row">
+          <div class="col-md-8">
+            <input type="password" style="width: 0;height: 0;border:none;">
+            <input type="password" class="form-control" formControlName="fundPwd" maxlength="16" >
+          </div>
+        </div>
+      </div>
+      <div class="form-group tipbox">
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['name']) || myForm.get('name').pristine">
+            姓名必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['accountNo']) || myForm.get('accountNo').pristine">
+            账号必填
+        </div>
+        <div class="tip_tishi" [hidden]="!myForm.hasError('required', ['fundPwd']) || myForm.get('fundPwd').pristine">
+            资金密码必填
+        </div>
+      </div>
+      <div class="row text-center" style="margin-top: 60px;">
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-659EFF" style="padding:10px 130px;" [disabled]="myForm.invalid" (click)="addPayment()"  >确认</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-E2E4EB" style="padding:10px 130px;" [routerLink]="['/userinfo']" >取消</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

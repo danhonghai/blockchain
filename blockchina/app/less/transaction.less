@@ -1,0 +1,231 @@
+.transaction {
+	//background: #0f1126;
+	padding-top: 70px; 
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom: 10px;
+	color:#D3D8EE;
+	.ticker_wrap {
+		margin-top:2rem;
+		margin-bottom:29px;
+		.col{
+			color:#9AA8DF;
+			font-size:1rem;
+			line-height:2rem;
+			span{
+				color:#D3D8EE;
+				font-size: 1.2rem;
+			}
+		}
+	}
+}
+
+#wrap {
+  overflow: hidden; *zoom: 1;
+}
+#sidebar {
+  float: left;
+  width: 23%;
+}
+#content {
+  margin-left: 23%;
+  padding-left:10px;
+}
+@media only screen and (max-width: 1400px) {
+    #sidebar {
+        width:280px
+    }
+
+    #content {
+        margin-left: 280px
+    }
+}
+@media only screen and (min-width: 1400px) and (max-width:1920px) {
+    #sidebar {
+        width:360px
+    }
+
+    #content {
+        margin-left: 360px
+    }
+}
+
+.realtime {
+	background: #081957;
+    margin-top: 10px;
+	.realtime_tit {
+		height: 2.7rem;
+	    line-height: 2.7rem;
+	    border-bottom: 1px solid #1A2A60;
+	    background: #0E1F5D;
+		span {
+			border-left:2px solid #008DFF;
+			padding-left: .5rem;
+			line-height: 2rem;
+			color: #D3D8EE;
+		}
+	}
+	.realtime_cen {
+		padding: 10px 15px;
+    	.row {
+    		margin: 0px;
+    	}
+	}
+}
+.wrapin {
+  width: 100%;
+  display: table;
+}
+.wrapinleft {
+  	overflow: hidden;
+    display: table-cell;
+    width: 70.627%;
+    padding-right: 10px;
+    height:53.125rem;
+}
+.wrapinright {
+    display: table-cell;
+    overflow: visible;
+    vertical-align: top;
+}
+.pt08 {
+	padding-top: .8rem;
+}
+.business {
+	margin-top: 10px;
+	background: #081957;
+	.business_title {
+		height: 2.7rem;
+    	background: #0e1f5d;
+		span {
+			display: inline-block;
+		    line-height: 2.7rem;
+		    font-size: .8rem;
+		    font-weight: bold;
+		    margin: 0 1.5rem;
+		    cursor: pointer;
+		}
+		.active {
+			color: #008DFF;
+			border-bottom: 2px solid #008DFF;
+		    //background: #182034;
+		    border-radius: 5px 5px 0 0;
+		}
+	}
+}
+.buysell {
+	padding:1rem;
+}
+.kline .active {
+	background:#112367;
+	color:#D3D8EE !important;
+}
+.markettype {
+	position: absolute;
+	background: #000;
+	padding: 0;
+	z-index: 9;
+	top: 2rem;
+	left: .5rem;
+	li {
+		cursor: pointer;
+    	padding: .2rem 1rem;
+	}
+	.active {
+		background:#666;
+		color:#fff;
+	}
+}
+
+.rotate180{
+    transform: rotate(180deg);
+    transition: transform 0.5s; 
+}
+.frotate180{
+    transform-origin:center center;
+    transform: rotate(0deg);
+    transition: transform 0.5s;
+}
+.input-group-text {
+	font-size:0.8rem !important;
+	//color:#ccc;
+}
+.sidebar {
+	margin-top: 10px;
+}
+.coinmarket {
+	background: #081957;
+    margin-top: 10px;
+    //border: 1px solid #324971;
+    color: #91959e;
+    .coinmarket_tit {
+		margin: 0px;
+	    line-height: 40px;
+	    background: #0E1F5D;
+	    color: #4D5B97;
+	    //border-bottom: 1px solid #324971;
+	    .col {
+	    	cursor: pointer;
+	    	a{
+	    		display: inline-block;
+	    		padding:0 10px;
+	    	}
+	    }
+	    .active a{
+	    	//background: #0E1F5D;
+    		color: #D3D8EE;
+    		border-bottom: 2px solid #008DFF;
+	    }
+	}
+	.coinmarket_cen {
+		margin: 0px;
+    	height: 23.45rem;
+    	.coinmarket_cenleft {
+    		background: #182034;
+			border-right: 1px solid #324971;
+    		padding: 0px;
+    		ul {
+    			margin-bottom: 0px;
+    			li{
+	    			a {
+	    				display: block;
+					    height: 40px;
+					    text-align: center;
+					    line-height: 40px;
+	    			}
+	    			a:hover, a.active {
+	    				background: #0f1126;
+					    margin-right: -1px;
+					    border-top: 1px solid #324971;
+					    border-bottom: 1px solid #324971;
+	    			}
+    			}
+    			li:first-child {
+    				a:hover, a.active {
+					    border-top: none;
+	    			}
+    			}
+    		}
+    	}
+    	.coinmarket_cenright {
+    		.row:first-child {
+	    		background: #081957;
+			    height: 2rem;
+			    line-height: 2rem;
+			    color: #4D5B97;
+    		}
+    		.row {
+	    		height: 40px;
+	    		line-height: 40px;
+	    		color:#D3D8EE;
+	    		cursor: pointer;
+    		}
+    		.active, .coindublist:hover {
+    			background:#112367;
+    		}
+    	}
+	}
+}
+.amcharts-export-menu {
+	display:none !important;
+}

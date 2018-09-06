@@ -1,0 +1,57 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">角色权限配置</a>
+            </div>
+            <div class="widget-content example_alt_pagination" style="padding-left: 40px;">
+                <form class="form-horizontal" name="jsForm" novalidate>
+                    <div class="item-box light-bg">
+                        <input type="hidden" id="roleId" name="id" value="1">
+                        <div class="form-group row">
+                            <div class="form-group">
+                                <label class="col-sm-3 " style="width: 10%">角色名称：</label>
+                                <div class="col-lg-7">
+                                    <div class="input-group" style="width: 400px">
+                                        <input id="add-role-name" name="roleNameCn" type="text" class="form-control" placeholder="请输入角色名称" ng-model="article.roleNameCn" required>
+                                        <span class="warning" style=" top: 114px;left: 397px;color: red;" ng-show="jsForm.roleNameCn.$error.required">必填</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 " style="width: 10%">角色代码：</label>
+                            <div class="col-lg-7">
+                                <div class="input-group" style="width: 400px">
+                                    <input id="add-role-code" name="roleName" type="text" class="form-control" placeholder="请输入角色代码" ng-model="article.roleName" required>
+                                    <span class="warning" style=" top: 114px;left: 397px;color: red;" ng-show="jsForm.roleName.$error.required">必填</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 " style="width: 10%">角色描述：</label>
+                            <div class="col-lg-7">
+                                <div class="input-group" style="width: 400px">
+                                    <input id="add-role-description" name="description" type="text" class="form-control" placeholder="请输入角色描述" ng-model="article.description" required>
+                                    <span class="warning" style=" top: 114px;left: 397px;color: red;" ng-show="jsForm.description.$error.required">必填</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 " style="width: 10%">角色权限：</label>
+                            <div class="col-lg-7">
+                                <ul id="treeDemo" class="ztree" id="first_tree"></ul>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-1 col-sm-2 control-label" style="width: 10%;"></label>
+                            <div class="col-lg-3">
+                                <button id="role-add-submit" type="button" class="btn btn-primary btn-lg btn-block" ng-disabled="!jsForm.$valid " ng-click="viewDitail()">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,110 @@
+<!-- 售卖点卡 -->
+<style>
+.page-color {
+    color: #fff;
+}
+</style>
+<div id="member">
+    <div class="up">
+        <img ng-if="language==1" src="../img/member.png" alt="" style=" height: 554px;background-size: 100%;background-color: #0E1118;">
+        <img ng-if="language==2" src="../img/members.png" alt="" style=" height: 554px;background-size: 100%;background-color: #0E1118;">
+        <div class="card-box">
+            <span class="decorate"></span>
+            <!--  <div class="business" style="padding: 0px; padding-bottom: 1rem;" ng-if="language==1">
+                <div class="business_title">
+                    <div class="fr">
+                        <span ng-repeat="i in pagedatas" ng-class="{awardactive:currentActivity.programId == i.programId}" ng-click="dele(i.programId)">{{i.name}}{{i.status==0?'(未开始)':i.status==1?'(抢购中)':i.status==2?'(已售罄)':'(已结束)'}}</span>
+                    </div>
+                    <div class="el-tabs__content" ng-repeat="c in gedatas">
+                        <div class="card-line">
+                            <div class="card 2" role="button" tabindex="0">
+                                <div class="flip">
+                                    <div class="flip-box">
+                                        <div class="flip-item flip-item-front" ng-class="{highest:c.activityCardType==1,highest1:c.activityCardType==2,highest2:c.activityCardType==3}">
+                                            <div class="card-name">{{c.activityCardType==1?'王者卡':c.activityCardType==2?'黄金卡':'白金卡'}}</div>
+                                        </div>
+                                        <div class="flip-item flip-item-back" ng-class="{highest:c.activityCardType==1,highest1:c.activityCardType==2,highest2:c.activityCardType==3}">
+                                            <div class="card-name">共{{c.amount}}张</div>
+                                            <div class="detail" style="    font-size: 12px;padding-right: 14px;padding-top: 0px;color: #fff;">每张附赠{{c.credit}}HYKT</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stock">
+                                 <div class="progress progress-striped active finish">
+                                   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{c.percent*100}}%;">
+                                       <span>{{c.percent*100}}% 完成</span>
+                                   </div>
+                               </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: {{c.percent*100}}%;">
+                                        <div class="progress-value">{{c.percent*100}}%</div>
+                                    </div>
+                                </div>
+                                <div class="stock-amount" ng-show="c.status==1">离结束还有{{ti.times}}</div>
+                                <div class="stock-amount" ng-show="c.status==0">离开始还有{{ti.times1}}</div>
+                                <div class="stock-amount" ng-show="c.status==2" style="border: 0;font-size: 14px;position: absolute;top: 25px;left: 120px;color: #00BFFF;">已售罄</div>
+                                <div class="stock-amount" ng-show="c.status==3" style="font-size: 14px;position: absolute;top: 25px;left: 120px;color: #00BFFF;">已结束</div>
+                            </div>
+                            <div class="price">
+                                <button type="button" class="btn btn-primary" style="border: 0;background-color: #00BFFF;color: #FFFFFF;height: 46px;font-size: 18px;" ui-sref="logged.purchase({activityId: c.activityId,credit:c.credit ,activityCardType:c.activityCardType})">去抢购</button>
+                                <button type="button" class="btn btn-danger" disabled="disabled" style="border: 0;background-color: #00A4DB;color: #00BFFF;height: 46px;font-size: 18px;display: none">未开始</button>
+                                <button type="button" class="btn btn-default" disabled="disabled" style="border: 0;background-color: #C0C8D5;color: #8D939D;height: 46px;font-size: 18px;display: none">已售罄</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="business" style="padding: 0px; padding-bottom: 1rem;">
+                <div class="business_title">
+                    <div class="fr">
+                        <span ng-repeat="i in pagedatas" ng-class="{awardactive:currentActivity.programId == i.programId}" ng-click="dele(i.programId)">{{i.name}}({{i.status==0?lang.lang489:i.status==1?lang.lang490:i.status==2?lang.lang491:i.status==3?lang.lang492：lang.lang509}})</span>
+                    </div>
+                    <div class="el-tabs__content" ng-repeat="c in gedatas">
+                        <div class="card-line">
+                            <div class="card 2" role="button" tabindex="0">
+                                <div class="flip">
+                                    <div class="flip-box">
+                                        <div class="flip-item flip-item-front" ng-class="{highest:c.activityCardType==1,highest1:c.activityCardType==2,highest2:c.activityCardType==3}" style="text-align: center;">
+                                            <div class="card-name">{{c.activityCardType==1?lang.lang493:c.activityCardType==2?lang.lang494:lang.lang495}}</div>
+                                        </div>
+                                        <div class="flip-item flip-item-back" ng-class="{highest:c.activityCardType==1,highest1:c.activityCardType==2,highest2:c.activityCardType==3}">
+                                            <div class="card-name" style="margin-right: 50px;">{{lang.lang344}}{{c.amount}}{{lang.lang500}}</div>
+                                            <div class="detail" style="font-size: 12px;padding-right: 14px;padding-top: 0px;color: #fff;margin-right: -12px;">{{lang.lang496}} {{c.credit}} HYKT</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stock">
+                                <!--  <div class="progress progress-striped active finish">
+                                   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{c.percent*100}}%;">
+                                       <span>{{c.percent*100}}% 完成</span>
+                                   </div>
+                               </div> -->
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: {{c.percent*100}}%;">
+                                        <div class="progress-value">{{c.percent*100}}%</div>
+                                    </div>
+                                </div>
+                                <div class="stock-amount" ng-show="c.status==1">{{lang.lang497}}{{ti.times}}</div>
+                                <div class="stock-amount" ng-show="c.status==0">{{lang.lang498}}{{ti.times1}}</div>
+                                <div class="stock-amount" ng-show="c.status==2" style="border: 0;font-size: 14px;position: absolute;top: 25px;left: 120px;color: #00BFFF;">{{lang.lang491}}</div>
+                                <div class="stock-amount" ng-show="c.status==3" style="font-size: 14px;position: absolute;top: 25px;left: 120px;color: #00BFFF;">{{lang.lang492}}</div>
+                            </div>
+                            <div class="price">
+                                <button type="button" class="btn btn-primary" style="border: 0;background-color: #00BFFF;color: #FFFFFF;height: 46px;font-size: 18px;" ui-sref="logged.purchase({activityId: c.activityId,credit:c.credit ,activityCardType:c.activityCardType})">{{lang.lang499}}</button>
+                                <button type="button" class="btn btn-danger" disabled="disabled" style="border: 0;background-color: #00A4DB;color: #00BFFF;height: 46px;font-size: 18px;display: none">{{lang.lang489}}</button>
+                                <button type="button" class="btn btn-default" disabled="disabled" style="border: 0;background-color: #C0C8D5;color: #8D939D;height: 46px;font-size: 18px;display: none">{{lang.lang491}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="down">
+        <div class="xt-img">
+            <img ng-if="language==1" src="../img/11.png" alt="" style="height: 851px;">
+            <img ng-if="language==2" src="../img/11s.png" alt="" style="height: 851px;"></div>
+    </div>
+</div>

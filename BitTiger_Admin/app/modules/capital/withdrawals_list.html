@@ -1,0 +1,96 @@
+<main>
+   	<div class="page-content"> 
+        <div class="content container" style="overflow:hidden;"> 
+    	    <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);"> 
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">提币列表</a> 
+            </div>
+        	<div class="widget-content example_alt_pagination">
+        		<div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="手机号/邮箱" ng-model="params.userName">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">币种：</label>
+                            <select class="form-control" ng-model="params.coinId" >
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinList" value="{{item.id}}" >{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">提币状态：</label>
+                            <select class="form-control" ng-model="params.status" >
+                                <option value="">全部</option>
+                                <option value="0">申请</option> 
+                                <option value="1">撤销</option> 
+                                <option value="2">成功</option> 
+                                <option value="3">失败</option> 
+                                <option value="4">提币中</option> 
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">提币时间：</label>
+                            <input size="16" type="text" ng-model="params.startTime" readonly class="form_datetime" > 至 
+                            <input size="16" type="text" ng-model="params.endTime" readonly class="form_datetime" >
+                        </div>
+                        <div class="form-group">   
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                    </form>
+                </div>
+        	    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        	      	<thead>
+        		        <tr>
+                            <th>提币订单号</th>
+                            <th>手机号</th>
+                            <th>邮箱</th>
+                            <th>提币币种</th>
+                            <th>提币地址</th>
+                            <th>提币数量</th>
+                            <th>手续费</th>
+                            <th>提币状态</th>
+                            <th>提交时间</th>
+                            <th>到账时间</th>
+                            <th>审核意见</th>
+                            <th>操作</th>
+        		        </tr>
+        	        </thead>
+        	        <tbody>
+                	</tbody>
+        	  	</table>
+            </div>
+        </div> 
+   </div>
+</main>
+<!-- 确认弹窗 -->
+<div class="modal confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog " style="width: 480px;" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">审核</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="auditForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label">审核意见：</label>
+                        <div>
+                            <textarea class="form-control" rows="4" name="auditOpinionDetail" ng-model="auditParams.auditOpinionDetail" required ></textarea>
+                            <div class="tipbox">
+                                <div class="tip_tishi" ng-show="auditForm.auditOpinionDetail.$error.required">
+                                    审核意见必填
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="drawCoinConfirm(0)" ng-disabled="auditForm.$invalid" >通过</button>
+                <button type="button" class="btn btn-default" ng-click="drawCoinConfirm(1)" ng-disabled="auditForm.$invalid" >驳回</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

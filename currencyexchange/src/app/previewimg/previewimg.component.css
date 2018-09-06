@@ -1,0 +1,32 @@
+.preview-wrap {
+  width: 100%;
+  height:160px;
+  background:rgba(248,249,250,1);
+  border-radius: 4px;
+  text-align: center;
+  padding-top: 40px;
+  position: relative;
+}
+.preview-label>input {
+  display: none;
+}
+.preview-wrap .preview-tip{
+  margin-bottom: 20px;
+}
+
+.icon_close{
+  background: url('../../assets/images/icon_close.png') no-repeat;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  margin-left: 5px;
+}
+
+.preview-wrap .close{
+  position: absolute;
+  font-size: 14px;
+  top: 15px;
+  right: 70px;
+}

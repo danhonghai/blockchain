@@ -1,0 +1,14 @@
+<div class="container-full handicap bg-body" style="padding-top:6rem; padding-bottom:15px; overflow: hidden;">
+	<div class="container">
+		<div class="notice div-block ">
+			<div class="notice_tit border-152669 font-1">
+				{{lang.lang421}}
+			</div>
+			<div class="notice_cen">
+				<ul>
+					<li class="border-152669" ng-repeat="noticelist in noticelists"><a href="javascript:" class="font-1" ng-click="linknotice(noticelist.id)">{{noticelist.title}}</a><span class="font-3">{{noticelist.createdTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

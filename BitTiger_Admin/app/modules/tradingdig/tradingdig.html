@@ -1,0 +1,114 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="active" style="float: left;margin-top: -2px;width: 114px;">
+                        <a href="#set" data-toggle="tab">设置</a>
+                    </li>
+                    <li style="float: left;margin-top: -2px;width: 114px;"><a href="#statistics" data-toggle="tab">统计</a></li>
+                </ul>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="set">
+                        <div class="form-group navbar-right">
+                            <button ng-show="trans.status==1" type="button" class="btn btn-info" ng-click="stope()">结束挖矿</button>
+                        </div>
+                        <form class="form-inline" name="myForm" novalidate>
+                            <div class="form-group" style="margin-bottom: 15px;width: 28%;">
+                                <label class="control-label">挖矿总量：</label>
+                                <input type="text" class="form-control" name="digTaltol" placeholder="请输入挖矿总量" ng-model="trans.digTaltol" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">
+                                <span style="color:#d70000;" style="color:#d70000;margin-left: 115px;" ng-show="myForm.digTaltol.$error.required">数据必填</span>
+                                <span style="color:#d70000;" ng-show="myForm.digTaltol.$error.pattern">数据不合规范</span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;width: 28%;">
+                                <label class="control-label">挖矿比例：</label>
+                                <input type="text" class="form-control" name="digRate" placeholder="请输入挖矿比例" ng-model="trans.digRate" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">%
+                                <span style="color:#d70000;" ng-show="myForm.digRate.$error.required">数据必填</span>
+                                <span style="color:#d70000;" ng-show="myForm.digRate.$error.pattern">数据不合规范</span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;width: 28%;">
+                                <label class="control-label">返佣比例：</label>
+                                <input type="text" class="form-control" name="rakeBackRate" placeholder="请输入返佣比例" ng-model="trans.rakeBackRate" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">%
+                                <span style="color:#d70000;" ng-show="myForm.rakeBackRate.$error.required">数据必填</span>
+                                <span style="color:#d70000;" ng-show="myForm.rakeBackRate.$error.pattern">数据不合规范</span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;width: 28%;">
+                                <label class="control-label">返佣时长：</label>
+                                <input type="text" class="form-control" name="rakeBackTime" placeholder="请输入返佣时长" ng-model="trans.rakeBackTime" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">
+                                <span style="color:#d70000;" ng-show="myForm.rakeBackTime.$error.required">数据必填</span>
+                                <span style="color:#d70000;" ng-show="myForm.rakeBackTime.$error.pattern">数据不合规范</span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;width: 28%;">
+                                <label class="control-label">开始时间：</label>
+                                <input size="16" style="width: 184px;height: 34px;" name="startTime" type="text" ng-model="trans.startTime" readonly class="form_datetime" required>
+                                <span style="color:#d70000;" ng-show="myForm.startTime.$error.required">数据必填</span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;width: 28%;" required>
+                                <label class="control-label">结束时间：</label>
+                                <input size="16" style="width: 184px;height: 34px;" name="endTime" type="text" ng-model="trans.endTime" readonly class="form_datetime" required>
+                                <span style="color:#d70000;" ng-show="myForm.endTime.$error.required">数据必填</span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 15px;display: flex;">
+                                <label class="control-label">支持交易对：</label>
+                                <div ng-repeat="k in transList" style="margin-right: 25px;">
+                                    <input type="checkbox" ng-true-value="{{k.id}}" ng-model="$parent.transType[$index]" /><span style="position: relative;top: -2px;left: 5px;display: inline-block;">{{k.transPair}}</span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <button style="margin-left: 76px;width: 120px;" type="button" class="btn btn-primary" ng-disabled="!myForm.$valid" ng-click="savecoins()" ng-show="!trans.id">添加</button>
+                            </div>
+                            <div class="form-group">
+                                <button style="margin-left: 76px;width: 120px;" type="button" class="btn btn-primary" ng-disabled="!myForm.$valid" ng-click="savecxg()" ng-show="trans.id">修改</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="statistics">
+                        <div>
+                            <label class="control-label">剩余HYKT：</label>
+                            <div class="text-center" style="font-size: 90px">
+                                <span class="text-top ng-binding">{{translat.digLeftAmount | number}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="#" class="stats-container">
+                                    <div class="stats-heading">历史挖矿总量(HYKT)：</div>
+                                    <div class="stats-body-alt">
+                                        <div class="text-center"><span class="text-top ng-binding">{{translat.digTotal}}</span></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="#" class="stats-container">
+                                    <div class="stats-heading">历史返佣总量(HYKT)：</div>
+                                    <div class="stats-body-alt">
+                                        <div class="text-center"><span class="text-top ng-binding">{{translat. rakeBackTotal}}</span></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="#" class="stats-container">
+                                    <div class="stats-heading">昨日挖矿总量(HYKT)：</div>
+                                    <div class="stats-body-alt">
+                                        <div class="text-center"><span class="text-top ng-binding">{{translat.yDigTotal}}</span></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <a href="#" class="stats-container">
+                                    <div class="stats-heading">昨日返佣总量(HYKT)：</div>
+                                    <div class="stats-body-alt">
+                                        <div class="text-center"><span class="text-top ng-binding">{{translat.yRakeBackTotal}}</span></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

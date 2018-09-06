@@ -1,0 +1,21 @@
+/* 分页 */
+.pagination a {
+  color: #333 !important;
+}
+.pagination .page-item.active .page-link {
+  color: #fff !important;
+}
+.page-link:focus {
+  z-index: auto !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.posirela {
+  height: 97%;
+  position: relative;
+}
+.pagebox {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}

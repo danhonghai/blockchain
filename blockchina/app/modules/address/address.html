@@ -1,0 +1,189 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="row" >
+            <div class="col col-md-3">
+                <ul class="userinfoside">
+                    <li class="side-item active b-menu border-152669" ui-sref="logged.assetscentre_capital"><img style="margin-right: 15px;" src="img/zczhh.png">{{lang.lang32}}</li>
+                    <li class="side-item b-menu border-152669" ui-sref="logged.capitalflow_capital"><img style="margin-right: 15px;" src="img/security_0.png">{{lang.lang33}}</li>
+                </ul>
+            </div>
+            <div class="col col-md-9">
+                <div class="card div-block" style="margin-bottom: 1rem;">
+                    <div class="card-header info-header border-152669 font-1">
+                        {{lang.lang34}}
+                    </div>
+                    <div class="card-body info-body" >
+                        <form class="info-form" novalidate name="addressform" >
+                            <div class="form-group">
+                                <label>{{lang.lang35}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.id.$dirty && addressform.id.$error.required">
+                                        {{lang.lang49}}
+                                    </div>
+                                </div>
+                                <select class="custom-select" name="id" ng-model="data.id" required>
+                                    <option ng-repeat="c in coinlists" value="{{c.id}}">{{c.name}} ({{c.nameCn}})</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang36}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.address.$dirty && addressform.address.$error.required">
+                                        {{lang.lang37}}
+                                    </div>
+                                    <div class="tip_tishi" ng-show="addressform.address.$dirty && addressform.address.$error.pattern">
+                                        {{lang.lang50}}
+                                    </div>
+                                </div>
+                                <input type="text" ng-model="data.address" name="address" class="form-control" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]+$">
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang38}}</label>
+                                <!-- <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.remark.$dirty && addressform.remark.$error.required">
+                                        {{lang.lang51}}
+                                    </div>
+                                </div> -->
+                                <input type="text" ng-model="data.remark" name="remark" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang42}}：</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.capCode.$dirty && addressform.capCode.$error.required">
+                                        {{lang.lang43}}
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" ng-model="imgdata.capCode" name="capCode" class="form-control" required>
+                                    <div class="input-group-append" ng-click="getCaptcha()">
+                                        <button class="btn code-bg padding0" type="button"><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" ></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang231}} {{userInfo.phoneFilter}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.code.$dirty && addressform.code.$error.required">
+                                        {{lang.lang185}}
+                                    </div>
+                                </div>
+                                <div class="input-group" ng-if="userInfo.phoneFilter">
+                                    <input type="text" class="form-control" required ng-model="data.code" name="code" >
+                                    <div class="input-group-append">
+                                        <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_phone',userInfo.phone,1)" id="sendButton_phone" >{{lang.lang46}}</button>
+                                    </div>
+                                </div>
+                                <div class="form-control-plaintext font-2" ng-if="!userInfo.phoneFilter"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang461}} <a class="text-primary" ui-sref="logged.setmobile_userinfo">{{lang.lang462}} >></a></div>
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang119}} {{userInfo.emailFilter}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.emailCode.$dirty && addressform.emailCode.$error.required">
+                                        {{lang.lang227}}
+                                    </div>
+                                </div>
+                                <div class="input-group" ng-if="userInfo.emailFilter">
+                                    <input type="text" class="form-control" required ng-model="data.emailCode" name="emailCode" >
+                                    <div class="input-group-append">
+                                        <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_email',userInfo.email,2)" id="sendButton_email" >{{lang.lang46}}</button>
+                                    </div>
+                                </div>
+                                <div class="form-control-plaintext font-2" ng-if="!userInfo.emailFilter"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang467}} <a class="text-primary" ui-sref="logged.setemail_userinfo">{{lang.lang210}} >></a></div>
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang47}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.ggCode.$dirty && addressform.ggCode.$error.required">
+                                        {{lang.lang48}}
+                                    </div>
+                                    <div class="tip_tishi" ng-show="addressform.ggCode.$dirty && addressform.ggCode.$error.pattern">
+                                        {{lang.lang268}}
+                                    </div>
+                                </div>
+                                <input ng-if="userInfo.googleAuth" type="text" name="ggCode" ng-model="data.ggCode" class="form-control" required pattern="^\d{6}$">
+                                <div class="form-control-plaintext font-2" ng-if="!userInfo.googleAuth"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang463}} <a class="text-primary" ui-sref="logged.verifygoogle_userinfo">{{lang.lang211}} >></a></div>
+                            </div>
+                            <div class="form-group">
+                                <label>{{lang.lang215}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="addressform.capitalPwd.$dirty && addressform.capitalPwd.$error.required">
+                                        {{lang.lang232}}
+                                    </div>
+                                </div>
+                                <input ng-if="userInfo.fundSite" type="password" name="capitalPwd" ng-model="data.capitalPwd" class="form-control" required>
+                                <div class="form-control-plaintext font-2" ng-if="!userInfo.fundSite"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang464}} <a class="text-primary" ui-sref="logged.setfundpwd_userinfo">{{lang.lang215}} >></a></div>
+                            </div>
+                            <div class="form-group" ng-if="!userInfo.identification">
+                                <label>{{lang.lang359}}</label>
+                                <div class="new_tipbox" >
+                                    <div class="tip_tishi" ng-show="myForm.account.$dirty && myForm.account.$error.required">
+                                        {{lang.lang117}}
+                                    </div>
+                                </div>
+                                <div class="form-control-plaintext font-2"><img style="margin-right: .5rem;" src="img/icon_state_remind.png">{{lang.lang465}} <a class="text-primary" ui-sref="logged.realname_userinfo">{{lang.lang359}} >></a></div>
+                            </div>
+                            <div class="tipbox" style="margin-bottom: 1rem;">
+                                <div class="tip_tishi" ng-show="!userInfo.phoneFilter || !userInfo.emailFilter || !userInfo.googleAuth || !userInfo.fundSite || !userInfo.identification">
+                                    {{lang.lang466}}
+                                </div>
+                                <!-- <div class="tip_tishi" ng-show="addressform.id.$dirty && addressform.id.$error.required">
+                                    {{lang.lang49}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.address.$dirty && addressform.address.$error.required">
+                                    {{lang.lang37}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.address.$dirty && addressform.address.$error.pattern">
+                                    {{lang.lang50}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.remark.$dirty && addressform.remark.$error.required">
+                                    {{lang.lang51}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.code.$dirty && addressform.code.$error.required">
+                                    {{lang.lang185}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.emailCode.$dirty && addressform.emailCode.$error.required">
+                                    {{lang.lang227}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.ggCode.$dirty && addressform.ggCode.$error.required">
+                                    {{lang.lang48}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.ggCode.$dirty && addressform.ggCode.$error.pattern">
+                                    {{lang.lang268}}
+                                </div>
+                                <div class="tip_tishi" ng-show="addressform.capitalPwd.$dirty && addressform.capitalPwd.$error.required">
+                                    {{lang.lang232}}
+                                </div> -->
+                            </div>
+                            <button type="submit" class="btn btn-default btn-block" style="margin-bottom: 2rem;" ng-disabled="addressform.$invalid || !userInfo.phoneFilter || !userInfo.emailFilter || !userInfo.googleAuth || !userInfo.fundSite || !userInfo.identification" ng-click="addressfun()" >{{lang.lang55}}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card div-block" style="margin-bottom: 1rem;">
+                    <div class="card-header info-header border-152669 font-1">
+                        {{lang.lang56}}
+                    </div>
+                    <div class="card-body info-body">
+                        <div class="row font-2" style="line-height: 3rem;">
+                            <div class="col">{{lang.lang15}}</div>
+                            <div class="col-6">{{lang.lang36}}</div>
+                            <div class="col-2">{{lang.lang38}}</div>
+                            <!-- <div class="col">{{lang.lang57}}</div> -->
+                            <div class="col">{{lang.lang58}}</div>
+                        </div>
+                        <h3 class="text-center text-secondary" ng-if="addresslists.length == 0"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></h3>
+                        <div class="row bottom-split border-152669" style="line-height: 3rem; color: #D3D8EE;" ng-repeat="a in addresslists">
+                            <div class="col">{{a.coinName}}</div>
+                            <div class="col-6">{{a.account}}</div>
+                            <div class="col-2" title="{{a.remark}}" ng-if="a.remark">{{a.remark | limitTo:6}}{{a.remark.length>6?"...":""}}</div>
+                            <div class="col-2" ng-if="!a.remark">--</div>
+                            <!-- <div class="col">{{a.status == 0? lang.lang349:a.status == 1? lang.lang60:lang.lang61}}</div> -->
+                            <div class="col">
+                                <button type="button" class="btn btn-danger btn-sm" ng-if="a.status != 2" ng-click="deleteadrss(a.account,a.coinId);">{{lang.lang62}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

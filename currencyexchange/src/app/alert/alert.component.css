@@ -1,0 +1,8 @@
+.tip{
+  position: fixed;
+  top: 15px;
+  z-index: 9999;
+  left: 50%;
+  width: 500px;
+  margin-left: -250px;
+}

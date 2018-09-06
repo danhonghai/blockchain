@@ -1,0 +1,249 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">菜单管理</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form" style="margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label class="control-label">菜单名称：</label>
+                            <input type="text" class="form-control" placeholder="输入菜单名称" ng-model="condition.menuName">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">父菜单名称：</label>
+                            <input type="text" class="form-control" placeholder="输入父菜单名称" ng-model="condition.parentName">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">查询</button>
+                            <button class="btn btn-refresh" ng-click="searchFun(1)">清空条件</button>
+                        </div>
+                        <div class="form-group" style="float: right;">
+                            <button type="button" class="btn btn-primary" ng-click="viewDitail()"><i class="fa fa-plus"></i>添加</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>菜单名称</th>
+                            <th>父菜单名称</th>
+                            <th>请求地址</th>
+                            <th>排序</th>
+                            <th>层级</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 添加菜单弹出框 -->
+<div class="modal fade view-detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;overflow: hidden;" id="boxs">
+    <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">添加菜单</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline form-model" name="angularForm" novalidate method="post" id="myform">
+                    <div class="form-group " style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">名称：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px;" name="name" ng-model="zNodes.name" style="padding-right: 15px;">
+                        <span class="warning" style="position: fixed; top: 114px;left: 397px;color: red;" ng-show="angularForm.name.$error.required">必填</span>
+                    </div>
+                    <div class="form-group" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">请求地址：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="data" ng-model="zNodes.data" style="padding-right: 15px;" pattern="^(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$" required>
+                        <span class="warning" style="position: fixed;  top: 115px;right:92px;color: red;" ng-show="angularForm.data.$error.required">必填</span>
+                        <span class="warning" style="position: fixed;  top: 115px;right:42px;color: red;" ng-show="angularForm.data.$error.pattern">格式有误</span>
+                    </div>
+                    <div class="form-group" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">菜单描述：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px;" name="description" ng-model="zNodes.description">
+                        <span class="warning" style="position: fixed; top: 155px;left: 397px;color: red;" ng-show="angularForm.description.$error.required">必填</span>
+                    </div>
+                    <div class="form-group" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">排序：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="orderNum" ng-model="zNodes.orderNum" required onkeyup="value=value.replace(/[^1234567890-]+/g,'')">
+                        <span class="warning" style="position: fixed;  top: 155px;right: 64px;color: red;" ng-show="angularForm.orderNum.$error.required">只限数字</span>
+                    </div>
+                    <div class="form-group" id="father" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">父级菜单：</label>
+                        <input id="citySels" type="text" required="required " value="" ng-focus="isShowTree = true" name="parent " ng-model="zNodes.parent " style="width: 250px;height: 34px;border-radius: 4px;border: 1px solid #e2e2e4;box-shadow: none;background-color: #eee;color: #666 !important;" ng-click="showMenu();$event.stopPropagation()" readonly="">
+                        <span class="warning" style="position: fixed;  top: 202px;right:475px;color: red;" ng-show="angularForm.parent.$error.required">必填</span>
+                    </div>
+                    <div id="menuContent" class="menuContent" style="position: absolute; left: 59.6563px; top: 131px; display: block;" ng-show="isShowTree">
+                        <ul id="treeDemo" class="ztree" id="first_tree" style="background: #f9f9f9;margin-top: 0;width: 244px;position: absolute;left: 77px;z-index: 100;top: 10px;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2) !important;" ng-click="$event.stopPropagation()"></ul>
+                    </div>
+                    <div class="form-group " style="margin-right: -15px; ">
+                        <label class="control-label " style="text-align: right;width: 100px; ">是否是菜单：</label>
+                        <select class="form-control " style="width: 250px; " selected="selected " ng-model="zNodes.status " id="ismenus" name="status">
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                    <div class="form-group " style="padding-right: 15px; ">
+                        <label class="control-label " style="text-align: right;width: 100px; ">图标：</label>
+                        <!-- End 模拟下拉框 -->
+                        <div class="select">
+                            <div class="input_in">
+                                <!--  <i id="icons" class="shortcut-icon {{menss.icon}}">{{menss.icon}}</i> -->
+                                <input type="text" style="color: #666 !important;"  readonly="readonly" required name="icon" ng-model="zNodes.icon" />
+                            </div>
+                            <div class="city hide">
+                                <ul id="parent">
+                                    <li><i class="shortcut-icon icon-glass" data-name='icon-glass'></i>icon-glass</li>
+                                    <li><i class="shortcut-icon icon-list" data-name='icon-list'></i>icon-list</li>
+                                    <li><i class="shortcut-icon icon-comment" data-name='icon-comment'></i>icon-comment</li>
+                                    <li><i class="shortcut-icon icon-search" data-name='icon-search'></i>icon-search</li>
+                                    <li><i class="shortcut-icon icon-envelope" data-name='icon-envelope'></i>icon-envelope</li>
+                                    <li><i class="shortcut-icon icon-user" data-name='icon-user'></i>icon-user</li>
+                                    <li><i class="shortcut-icon icon-star" data-name='icon-star'></i>icon-star</li>
+                                    <li><i class="shortcut-icon icon-folder-open" data-name='icon-folder-open'></i>icon-folder-open</li>
+                                    <li><i class="shortcut-icon icon-edit" data-name='icon-edit'></i>icon-edit</li>
+                                    <li><i class="shortcut-icon icon-share" data-name='icon-share'></i>icon-share</li>
+                                    <li><i class="shortcut-icon icon-check" data-name='icon-check'></i>icon-check</li>
+                                    <li><i class="shortcut-icon icon-key" data-name='icon-key'></i>icon-key</li>
+                                    <li><i class="shortcut-icon icon-zoom-in" data-name='icon-zoom-in'></i>icon-zoom-in</li>
+                                    <li><i class="shortcut-icon icon-ok" data-name='icon-ok'></i>icon-ok</li>
+                                    <li><i class="shortcut-icon icon-trash" data-name='icon-trash'></i>icon-trash</li>
+                                    <li><i class="shortcut-icon icon-cog" data-name='icon-cog'></i> icon-cog</li>
+                                    <li><i class="shortcut-icon icon-home" data-name='icon-home'></i>icon-home</li>
+                                    <li><i class="shortcut-icon icon-comments" data-name='icon-comments'></i> icon-comments</li>
+                                    <li><i class="shortcut-icon icon-heart-empty" data-name='icon-heart-empty'></i> icon-heart-empty</li>
+                                    <li><i class="shortcut-icon icon-signin" data-name='icon-signin'></i>icon-signin</li>
+                                    <li><i class="shortcut-icon icon-lock" data-name='icon-lock'></i> icon-lock</li>
+                                    <li><i class="shortcut-icon icon-envelope-alt" data-name='icon-envelope-alt'></i> icon-envelope-alt</li>
+                                    <li><i class="shortcut-icon icon-dashboard" data-name='icon-dashboard'></i> icon-dashboard</li>
+                                    <li><i class="shortcut-icon icon-tags" data-name='icon-tags'></i> icon-tags</li>
+                                    <li><i class="shortcut-icon icon-bell" data-name='icon-bell'></i> icon-bell</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="warning " style="position: fixed; top: 200px;right:92px;color: red;" ng-show="angularForm.icon.$error.required ">必填</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary okBtn" type="button"  ng-click="viewDit() " id="ensure">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button><!-- ng-disabled="!angularForm.$invalid " -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改菜单弹出框 -->
+<div class="modal fade viewes-detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;overflow: hidden;" id="boxws">
+    <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">修改菜单</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline form-model" name="anForm" novalidate method="post" id="anForm">
+                    <div class="form-group " style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">名称：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px;" name="name" ng-model="zNodes.name" style="padding-right: 15px;">
+                        <span class="warning" style="position: fixed; top: 114px;left: 397px;color: red;" ng-show="anForm.name.$error.required">必填</span>
+                    </div>
+                    <div class="form-group" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">请求地址：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="data" ng-model="zNodes.data" style="padding-right: 15px;" pattern="^(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$" required>
+                        <span class="warning" style="position: fixed;  top: 115px;right:92px;color: red;" ng-show="anForm.data.$error.required">必填</span>
+                        <span class="warning" style="position: fixed;  top: 115px;right:42px;color: red;" ng-show="anForm.data.$error.pattern">格式有误</span>
+                    </div>
+                    <div class="form-group" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">菜单描述：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px;" name="description" ng-model="zNodes.description">
+                        <span class="warning" style="position: fixed; top: 155px;left: 397px;color: red;" ng-show="anForm.description.$error.required">必填</span>
+                    </div>
+                    <div class="form-group" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">排序：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="orderNum" ng-model="zNodes.orderNum" required onkeyup="value=value.replace(/[^1234567890-]+/g,'')">
+                        <span class="warning" style="position: fixed;  top: 155px;right: 64px;color: red;" ng-show="anForm.orderNum.$error.required">只限数字</span>
+                    </div>
+                    <div class="form-group" id="father" style="padding-right: 15px;">
+                        <label class="control-label" style="text-align: right;width: 100px;">父级菜单：</label>
+                        <input id="citySel" type="text" required="required " value="" ng-focus="isShowTree = true" name="parent" ng-model="zNodes.parent" style="width: 250px;height: 34px;border-radius: 4px;border: 1px solid #e2e2e4;box-shadow: none;background-color: #eee;color: #666 !important;" ng-click="showMenues(data);$event.stopPropagation()" readonly="">
+                        <span class="warning" style="position: fixed;  top: 202px;right:475px;color: red;" ng-show="anForm.parent.$error.required">必填</span>
+                    </div>
+                    <div id="menuContent" class="menuContent" style="position: absolute; left: 59.6563px; top: 131px; display: block;" ng-show="isShowTree">
+                        <ul id="treesDemo" class="ztree" style="background: #f9f9f9;margin-top: 0;width: 244px;position: absolute;left: 77px;z-index: 100;top: 10px;box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2) !important;" ng-click="$event.stopPropagation()"></ul>
+                    </div>
+                    <div class="form-group " style="padding-right: 15px; ">
+                        <label class="control-label " style="text-align: right;width: 100px; ">图标：</label>
+                        <!-- End 模拟下拉框 -->
+                        <div class="select">
+                            <div class="input_in">
+                                <input type="text" style="color: #666 !important;" required readonly="readonly" name="icon" ng-model="zNodes.icon" />
+                            </div>
+                            <div class="city hide">
+                                <ul id="parent">
+                                    <li><i class="shortcut-icon icon-glass" data-name='icon-glass'></i>icon-glass</li>
+                                    <li><i class="shortcut-icon icon-list" data-name='icon-list'></i>icon-list</li>
+                                    <li><i class="shortcut-icon icon-comment" data-name='icon-comment'></i>icon-comment</li>
+                                    <li><i class="shortcut-icon icon-search" data-name='icon-search'></i>icon-search</li>
+                                    <li><i class="shortcut-icon icon-envelope" data-name='icon-envelope'></i>icon-envelope</li>
+                                    <li><i class="shortcut-icon icon-user" data-name='icon-user'></i>icon-user</li>
+                                    <li><i class="shortcut-icon icon-star" data-name='icon-star'></i>icon-star</li>
+                                    <li><i class="shortcut-icon icon-folder-open" data-name='icon-folder-open'></i>icon-folder-open</li>
+                                    <li><i class="shortcut-icon icon-edit" data-name='icon-edit'></i>icon-edit</li>
+                                    <li><i class="shortcut-icon icon-share" data-name='icon-share'></i>icon-share</li>
+                                    <li><i class="shortcut-icon icon-check" data-name='icon-check'></i>icon-check</li>
+                                    <li><i class="shortcut-icon icon-key" data-name='icon-key'></i>icon-key</li>
+                                    <li><i class="shortcut-icon icon-zoom-in" data-name='icon-zoom-in'></i>icon-zoom-in</li>
+                                    <li><i class="shortcut-icon icon-ok" data-name='icon-ok'></i>icon-ok</li>
+                                    <li><i class="shortcut-icon icon-trash" data-name='icon-trash'></i>icon-trash</li>
+                                    <li><i class="shortcut-icon icon-cog" data-name='icon-cog'></i> icon-cog</li>
+                                    <li><i class="shortcut-icon icon-home" data-name='icon-home'></i>icon-home</li>
+                                    <li><i class="shortcut-icon icon-comments" data-name='icon-comments'></i> icon-comments</li>
+                                    <li><i class="shortcut-icon icon-heart-empty" data-name='icon-heart-empty'></i> icon-heart-empty</li>
+                                    <li><i class="shortcut-icon icon-signin" data-name='icon-signin'></i>icon-signin</li>
+                                    <li><i class="shortcut-icon icon-lock" data-name='icon-lock'></i> icon-lock</li>
+                                    <li><i class="shortcut-icon icon-envelope-alt" data-name='icon-envelope-alt'></i> icon-envelope-alt</li>
+                                    <li><i class="shortcut-icon icon-dashboard" data-name='icon-dashboard'></i> icon-dashboard</li>
+                                    <li><i class="shortcut-icon icon-tags" data-name='icon-tags'></i> icon-tags</li>
+                                    <li><i class="shortcut-icon icon-bell" data-name='icon-bell'></i> icon-bell</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group " style="margin-right: -15px; ">
+                        <label class="control-label " style="text-align: right;width: 100px; ">是否是菜单：</label>
+                        <select class="form-control " style="width: 250px; " ng-model="zNodes.status" id="ismenu" name="status">
+                            <option value="0">禁用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary okBtn" type="button"  ng-click="amendDit(data)" id="ensure">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button><!-- ng-disabled="!anForm.$invalid " -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 删除菜单提示框 -->
+<div class="modal fade in info-modal " id="alertModal " tabindex="-1 " role="dialog " aria-labelledby="myLargeModalLabel" aria-hidden="true " style="display: none;overflow: hidden; " id="boxs">
+    <div class="modal-dialog modal-sm " style="margin-top:200px; width: 300px; ">
+        <div class="modal-content " style="border: 1px solid #dbdbdb;box-shadow: 3px 5px 10px #ccc; ">
+            <div class="modal-header " ng-click="viewDte()">
+                <button type="button " class="close " data-dismiss="modal " aria-hidden="true ">×</button>
+                <h5 class="modal-title " id="myLargeModalLabel">提示信息</h5>
+            </div>
+            <div class="modal-body ">是否刪除该菜单?</div>
+            <div class="modal-footer ">
+                <button class="btn btn-primary okBtn " type="button " data-dismiss="modal " ng-click="deletqdDit() ">确定</button>
+                <button type="button " class="btn btn-default " ng-click="viewDte()" data-dismiss="modal ">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

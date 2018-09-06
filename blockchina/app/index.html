@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>哈耶克交易平台HayekEx-有态度的全球数字资产交易所</title>
+        <meta content="比特币交易平台，数字资产交易平台，数字货币交易平台，比特币交易，莱特币交易，以太坊，比特币价格，比特币行情，比特币投资，买比特币，BTC，LTC，ETH，USDT,HayekEx" name="keywords">
+        <meta content="哈耶克交易网是一家有态度的全球数字资产交易所，为全球数字货币爱好者提供安全、便捷、专业的比特比(BTC)、以太坊(ETH)、莱特币(LTC)等交易服务，并提供实时比特币价格、比特币行情，致力打造全球专业的比特币交易平台。" name="description">
+        <meta name="baidu-site-verification" content="bnO5VUIuHg" />
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <!--全站公用样式加载在这里-->
+        <base href="/">
+        <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/common.css?v=1532078336021" />
+        <!-- <link rel="stylesheet" href="vendor/swiper/swiper.min.css" /> -->
+        <link href="vendor/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
+        <!-- 深度图样式 -->
+        <!-- <link rel="stylesheet" href="vendor/export.css" type="text/css" media="all" /> -->
+
+        <script src="vendor/jquery.js"></script>
+        <script src="vendor/bootstrap/popper.min.js"></script>
+        <script src="vendor/bootstrap/bootstrap.min.js"></script>
+        <script src="vendor/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+        <script src="vendor/echart/echarts.min.js"></script>
+        <script src="vendor/stomp.min.js"></script>
+        <script src="vendor/sockjs.min.js"></script>
+        <script src="vendor/md5.js"></script>
+        <!-- <script src="vendor/jquery.mousewheel.js"></script> -->
+        <!-- <script src="vendor/kline.js"></script> -->
+
+        <!--深度图js-->
+        <!-- <script src="vendor/amcharts/amcharts.js"></script>
+        <script src="vendor/amcharts/serial.js"></script>
+        <script src="vendor/amcharts/dataloader.min.js"></script>
+        <script src="vendor/amcharts/export.min.js"></script>
+        <script src="vendor/amcharts/dark.js"></script> -->
+        <!-- charting_library -->
+        <!-- <script type="text/javascript" src="charting_library/charting_library/charting_library.min.js"></script>
+        <script type="text/javascript" src="charting_library/datafeeds/udf/dist/polyfills.js"></script>
+        <script type="text/javascript" src="charting_library/datafeeds/udf/dist/bundle.js"></script> -->
+
+        <script type="text/javascript" src="vendor/jquery.countdown.js"></script>
+    </head>
+    <style>
+  /* Demo Styles - It's all in the SVG  */
+  html {
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+  }
+  .scene {
+    position: relative;
+    z-index: 999999;
+    width: 100%;
+    height: 110%;
+    -webkit-perspective: 600;
+            perspective: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #1a2a60;
+  }
+  .scene svg {
+    width: 240px;
+    height: 240px;
+  }
+
+  .dc-logo {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .dc-logo:hover svg {
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+    -webkit-animation: arrow-spin 2.5s 0s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+            animation: arrow-spin 2.5s 0s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+  }
+  .dc-logo:hover:hover:before {
+    content: '\2764';
+    padding: 6px;
+    font: 10px/1 Monaco, sans-serif;
+    font-size: 10px;
+    color: #00fffe;
+    text-transform: uppercase;
+    position: absolute;
+    left: -70px;
+    top: -30px;
+    white-space: nowrap;
+    z-index: 20px;
+    box-shadow: 0px 0px 4px #222;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .dc-logo:hover:hover:after {
+    content: 'Digital Craft';
+    padding: 6px;
+    font: 10px/1 Monaco, sans-serif;
+    font-size: 10px;
+    color: #6E6F71;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    top: -30px;
+    white-space: nowrap;
+    z-index: 20px;
+    box-shadow: 0px 0px 4px #222;
+    background: rgba(0, 0, 0, 0.4);
+    background-image: none;
+  }
+
+  @-webkit-keyframes arrow-spin {
+    50% {
+      -webkit-transform: rotateY(360deg);
+              transform: rotateY(360deg);
+    }
+  }
+
+  @keyframes arrow-spin {
+    50% {
+      -webkit-transform: rotateY(360deg);
+              transform: rotateY(360deg);
+    }
+  }
+    </style>
+    <body class="windsMind hb-night" >
+        <div class="scene">
+          <svg version="1.1" id="dc-spinner" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="38" height="38" viewBox="0 0 38 38" preserveAspectRatio="xMinYMin meet">
+          <text x="14" y="21" font-family="Monaco" font-size="2px" style="letter-spacing:0.6" fill="grey">LOADING
+             <animate  attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite"/>
+          </text>
+          <path fill="#373a42" d="M20,35c-8.271,0-15-6.729-15-15S11.729,5,20,5s15,6.729,15,15S28.271,35,20,35z M20,5.203
+            C11.841,5.203,5.203,11.841,5.203,20c0,8.159,6.638,14.797,14.797,14.797S34.797,28.159,34.797,20
+            C34.797,11.841,28.159,5.203,20,5.203z">
+          </path>
+
+          <path fill="#373a42" d="M20,33.125c-7.237,0-13.125-5.888-13.125-13.125S12.763,6.875,20,6.875S33.125,12.763,33.125,20
+            S27.237,33.125,20,33.125z M20,7.078C12.875,7.078,7.078,12.875,7.078,20c0,7.125,5.797,12.922,12.922,12.922
+            S32.922,27.125,32.922,20C32.922,12.875,27.125,7.078,20,7.078z">
+          </path>
+
+          <path fill="#2AA198" stroke="#2AA198" stroke-width="0.6027" stroke-miterlimit="10" d="M5.203,20
+                    c0-8.159,6.638-14.797,14.797-14.797V5C11.729,5,5,11.729,5,20s6.729,15,15,15v-0.203C11.841,34.797,5.203,28.159,5.203,20z">
+          <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 20 20"
+                to="360 20 20"
+                calcMode="spline"
+                keySplines="0.4, 0, 0.2, 1"
+                keyTimes="0;1"
+                dur="2s"
+                repeatCount="indefinite" />      
+           </path>
+
+          <path fill="#859900" stroke="#859900" stroke-width="0.2027" stroke-miterlimit="10" d="M7.078,20
+          c0-7.125,5.797-12.922,12.922-12.922V6.875C12.763,6.875,6.875,12.763,6.875,20S12.763,33.125,20,33.125v-0.203
+          C12.875,32.922,7.078,27.125,7.078,20z">
+           <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 20 20"
+              to="360 20 20"
+              dur="1.8s"  
+              repeatCount="indefinite" />
+            </path>
+          </svg>
+        </div>
+        <alert-bar class="alert_bar" message="tipService.message" type="tipService.type"></alert-bar>
+        
+        <div ui-view class=""></div>
+
+        <!--data-main里的 .js 后缀得加上，否则 gulp-rev-all 不会更新它的引用-->
+        <script>
+            setTimeout(function(){
+                $(".scene").animate({height:"0%"});
+                $("html").css("overflow","auto");
+            },3000)
+        </script>
+        <script src="vendor/require/require.js" data-main="bootstrap.js?v=1532078336021"></script>
+    </body>
+</html>

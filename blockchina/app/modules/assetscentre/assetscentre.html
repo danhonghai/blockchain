@@ -1,0 +1,61 @@
+<!-- 账户资产 -->
+<div class="container-full bg-body" style="padding-top: 6rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3">
+                <ul class="userinfoside">
+                    <li class="side-item active b-menu border-152669" ui-sref="logged.assetscentre_capital"><img style="margin-right: 15px;" src="img/zczhh.png">{{lang.lang32}}</li>
+                    <li class="side-item b-menu border-152669" ui-sref="logged.capitalflow_capital"><img style="margin-right: 15px;" src="img/security_0.png">{{lang.lang33}}</li>
+                </ul>
+            </div>
+            <div class="col col-md-9">
+                <div class="card div-block" style="margin-bottom: 1rem;min-height: 410px">
+                    <div class="card-header info-header  border-152669 font-1">
+                        <!-- <a class="float-right c008DFF" href="javascript:" ui-sref="logged.address_capital" style="font-size:14px">{{lang.lang34}}</a> -->
+                        {{lang.lang32}}
+                    </div>
+                    <div class="card-body info-body">
+                        <div class="row font-2" style="line-height: 3rem;">
+                            <div class="col">{{lang.lang15}}</div>
+                            <div class="col">{{lang.lang66}}</div>
+                            <div class="col">{{lang.lang67}}</div>
+                            <div class="col">{{lang.lang58}}</div>
+                        </div>
+                        <div class="row font-1" style="line-height: 3rem;" ng-repeat="p in pagedatas.dataList">
+                            <div class="col" ng-bind="p.coinName"></div>
+                            <div class="col" ng-bind="p.coinAvailable | number:8"></div>
+                            <div class="col" ng-bind="p.coinFreeze | number:8"></div>
+                            <div class="col">
+                                <a class="cursorClass c008DFF" ng-if="p.coinStatus == 1" ng-click="tolinkrecharge(p.coinId,p.coinName)" style="margin-right: 46px;">{{lang.lang68}}</a>
+                                <a class="cursorClass c008DFF" ng-click="tolinkwithdraw(p.coinId,p.coinName)">{{lang.lang69}}</a>
+                            </div>
+                            <!-- <div class="text-center pagebox" ng-if="pagedatas">
+                                <my-pagination page-option="option"></my-pagination>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card div-block" style="margin-bottom: 1rem;max-height: 786px">
+                    <div class="card-header info-header  border-152669 font-1">
+                        {{lang.lang423}}                    </div>
+
+                    <div class="card-body info-body" style="margin-bottom: 4rem;">
+                        <div class="row font-2" style="line-height: 3rem;">
+                            <div class="col">{{lang.lang15}}</div>
+                            <div class="col">{{certification == 2 ? lang.lang66 : lang.lang458}}</div>
+                            <div class="col">{{lang.lang67}}</div>
+                        </div>
+                        <div class="row font-1" style="line-height: 3rem;">
+                            <div class="col">HYKT</div>
+                            <div class="col" ng-bind="credit.creditUsable"></div>
+                            <div class="col" ng-bind="credit.creditFreeze"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

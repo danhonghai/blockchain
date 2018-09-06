@@ -1,0 +1,108 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">广告列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box" style="margin-bottom: 25px;">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="广告订单号/广告用户昵称" ng-model="params.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">广告发布类型：</label>
+                            <select class="form-control" ng-model="params.advType">
+                                <option value="">全部</option>
+                                <option value="1">普通交易</option>
+                                <option value="2">大额交易</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">广告交易类型：</label>
+                            <select class="form-control" ng-model="params.directType">
+                                <option value="">全部</option>
+                                <option value="1">买入</option>
+                                <option value="2">卖出</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">数字货币：</label>
+                            <select class="form-control" ng-model="params.coinId">
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinList" value="{{item.id}}" >{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">法币：</label>
+                            <select class="form-control" ng-model="params.fiatType">
+                                <option value="">全部</option>
+                                <option value="1">CNY</option>
+                                <option value="2">SGD</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">发布时间：</label>
+                            <input size="16" type="text" ng-model="params.startTime" readonly class="form_datetime"> 至
+                            <input size="16" type="text" ng-model="params.endTime" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">对方限制：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="0">无</option>
+                                <option value="1">有</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">支付方式：</label>
+                            <select class="form-control" ng-model="params.transMode">
+                                <option value="">全部</option>
+                                <option value="银行卡">银行卡</option>
+                                <option value="支付宝">支付宝</option>
+                                <option value="微信">微信</option>
+                                <option value="PayPal">PayPal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">广告状态：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="1">发布中</option>
+                                <option value="2">已作废</option>
+                                <option value="3">已完结</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-refresh" ng-click="searchFun(1)">重置</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>用户昵称</th>
+                            <th>发布类型</th>
+                            <th>交易类型</th>
+                            <th>交易数量</th>
+                            <th>交易单价</th>
+                            <th>交易限额</th>
+                            <th>支付方式</th>
+                            <th>对方限制</th>
+                            <th>成交数量</th>
+                            <th>成交金额</th>
+                            <th>成交笔数</th>
+                            <th>广告状态</th>
+                            <th>发布时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

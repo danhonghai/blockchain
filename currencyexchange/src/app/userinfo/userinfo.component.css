@@ -1,0 +1,11 @@
+.userinfo{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.userinfo-main{
+  background-color: #fff;
+  padding: 40px 80px;
+  color: #6c6c6c;
+  font-size: 14px;
+}

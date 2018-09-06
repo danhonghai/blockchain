@@ -1,0 +1,10 @@
+.no-data{
+  height: 300px;
+  text-align: center;
+  color: #ABABAB;
+  padding-top: 100px;
+}
+
+.no-data p{
+  margin-top: 20px;
+}

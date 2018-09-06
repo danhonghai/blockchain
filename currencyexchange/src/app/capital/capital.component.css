@@ -1,0 +1,55 @@
+.capital{
+  margin-bottom: 100px;
+}
+.capital .capital-header{
+  margin-top: 50px;
+}
+
+.capital .capital-num{
+  margin-right: 40px;
+  font-size: 16px;
+}
+
+.capital .table button{
+  font-size: 14px;
+}
+
+.capital .table tr th:first-child,.capital .table tr td:first-child{
+  padding-left: 100px;
+}
+
+
+.capital .asset-flow{
+  padding-left: 100px;
+  padding-right: 100px;
+  background-color: #FFF;
+  height: 90px;
+  line-height: 90px;
+  border-bottom: 1px solid #E2E4EB;
+  font-size: 20px;
+  color: #6C6C6C;
+}
+
+.asset-flow .search-input{
+  padding-left: 25px;
+  width:213px;
+  height:40px;
+  border-radius:4px;
+  border: 1px solid #DCDCDC;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #ABABAB;
+}
+
+.asset-flow .search-icon{
+  position: absolute;
+  top: 42px;
+  left: 10px;
+}
+
+.do-all{
+  position: absolute;
+  right: 30px;
+  top: 9px;
+  font-size: 16px;
+}

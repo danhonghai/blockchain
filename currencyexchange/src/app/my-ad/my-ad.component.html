@@ -1,0 +1,121 @@
+<div class="adWrap container ptop-3">
+  <div class="ad-title page-title">我的广告</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">创建时间</th>
+        <th scope="col">广告类型</th>
+        <th scope="col">交易数量</th>
+        <th scope="col">交易限额</th>
+        <th scope="col">交易单价</th>
+        <th scope="col">成交单量</th>
+        <th scope="col">成交数量</th>
+        <th scope="col">成交金额</th>
+        <th scope="col">状态</th>
+        <th scope="col" class="text-right">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataList" >
+        <td>{{item.applyTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td><span [ngClass]="{'c00A774': item.applyDirect == 1,'cED4545': item.applyDirect == 2}" >{{item.applyDirect == 1 ? '购买' :'出售'}}</span></td>
+        <td>{{item.applyAmount}} {{item.applyCoinName}}</td>
+        <td>{{item.applyMinPrice}}-{{item.applyMaxPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</td>
+        <td>{{item.applyPerPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}/{{item.applyCoinName}}</td>
+        <td>{{item.applyDealCount}}笔</td>
+        <td>{{item.applyAmountDeal}} {{item.applyCoinName}}</td>
+        <td>{{item.transTotalMoney}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</td>
+        <td>{{item.applyStatus == 1 ? '发布中' : item.applyStatus == 2 ? '已作废' : '已完结' }}</td>
+        <td class="text-right">
+          <!-- <a href="javaScript:void(0);" class="c659EFF" [routerLink]="['/advertising']" [queryParams]="{applyId: item.applyId }" >修改</a> -->
+          <a href="javaScript:void(0);" class="c659EFF"  style="margin-left: 10px;" data-toggle="modal" data-target="#invalidModal" (click)="openInvalidModal(item.applyId)" *ngIf="item.applyStatus == 1">作废</a>
+          <a href="javaScript:void(0);" class="c659EFF" style="margin-left: 10px;" data-toggle="modal" data-target="#exampleModal" (click)="orderList(1,item.applyId)" >查看下单</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center" style="margin-top:40px;" *ngIf="option.total != 0">
+      <app-pagination (pageChange)="queryFun($event)" [option]="option"></app-pagination>
+  </div>
+  <app-no-data [dataLength]="dataList.length"></app-no-data>
+</div>
+
+<!-- 查看下单 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">下单列表</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div  style="height: 478px;">
+          <table class="table table-striped orderTable" >
+            <thead>
+              <th scope="col" >订单号</th>
+              <th scope="col" >交易总价</th>
+              <th scope="col" >交易数量</th>
+              <th scope="col" >
+                <div class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown">
+                    交易状态
+                  </a>
+                  <div class="dropdown-menu down-menu">
+                    <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 5" (click)="selectStatus(5)" >全部</a>
+                    <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 0" (click)="selectStatus(0)" >未付款</a>
+                    <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 1" (click)="selectStatus(1)" >已取消</a>
+                    <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 2" (click)="selectStatus(2)" >已付款</a>
+                    <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 3" (click)="selectStatus(3)" >申诉中</a>
+                    <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 4" (click)="selectStatus(4)" >已完成</a>
+                  </div>
+                </div>
+              </th>
+              <th scope="col" >交易对象</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderDataList">
+                <td>
+                  <a href="javaScript:void(0);" class="c659EFF" *ngIf="item.orderDirect == 1" [routerLink]="['/orderDetail']" [queryParams]="{orderNo: item.orderNo }" data-dismiss="modal" >{{item.orderNo}}</a>
+                  <a href="javaScript:void(0);" class="c659EFF" *ngIf="item.orderDirect == 2" [routerLink]="['/orderSell']" [queryParams]="{orderNo: item.orderNo }" data-dismiss="modal" >{{item.orderNo}}</a>
+                </td>
+                <td>{{item.orderTotalPrice}} {{item.orderFiatName}}</td>
+                <td>{{item.orderAmount}} {{item.coinName}}</td>
+                <td *ngIf="item.orderStatus == 0"><span class="cED4545" >未付款</span></td>
+                <td *ngIf="item.orderStatus == 2"><span class="c00A774" >已付款</span></td>
+                <td *ngIf="item.orderStatus == 4"><span class="c659EFF" >已完成</span></td>
+                <td *ngIf="item.orderStatus == 1 || item.orderStatus == 3"><span class="c181E2B" >{{item.orderStatus == 3 ? '申诉中' : '已取消'}}</span></td>
+                <td>{{item.orderUserName}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <app-no-data [dataLength]="orderDataList.length"></app-no-data>
+        </div>
+        <div class="text-center" style="margin-top:40px;" *ngIf="orderOption.total != 0">
+            <app-pagination (pageChange)="queryOrder($event)" [option]="orderOption"></app-pagination>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 广告作废 -->
+<div class="modal fade bd-example-modal-sm" id="invalidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">广告作废</h5>
+      </div>
+      <div class="modal-body text-center" style="padding-top:30px;padding-bottom:40px;">
+        <div >您确定要作废该广告吗？</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-659EFF w-50"  data-dismiss="modal"  (click)="invalidAd()">确认</button>
+         <button type="button" class="btn btn-E2E4EB w-50" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+

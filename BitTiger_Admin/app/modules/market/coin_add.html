@@ -1,0 +1,300 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">{{params.id ? '编辑' : '新增'}}币种</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <form class="form-horizontal" name="myForm" novalidate>
+                    <fieldset>
+                        <legend class="section" style="font-size:14px;">基本资料:</legend>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">币种中文名称：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="nameCn" ng-model="params.nameCn" pattern="^[\_\u2E80-\u9FFF]{1,16}$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.nameCn.$error.pattern">
+                                            币种中文名称不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">币种英文简称：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="name" ng-model="params.name" required pattern="^[a-zA-Z]{1,16}$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.name.$error.required">
+                                            币种英文简称必填
+                                        </div>
+                                        <div class="tip_tishi" ng-show="myForm.name.$error.pattern">
+                                            币种英文简称不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">发行时间：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input size="16" type="text" ng-model="params.issueTimeReq" readonly class="form_datetime" style="width:100%;" name="issueTimeReq">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">发行总量：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="issueCount" ng-model="params.issueCount" pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.issueCount.$error.pattern">
+                                            发行总量不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">流通总量：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="circulationCount" ng-model="params.circulationCount" pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.circulationCount.$error.pattern">
+                                            流通总量不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">众筹价格：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="raisePrice" ng-model="params.raisePrice" pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.raisePrice.$error.pattern">
+                                            众筹价格不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">白皮书：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="whiteBook " ng-model="params.whiteBook">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">区块查询：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="blockQuery" ng-model="params.blockQuery">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">官网：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="officialWebsite" ng-model="params.officialWebsite">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">LOGO：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input id="input-b1" name="pFile" type="file" class="file imgFile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">默认单位：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="defaultUnit" ng-model="params.defaultUnit">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">上架时间：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input size="16" type="text" ng-model="params.putawayTimeReq" readonly class="form_datetime" style="width:100%;" name="putawayTimeReq">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">是否为法币账户的充值账户：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select class="form-control " ng-model="params.isFiat">
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-2" style="width:11%;">
+                                <label class="control-label">简介：</label>
+                            </div>
+                            <div class="col-md-10" style="width:72%">
+                                <textarea ckeditor class="form-control" ng-model="params.remark" name="remark"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-top:30px;">
+                        <legend class="section" style="font-size:14px;">充币设置:</legend>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">最小充币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="leastRecharge" ng-model="params.leastRecharge" required pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.leastRecharge.$error.required">
+                                            最小充币金额必填
+                                        </div>
+                                        <div class="tip_tishi" ng-show="myForm.leastRecharge.$error.pattern">
+                                            最小充币金额不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">官方充值地址：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="rechargeAddress" ng-model="params.rechargeAddress" required>
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.rechargeAddress.$error.required">
+                                            官方充值地址必填
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-top:30px;">
+                        <legend class="section" style="font-size:14px;">提币设置:</legend>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">最小提币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="leastDraw" ng-model="params.leastDraw" required pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.leastDraw.$error.required">
+                                            最小提币金额必填
+                                        </div>
+                                        <div class="tip_tishi" ng-show="myForm.leastDraw.$error.pattern">
+                                            最小提币金额不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">单次最大提币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="mostDrawOnce" ng-model="params.mostDrawOnce" required pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.mostDrawOnce.$error.required">
+                                            单次最大提币金额必填
+                                        </div>
+                                        <div class="tip_tishi" ng-show="myForm.mostDrawOnce.$error.pattern">
+                                            单次最大提币金额不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">单日最大提币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="mostDrawDay" ng-model="params.mostDrawDay" required pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.mostDrawDay.$error.required">
+                                            单日最大提币金额必填
+                                        </div>
+                                        <div class="tip_tishi" ng-show="myForm.mostDrawDay.$error.pattern">
+                                            单日最大提币金额不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">手续费：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="drawFee" ng-model="params.drawFee" required pattern="^(([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[1-9]))$">
+                                    <div class="tipbox">
+                                        <div class="tip_tishi" ng-show="myForm.drawFee.$error.required">
+                                            手续费必填
+                                        </div>
+                                        <div class="tip_tishi" ng-show="myForm.drawFee.$error.pattern">
+                                            手续费不符合要求
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-5">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">提币小数位限制：</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="drawDecimalLimit" ng-model="params.drawDecimalLimit" required pattern="^(([1-9]\d*?)|(0))$">
+                                        <div class="tipbox">
+                                            <div class="tip_tishi" ng-show="myForm.drawDecimalLimit.$error.required">
+                                                提币小数位限制必填
+                                            </div>
+                                            <div class="tip_tishi" ng-show="myForm.drawDecimalLimit.$error.pattern">
+                                                提币小数位限制不符合要求
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div style="margin-top:50px;text-align:center">
+                        <button type="button" class="btn btn-primary  btn-lg" style="width:250px;" ng-disabled="myForm.$invalid" ng-click="addCoin()">提交</button>
+                        <button type="button" class="btn btn-primary  btn-lg" style="width:250px;margin-left: 100px;" ui-sref="logged.currencyList">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

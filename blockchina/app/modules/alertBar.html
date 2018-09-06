@@ -1,0 +1,8 @@
+<div class="alert alert-{{type || 'info'}} font-2" ng-show="message" style="z-index: 9999; text-align: center; position: fixed; width: 400px; font-size: 14px; left: 50%; margin-left: -200px; top: 160px; background: #1D306F; padding: 1.5rem; box-shadow:  0 5px 15px #0e1d56;border-radius: 4px;border:none;">
+    <button type="button" class="close"  ng-click="hideAlert()">
+        <span class="glyphicon glyphicon-remove" style="color: #fff;position: absolute;top: 10px;right: 10px;"></span>
+    </button>
+    <img src="img/icon_ok.png" ng-if="type == 'info' " > 
+    <img src="img/icon_error.png" ng-if="type != 'info' " > 
+    <div style="margin-top: 10px;">{{message}}</div>
+</div>

@@ -1,0 +1,513 @@
+        .advantage {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .advantage h5,
+        .advantage p {
+            line-height: 1.5em;
+            margin-top: 1rem;
+        }
+
+        .market .card {
+            border-radius: 0px;
+            border-bottom: none;
+            background: none;
+            height: 43px;
+            line-height: 43px;
+            ul li {
+                cursor: pointer;
+            }
+            ul li.active {
+                background: #182033;
+            }
+        }
+
+        .table {
+            margin-bottom: 0px;
+        }
+
+        .table td,
+        .table th {
+            border-top: none;
+        }
+
+        .table thead th {
+            border-bottom: none;
+        }
+
+        .table tr:nth-of-type(even) {
+            background: #182033;
+        }
+
+        .table tbody tr:hover {
+            background: #202C4B;
+        }
+
+        .tabletitle th {
+            color: #607792;
+            font-size: 0.8rem;
+        }
+
+        .advantage a {
+            margin-right: 2rem;
+            cursor: pointer;
+        }
+
+        .advantage a:last-child {
+            margin-right: 0rem;
+        }
+
+        .advantage a:hover {
+            background: linear-gradient(#202C4B, #182033) !important;
+            animation: container 1s;
+        }
+
+        @keyframes container {
+            0%,
+            100%,
+            20%,
+            50%,
+            80% {
+                transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+                /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
+                transform: translate3d(0, 0, 0);
+                /*设置只在Z轴上移动*/
+            }
+            40%,
+            43% {
+                transition-timing-function: cubic-bezier(0.755, 0.50, 0.855, 0.060);
+                transform: translate3d(0, -30px, 0);
+            }
+            70% {
+                transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+                transform: translate3d(0, -15px, 0);
+            }
+            90% {
+                transform: translate3d(0, -4px, 0);
+            }
+        }
+
+        #demo {
+            overflow: hidden;
+            width: 220px;
+            float: left;
+            display: inline;
+        }
+
+        #demo ul {
+            text-align: left;
+            margin: 0px;
+            padding: 0px;
+            width: 220px;
+        }
+
+        #demo ul li {
+            margin-left: 5px;
+            display: block;
+            list-style: none;
+            font-size: 13px;
+            height: 26px;
+            padding-top: 5px;
+        }
+        /* 新版index样式 */
+
+        .new_index {
+            background: #061557 url('../img/index_1.png') no-repeat center top;
+            background-size: 100%;
+            /* #08185B */
+            .carousel-fade {
+                .carousel-inner {
+                    .carousel-item {
+                        transition-property: opacity;
+                    }
+                    .carousel-item,
+                    .active.carousel-item-left,
+                    .active.carousel-item-right {
+                        opacity: 0;
+                    }
+
+                    .active,
+                    .carousel-item-next.carousel-item-left,
+                    .carousel-item-prev.carousel-item-right {
+                        opacity: 1;
+                    }
+                    .carousel-item-next,
+                    .carousel-item-prev,
+                    .active.carousel-item-left,
+                    .active.carousel-item-right {
+                        left: 0;
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+            }
+            .notice_wrap {
+                margin-top: 3rem;
+                margin-bottom: 12rem;
+                /* height: 20px;
+                background: url('../img/index_2.png') no-repeat center center; */
+                .container {
+                    padding: 0;
+                }
+                .notice_item {
+                    flex: 1;
+                    margin-right: 65px;
+                    .notice_inner {
+                        position: relative;
+                        top: 17px;
+                        left: 17px;
+                        padding: 24px 26px;
+                        cursor: pointer;
+                        height: 100%;
+                    }
+                    .notice_img {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        background: url('../img/index_3.png');
+                    }
+                    .notice_title {
+                        margin-top: 10px;
+                        margin-bottom: 7px;
+                        color: #8A9CEC;
+                        cursor: pointer;
+                        font-size: 14px;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        word-break: break-all;
+                    }
+                    .notice_date {
+                        color: #4556A2;
+                        font-size: 12px;
+                    }
+                    &:first-child,
+                    &:hover {
+                        background: rgba(41, 45, 161, 0.2);
+                        .notice_inner {
+                            background: rgba(41, 45, 161, 0.4);
+                            box-shadow: 0px 10px 20px 0px rgba(3, 14, 61, 0.2);
+                        }
+                        .notice_title,
+                        .notice_date {
+                            color: #00BFFF;
+                        }
+                        .notice_img {
+                            background: url('../img/index_4.png');
+                        }
+                    }
+                }
+                .notice_more_item {
+                    .notice_inner {
+                        position: relative;
+                        top: 17px;
+                        left: 17px;
+                        padding: 24px 26px;
+                        cursor: pointer;
+                    }
+                    .notice_more_img {
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        background: url('../img/index_3.png');
+                    }
+                    .notice_more {
+                        margin-top: 22px;
+                        margin-bottom: 7px;
+                        color: #4556A2;
+                    }
+                    &:hover {
+                        .notice_more {
+                            color: #00BFFF;
+                        }
+                        .notice_more_img {
+                            background: url('../img/index_4.png');
+                        }
+                    }
+                }
+            }
+            .market_wrap {
+                background: #08185D;
+                box-shadow: 0px 10px 20px 0px rgba(3, 14, 61, 0.3);
+                padding: 0;
+                font-size: 14px;
+                .market_header {
+                    height: 65px;
+                    line-height: 65px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    .market_tab {
+                        flex: 1;
+                        color: #5C6EBD;
+                        cursor: pointer;
+                        .coinImg0 {
+                            display: inline-block;
+                            width: 24px;
+                            height: 24px;
+                            background: url('../img/icon_btc.png');
+                            vertical-align: middle;
+                            margin-right: 0.5rem;
+                        }
+                        .coinImg1 {
+                            display: inline-block;
+                            width: 24px;
+                            height: 24px;
+                            background: url('../img/icon_usdt.png');
+                            vertical-align: middle;
+                            margin-right: 0.5rem;
+                        }
+                        .market_name {
+                            display: inline-block;
+                            vertical-align: middle;
+                            font-weight: bold;
+                            color: #5C6EBD;
+                        }
+                    }
+                    .market_tab.active {
+                        .coinImg0 {
+                            background: url('../img/icon_btca.png');
+                        }
+                        .coinImg1 {
+                            background: url('../img/icon_usdta.png');
+                        }
+                        .market_border {
+                            display: inline-block;
+                            padding: 0px 35px;
+                            border-bottom: 2px solid #314196;
+                            height: 64px;
+                        }
+                        .market_name {
+                            color: #CEDDEF;
+                        }
+                    }
+                }
+                .market_table {
+                    width: 100%;
+                    max-width: 100%;
+                    .table-header {
+                        color: #5C6EBD;
+                        height: 65px;
+                        line-height: 65px;
+                    }
+                    .table-body {
+                        height: 60px;
+                        line-height: 60px;
+                        color: #CEDDEF;
+                        text-align: center;
+                        tr {
+                            border-top: 1px solid rgba(255,255,255,.05);;
+                            &:nth-child(odd) {
+                                background: #0e1e65;
+                            }
+                            &:hover {
+                                background: rgba(31, 57, 173, 0.25);
+                            }
+                        }
+                    }
+                }
+            }
+            .feature_wrap {
+                background: #08185B;
+                margin-top: 200px;
+                padding-bottom: 200px;
+                .section {
+                    width: 100%;
+                    margin: 0 auto;
+                    position: relative;
+                    z-index: 3;
+                    .feature {
+                        min-height: 360px;
+                        .feature_bg {
+                            background: linear-gradient(26deg, #08185B, #08185B 55%, #061557 50%, #061557);
+                        }
+                        dl {
+                            display: flex;
+                            justify-content: center;
+                            text-align: center;
+                            margin-bottom: 0;
+                            dd {
+                                display: flex;
+                                flex-direction: column;
+                                padding: 0 10px;
+                                padding-top: 126px;
+                                .feature_title {
+                                    color: #8A9CEC;
+                                    font-size: 34px;
+                                    font-weight: bold;
+                                    text-align: left;
+                                    margin-bottom: 10px;
+                                }
+                                .feature_content {
+                                    color: #6474b9;
+                                    font-size: 16px;
+                                    line-height: 30px;
+                                    text-align: left;
+                                }
+                            }
+                        }
+                        .feature_1 {
+                            padding-bottom: 160px;
+                            .icon_feature_1 {
+                                background-image: url('../img/index_5.png');
+                                min-width: 325px;
+                                height: 422px;
+                                background-size: 100% 100%;
+                                margin-right: 12%;
+                            }
+                        }
+                        .feature_2 {
+                            padding-bottom: 160px;
+                            .icon_feature_2 {
+                                background-image: url('../img/index_6.png');
+                                min-width: 432px;
+                                height: 386px;
+                                background-size: 100% 100%;
+                                margin-left: 7%;
+                            }
+                        }
+                        .feature_3 {
+                            .icon_feature_3 {
+                                background-image: url('../img/index_7.png');
+                                min-width: 398px;
+                                height: 453px;
+                                background-size: 100% 100%;
+                                margin-right: 10%;
+                            }
+                        }
+                    }
+                }
+            }
+            .info_title {
+                margin-bottom: 30px;
+                font-size: 34px;
+                font-weight: 400;
+                color: #8A9CEC;
+                font-weight: bold;
+            }
+            .info_content {
+                color: #6474b9;
+                font-size: 18px;
+                line-height: 35px;
+            }
+            .client_zh {
+                background: #08185B url('../img/index_8.png') no-repeat center top;
+            }
+            .client_en {
+                background: #08185B url('../img/index_8_en.png') no-repeat center top;
+            }
+            .client {
+                padding-bottom: 150px;
+                background-size: 100%;
+                .client-content {
+                    padding-top: 34%;
+                    margin-left: 55%;
+                    .client-title {
+                        color: #008DFF;
+                        font-size: 3rem;
+                        margin-bottom: 35px;
+                        font-weight: bold;
+                    }
+                    .client-info {
+                        font-size: 20px;
+                        color: #5F71C2;
+                        margin-bottom: 90px;
+                    }
+                    .icon_iphone {
+                        display: inline-block;
+                        width: 26px;
+                        height: 30px;
+                        margin-right: 14px;
+                        background: url('../img/index_9.png') no-repeat;
+                        vertical-align: middle;
+                    }
+                    .icon_android {
+                        display: inline-block;
+                        width: 25px;
+                        height: 30px;
+                        margin-right: 14px;
+                        background: url('../img/index_10.png') no-repeat;
+                        vertical-align: middle;
+                    }
+                    .btn-3D4D94 {
+                        width: 200px;
+                        height: 60px;
+                        border: 3px solid #3D4D94;
+                        border-radius: 4px;
+                        background: transparent;
+                        color: #5F71C2;
+                        a {
+                            color: #5F71C2 !important;
+                        }
+                        &:hover {
+                            color: #FFFFFF;
+                            background: linear-gradient(90deg, rgba(0, 190, 255, 1), rgba(0, 141, 255, 1));
+                            border: none;
+                            a {
+                                color: #FFFFFF !important;
+                            }
+                            .icon_iphone {
+                                background: url('../img/index_11.png') no-repeat;
+                            }
+                            .icon_android {
+                                background: url('../img/index_12.png') no-repeat;
+                            }
+                        }
+                        span {
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+
+                .buy-now {
+                    margin-top: 33%;
+                    text-align: center;
+                    .btn-3D4D94 {
+                        width: 240px;
+                        height: 60px;
+                        border-radius: 4px;
+                        background: transparent;
+                    }
+                    .btn-login {
+                        border: 3px solid #3D4D94;
+                        color: #5F71C2;
+                        &:hover {}
+                    }
+                    ;
+                    .btn-re {
+                        color: #FFFFFF;
+                        background: linear-gradient(90deg, rgba(0, 190, 255, 1), rgba(0, 141, 255, 1));
+                        &:hover {}
+                    }
+                    ;
+                }
+            }
+        }
+        /* 返回顶部 */
+
+        .goTop {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
+            line-height: 60px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 9999;
+            .icon_top {
+                background: url('../img/icon_top.png') no-repeat;
+                width: 24px;
+                height: 18px;
+                display: inline-block;
+            }
+            &:hover {
+                background-color: #008DFF;
+                .icon_top {
+                    background: url('../img/icon_toph.png') no-repeat;
+                }
+            }
+        }

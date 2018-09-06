@@ -1,0 +1,31 @@
+.upload-image{
+  background-color: #F8F8F8;
+  border-radius: 4px;
+  width:620px;
+  height:260px;
+  padding: 28px;
+}
+
+.upload-image .upload-left{
+  border-right: 1px solid #E2E4EB;
+}
+
+.upload-image .upload-right{
+  margin-top: 50px;
+  padding-left: 60px;
+}
+
+.upload-image .upload-right  .add-file{
+  margin-bottom: 30px;
+}
+
+.upload-image .image-wrap{
+  margin: 30px;
+  background-color: #E4E4E4;
+  width:243px;
+  height:144px;
+}
+
+.add-file>input {
+  display: none;
+}

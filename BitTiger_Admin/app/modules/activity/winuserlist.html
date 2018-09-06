@@ -1,0 +1,31 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">获奖用户</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box" ng-if="userList.length == 0">
+                    <div class="form-group navbar-left">
+                        <button type="button" class="btn btn-info" ng-click="searchFun()">生成获奖用户</button>
+                    </div>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>用户ID</th>
+                            <th>手机号</th>
+                            <th>邮箱</th>
+                            <th>高级认证状态</th>
+                            <th>谷歌验证码绑定</th>
+                            <th>注册时间</th>
+                            <th>IP地址</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

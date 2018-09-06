@@ -1,0 +1,11 @@
+<div class="preview-wrap" *ngIf="hasImage">
+  <img width="100px" height="100px" src="{{previewImgObj.previewImgFile}}">
+  <span  class="close" (click)="remove()">删除<i class="icon_close" ></i></span>
+</div>
+<div class="preview-wrap" *ngIf="!hasImage">
+  <p class="preview-tip">请上传您的支付宝收款二维码图片</p>
+  <label class="preview-label">
+    <input type="file" (change)="previewPic($event)">
+    <img src="./assets/images/icon_plus.png" alt="添加">
+  </label>
+</div>

@@ -1,0 +1,153 @@
+<div class="container-full worldcup bg-body" ng-class="{'bgZn':language == 1,'bgEn':language == 2}" style="padding-top: 6rem;" ng-click="closeTab($event)">
+    <div class="container">
+        <div class="world-main clearfix">
+            <div class="float-left position-relative">
+                <button type="button" class="btn btn-block btn-world" ng-class="{btnHover:currentTab == 1}" ng-click="changeTab(1,$event)" style="margin-bottom: 30px;width: 150px;">{{lang.lang428}}</button>
+                <button type="button" class="btn btn-block btn-world text-center" style="width: 150px;height: 44px;padding:0" ng-class="{btnHover:currentTab == 2}" ng-click="changeTab(2,$event)">{{lang.lang429}}</button>
+                <!-- 我的竞猜 -->
+                <div class="competition-list position-absolute" ng-if="currentTab == 1"  ng-click="cancelClick(1,$event)">
+                    <div class="row title">
+                        <div class="col">{{lang.lang57}}</div>
+                        <div class="col-6">{{lang.lang430}}</div>
+                        <div class="col">{{lang.lang431}}</div>
+                        <div class="col">{{lang.lang432}}</div>
+                    </div>
+                    <div style="overflow-y: auto;height: 130px;">
+                        <div class="row content" ng-repeat="item in myGuessList">
+                            <div class="col c53BC00" ng-if="item.status == 1"><i class="state-in"></i>{{lang.lang433}}</div>
+                            <div class="col cCFDDC4" ng-if="item.status == 2"><i class="state-close"></i>{{lang.lang434}}</div>
+                            <div class="col-6">{{language == 1 ? item.periodName : item.periodNameEn}}</div>
+                            <div class="col" ng-if="item.guessResult == 0">{{lang.lang444}}</div>
+                            <div class="col" ng-if="item.guessResult == 1">{{lang.lang445}}</div>
+                            <div class="col" ng-if="item.guessResult == 2">{{lang.lang446}}</div>
+                            <div class="col">{{item.pour}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 历史竞猜 -->
+                <div class="competition-list position-absolute" ng-if="currentTab == 2"  ng-click="cancelClick(2,$event)">
+                    <div class="title" style="font-size: 18px;color: #366016;">{{lang.lang429}}</div>
+                    <div class="row title" style="border-bottom: none">
+                        <div class="col-5">{{lang.lang430}}</div>
+                        <div class="col-2">{{lang.lang431}}</div>
+                        <div class="col">{{lang.lang432}}</div>
+                        <div class="col">{{lang.lang455}}</div>
+                        <div class="col-3">{{lang.lang457}}</div>
+                    </div>
+                    <div style="overflow-y: auto;height: 130px;">
+                        <div class="row content" ng-repeat="item in historyList">
+                            <div class="col-5 C366016">{{language == 1 ? item.periodName : item.periodNameEn}}</div>
+                            <div class="col-2">{{item.guessResult == 0 ? lang.lang444 : item.guessResult == 1 ? lang.lang445 :  lang.lang446}}</div>
+                            <div class="col C366016">{{item.pour}}</div>
+                            <div class="col">{{item.awardResults == 0 ? lang.lang444 : item.awardResults == 1 ? lang.lang445 :  lang.lang446}}</div>
+                            <div class="col-3" ng-class="{true:'C52852A',false:'CFF0000'}[(item.profit | number) > 0]">{{item.profit}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-center userinfo">
+                <div style="margin-right: 87px;">{{lang.lang435}}：<span>{{userinfo.nickName}}</span></div>
+                <div style="margin-right: 58px;">{{lang.lang436}}：<span>{{userinfo.points}}</span></div>
+                <div>{{lang.lang437}}：<span>{{userinfo.rate}}</span></div>
+            </div>
+        </div>
+        <div class="text-center"><button class="btn btn-world" ui-sref="logged.invitefriends" >{{lang.lang438}}</button></div>
+        <div class="competition" ng-repeat="item in pageList">
+            <div class="competition-main">
+                <div class="country">
+                    <div class="imgWrap float-right"><img class="w-100" src="{{baseUrl}}{{item.masterPic}}" alt=""></div>
+                    <div class="country-name  float-right">{{language == 1 ? item.masterTeam : item.masterTeamEn}}</div>
+                    <p class="country-rate  float-right">{{lang.lang439}}：{{item.masterRate}}</p>
+                </div>
+                <div class="country-btn">
+                    <button class="btn btn-world" data-toggle="modal" data-target="#betting" ng-click="openBetting(item)" ng-disabled="item.status == 2">{{lang.lang440}}</button>
+                    <div class="text-center" style="color: #fff;font-size: 14px; margin-top: 10px;">{{lang.lang459}}:{{item.guestEndTime | date:'yyyy-MM-dd HH:mm'}}</div>
+                </div>
+                <div class="country">
+                    <div class="imgWrap float-left"><img class="w-100" ng-src="{{baseUrl}}{{item.guestPic}}" alt=""></div>
+                    <div class="country-name float-left">{{language == 1 ? item.guestTeam : item.guestTeamEn}}</div>
+                    <p class="country-rate float-left">{{lang.lang439}}：{{item.guestRate}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="active-rule">
+            <div class="rule-title">{{lang.lang441}}</div>
+            <ul ng-if="language == 1">
+                <li>1.猜所有场次胜平负，一共64场比赛，加时赛及点球不计入比赛结果</li>
+                <li>2.每场比赛只可以竞猜一次，竞猜后不可修改</li>
+                <li>3.对喜欢的队伍下注，最低1HYK积分，无上限</li>
+                <li>4.猜对一次比赛，根据押注赔率来获得积分奖励，积分奖励=押注积分*赔率</li>
+                <li>5.猜错一次比赛，下注积分不返还</li>
+                <li>6.单账户竞猜百分百胜率者，还会额外获得此账户总积分300%的积分奖励</li>
+            </ul>
+            <ul ng-if="language == 2">
+                <li>1.Betting on Win/Draw/Lose for each match, 64 matches in total,the overtime and the penalty kick are not included in the result</li>
+                <li>2.You can only bet once on each match and you will not be able to change the details if the bets are accepted</li>
+                <li>3.Betting on teams that you support, minimum bet is 1 HYK</li>
+                <li>4.Every time you win the guess game, you will be awarded points according to the betting odds, which is equal to the betting points * odds</li>
+                <li>5.If you lose the guess game, your betting points for it will not be given back</li>
+                <li>6.The users with a success rate of 100 percent in the single account guess games will be awarded extra points three times of the total points in their single accounts</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 立即投注 -->
+<div class="modal fade bd-example-modal-sm" id="betting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" >{{language == 1 ? guessContent.periodName : guessContent.periodNameEn}}</h5>
+        </div>
+        <div class="modal-body">
+            <form class="betting-form" novalidate name="bettingForm" >
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">{{lang.lang442}}：</label>
+                    <div class="col-sm-8 p-0">
+                      <input type="text" readonly class="form-control-plaintext c467A1E" style="font-size: 18px;" value="{{guessContent.credit}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">{{lang.lang443}}：</label>
+                    <div class="col-sm-8 p-0">
+                      <button class="btn btn-outline-467A1E" ng-class="{'btn-467A1E':currentType == 0}" ng-click="typeClick(0)">{{lang.lang444}}</button>
+                      <button class="btn btn-outline-467A1E" ng-class="{'btn-467A1E':currentType == 1}" style="margin-left: 30px;" ng-click="typeClick(1)">{{lang.lang445}}</button>
+                      <button class="btn btn-outline-467A1E" ng-class="{'btn-467A1E':currentType == 2}" style="margin-left: 30px;" ng-click="typeClick(2)">{{lang.lang446}}</button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">{{lang.lang447}}：</label>
+                    <div class="col-sm-8 p-0">
+                      <button class="btn outline" ng-class="{'outline-467A1E':currentType == 0}">{{guessContent.winOdds}}</button>
+                      <button class="btn outline" ng-class="{'outline-467A1E':currentType == 1}" style="margin-left: 30px;">{{guessContent.flatOdds}}</button>
+                      <button class="btn outline" ng-class="{'outline-467A1E':currentType == 2}" style="margin-left: 30px;">{{guessContent.failOdds}}</button>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label text-right">{{lang.lang448}}：</label>
+                    <div class="col-sm-8 p-0">
+                        <div class="input">
+                            <span class="minus cursorClass" ng-click="changeNum(1)"><img src="img/minus.png" alt=""></span>
+                            <input type="text" class="form-control" name="count" ng-model="guessParams.count" ng-pattern="/^\+?[1-9]\d*$/" required >
+                            <span class="add cursorClass" ng-click="changeNum(2)"><img src="img/add.png" alt=""></span>
+                        </div>
+                        <div class="tipbox">
+                            <div class="tip_tishi" ng-show="bettingForm.count.$error.pattern">
+                                {{lang.lang449}}
+                            </div>
+                            <div class="tip_tishi" ng-show="guessParams.count > guessContent.credit">
+                                {{lang.lang450}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 44px;">{{lang.lang451}}</div>
+            </form>
+        </div>
+        <div class="modal-footer justify-content-center" style="border-top:none;padding-bottom: 48px;">
+            <button type="button" class="btn btn-EDEDED" data-dismiss="modal" >{{lang.lang452}}</button>
+            <button type="button" class="btn btn-467A1E" style="width:180px;height:48px;margin-left: 30px;" ng-disabled="bettingForm.$invalid || guessParams.count > guessContent.credit" ng-click="BettingFun()" >{{lang.lang368}}</button>
+        </div>
+    </div>
+  </div>
+</div>

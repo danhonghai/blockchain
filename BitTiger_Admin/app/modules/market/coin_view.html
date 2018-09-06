@@ -1,0 +1,198 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">查看币种</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <form class="form-horizontal" name="myForm" novalidate>
+                    <fieldset>
+                        <legend class="section" style="font-size:14px;">基本资料:</legend>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">币种中文名称：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="nameCn"  ng-value="params.nameCn" readonly  >
+                            
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">币种英文简称：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="name"  ng-value="params.name" readonly >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">发行时间：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input size="16" type="text" ng-value="params.issueTimeReq" readonly class="form-control" style="width:100%;" name="issueTimeReq" >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">发行总量：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="issueCount"  ng-value="params.issueCount" readonly >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">流通总量：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="circulationCount"  ng-value="params.circulationCount" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">众筹价格：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="raisePrice"  ng-value="params.raisePrice" readonly  >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">白皮书：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="whiteBook "  ng-value="params.whiteBook" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">区块查询：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="blockQuery"  ng-value="params.blockQuery" readonly >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">官网：</label>
+                                </div>
+                                <div class="col-sm-9 input-group">
+                                    <input type="text" class="form-control" name="officialWebsite"  ng-value="params.officialWebsite" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">LOGO：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="image-wrap" >
+                                        <a class="example-image-link" data-lightbox="example-set"> <img class="example-image" ng-src="{{params.logo}}"  width="150" height="150"/></a>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">默认单位：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="defaultUnit" ng-value="params.defaultUnit" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">上架时间：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input size="16" type="text" ng-value="params.putawayTimeReq" readonly class="form-control"  name="putawayTimeReq">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group" >
+                            <div class="col-sm-2" style="width:11%;">
+                                <label class="control-label">简介：</label>
+                            </div>
+                            <div class="col-md-10" style="width:72%">
+                                <div ng-bind-html="params.remark"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-top:30px;">
+                        <legend class="section" style="font-size:14px;">充币设置:</legend>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">最小充币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="leastRecharge"  ng-value="params.leastRecharge" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">官方充值地址：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="rechargeAddress"  ng-value="params.rechargeAddress" readonly >
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="margin-top:30px;">
+                        <legend class="section" style="font-size:14px;">提币设置:</legend>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">最小提币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="leastDraw"  ng-value="params.leastDraw" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">单次最大提币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="mostDrawOnce" ng-value="params.mostDrawOnce" readonly >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">单日最大提币金额：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="mostDrawDay" ng-value="params.mostDrawDay" readonly >
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-5">
+                                <div class="col-sm-3">
+                                    <label class="control-label">手续费：</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="drawFee" ng-value="params.drawFee" readonly >
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div style="margin-top:50px;text-align:center">
+                        <button type="button" class="btn btn-primary  btn-lg" style="width:250px;" ui-sref="logged.currencyList">返回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

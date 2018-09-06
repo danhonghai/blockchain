@@ -1,0 +1,59 @@
+.advertising{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.advertising-main{
+  background-color: #fff;
+  padding: 40px 80px;
+  color: #3F3E3E;
+}
+
+.advertising-main .form-label{
+  font-size: 16px;
+}
+
+.advertising-main .form-control{
+  background:rgba(246,246,246,1);
+  border: none;
+}
+
+
+/* 微信 */
+.wx{
+  background: url('../../assets/images/icon_wx.png') no-repeat;
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+/* 支付宝 */
+.zfb{
+  background: url('../../assets/images/icon_zfb.png') no-repeat;
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+/* 银联卡 */
+.ylk{
+  background: url('../../assets/images/icon_ylk.png') no-repeat;
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+/* paypal */
+.paypal{
+  background: url('../../assets/images/icon_paypal.png') no-repeat;
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}

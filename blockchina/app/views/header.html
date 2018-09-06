@@ -1,0 +1,122 @@
+<div class="container-full text-white headertop">
+    <div id="dialog-face" class="none">
+    </div>
+    <div id="dialog" class="none">
+        <div id="dialog-wrapper">
+            <div class="dialog-content">
+                <h3 style="margin: 90px 0;" class="">{{lang.lang418}}</h3>
+            </div>
+            <div class="dialog-footer">
+                <button onclick="toggleDialog(false)">OK</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function toggleDialog(show) {
+        var animationClass = show ? "slipUp" : "slipBottom";
+        var animation = function() {
+            var ele = document.getElementById("dialog-face");
+            ele.className = "dialog-face " + animationClass;
+            ele = document.getElementById("dialog");
+            ele.className = "dialog-root " + animationClass;
+            ele = document.getElementById("dialog-wrapper");
+            ele.className = "dialog-wrapper " + animationClass;
+        };
+        setTimeout(animation, 100);
+    }
+    </script>
+    <!-- 新版导航 -->
+    <div class="doc_head">
+        <a class="navbar-brand" ui-sref="logged.index" style="padding: 0;margin: 0;"><img style="width: 130px;" src="img/logo.png"></a>
+        <ul class="head_nav justify-content-end">
+            <li>
+                <a ui-sref="logged.transaction" ui-sref-active="active">{{lang.lang1}}</a>
+            </li>
+            <!-- <li>
+                <a onclick="toggleDialog(true)">{{lang.lang1}}</a>
+            </li> -->
+            <li>
+                <a ui-sref="logged.assetscentre_capital" ng-class="{active: $state.current.name.includes('capital')}">{{lang.lang2}}</a>
+            </li>
+            <li class="hgt-slide ">
+                <a ui-sref="logged.entrustment" ui-sref-active="active">{{lang.lang3}}</a>
+            </li>
+            <!-- <li class="head-padding"></li> -->
+            <li class="head-login" ng-hide="account">
+                <a ui-sref="logged.login" ui-sref-active="active" >{{lang.lang4}}</a>
+            </li>
+            <li class="head-re" ng-hide="account">
+                <a ui-sref="logged.register" ui-sref-active="active" >{{lang.lang29}}</a>
+            </li>
+            <li class="dropdown dropBlock head-user" ng-show="account" >
+                <a class="dropdown-toggle cursorClass" ng-class="{active: $state.current.name.includes('userinfo')}" style="border:0;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{account}}</a>
+                <div class="dropdown-menu user_menu text-center" style="border-color: rgba(255, 255, 255, 0.2);" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item cursorClass" ui-sref="logged.userinfo" >{{lang.lang420}}</a>
+                    <a class="dropdown-item cursorClass" ui-sref="logged.invitefriends" >{{lang.lang456}}</a>
+                    <a class="dropdown-item cursorClass" ng-click="loginout()">{{lang.lang30}}</a>
+                </div>
+            </li>
+            <li class="dropdown dropBlock head-re">
+                <a class="dropdown-toggle cursorClass" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{language == 1 ? '简体中文':'English'}}</a>
+                <div class="dropdown-menu lang_menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item cursorClass" ng-click="changeLanguage(1)">简体中文</a>
+                    <a class="dropdown-item cursorClass" ng-click="changeLanguage(2)">English</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div ui-view>
+</div>
+<div class="container-full text-white padding20 footerWrap">
+    <div class="row">
+        <div class="col-md-5  position-relative" style="margin-left: 8%;">
+            <h4></h4>
+            <p class="" style="color: rgba(255,255,255,0.4);margin: 0"><img style="width: 130px; margin-right: 1rem;" src="img/logo.png">
+                <br><span style="margin-top:6px;display: block;font-size: 8px;color:#49589D;">{{lang.lang5}}</span></p>
+            <p class="icon">
+                <a class="social weixin" href="javascript:">
+                        <i><img class="qrcode" src="img/wxewm.png" alt="微信二维码"></i>
+                        <i class="qrcodess"></i>
+                    </a>
+                    <a href="https://weibo.com/6543044492" style="margin:0.2rem;" target="weibo"><i class="qr"></i></a>
+                    <a href="https://www.facebook.com/HayekEx-886774671502984" target="facebook"><i class="qrc"></i></a>
+                    <a href="https://twitter.com/HayekEx" style="margin:0.2rem;" target="twitter"><i class="qrco"></i></a>
+                    <a href="https://t.me/hayekex" target="t"><i class="telegram" ></i></a>
+            </p>
+            <p class="" style="color: #49589D;">CopyRight © 2018 HAYEK TECHNOLOGY PTE. LTD. All Rights Reserved</p>
+        </div>
+        <div class="col-md-5 footernav" style="margin-left: 4%;">
+            <dl style="float: right;">
+                <dt>{{lang.lang31}}</dt>
+                <dd class="nav-item cursorClass" ui-sref="logged.aboutus" ui-sref-active="active">{{lang.lang6}}</dd>
+                <dd class="nav-item cursorClass" ui-sref="logged.rate" ui-sref-active="active">{{lang.lang7}}</dd>
+                <dd class="nav-item cursorClass" ui-sref="logged.helpcenter" ui-sref-active="active">{{lang.lang358}}</dd>
+            </dl>
+            <dl style="float: right;">
+                <dt>{{lang.lang8}}</dt>
+                <dd class="nav-item cursorClass" ui-sref="logged.useragreement" ui-sref-active="active">{{lang.lang9}}</dd>
+                <dd class="nav-item cursorClass" ui-sref="logged.privacypolicy" ui-sref-active="active">{{lang.lang10}}</dd>
+                <dd class="nav-item cursorClass" ui-sref="logged.legislation" ui-sref-active="active">{{lang.lang11}}</dd>
+            </dl>
+            <dl style="float: right;">
+                <dt>{{lang.lang12}}</dt><!-- （{{lang.lang460}}） -->
+                <dd>QQ{{language == 1 ? '群':'Group'}}</dd>
+                <dd>770354914</dd>
+                <dd>702481182</dd>
+                <!-- <dd class="icon">
+                    <a class="social weixin" href="javascript:">
+                        <i><img class="qrcode" src="img/wxewm.png" alt="微信二维码"></i>
+                        <i class="qrcodess"></i>
+                        <img class="qrcode" src="img/wxewm.png" alt="微信二维码">
+                        <img class="qrcodess" src="" alt="">
+                    </a>
+                    <a href="https://weibo.com/6543044492" style="margin:0.2rem;" target="weibo"><i class="qr"></i><img class="qr"   src="" alt=""></a>
+                    <a href="https://www.facebook.com/HayekEx-886774671502984" target="facebook"><i class="qrc"></i><img class="qrc"   src="" alt=""></a>
+                    <a href="https://twitter.com/HayekEx" style="margin:0.2rem;" target="twitter"><i class="qrco"></i><img  class="qrco"   src="" alt=""></a>
+                    <a href="https://t.me/hayekex" target="t"><i class="telegram" ></i><img  class="telegram"   src="" alt=""></a>
+                </dd> -->
+            </dl>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">申诉列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box" style="margin-bottom: 25px;">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="申诉类型/申诉状态" ng-model="params.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">申诉时间：</label>
+                            <input size="16" type="text" ng-model="params.startTime " readonly class="form_datetime"> 至
+                            <input size="16" type="text" ng-model="params.endTime" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">申诉类型：</label>
+                            <select class="form-control" ng-model="params.mode">
+                                <option value="">全部</option>
+                                <option value="1">对方未付款</option>
+                                <option value="2">对方未放行</option>
+                                <option value="3">对方无应答</option>
+                                <option value="4">对方有欺诈行为</option>
+                                <option value="5">其他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">申诉状态：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="0">申诉中</option>
+                                <option value="1">已取消</option>
+                                <option value="2">申诉失败</option>
+                                <option value="3">申诉成功</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-refresh" ng-click="searchFun(1)">重置</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>口令</th>
+                            <th>申诉人</th>
+                            <th>申诉人角色</th>
+                            <th>被申诉人</th>
+                            <th>被申诉人角色</th>
+                            <th>类型</th>
+                            <th>理由</th>
+                            <th>状态</th>
+                            <th>结果</th>
+                            <th>证据</th>
+                            <th>审核意见</th>
+                            <th>提交时间</th>
+                            <th>审核时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 审核操作 -->
+<div class="modal fade abortive-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">审核</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group" style="margin-bottom:10px;" style="margin-bottom:15px">
+                        <label class="control-label">审核结果：</label>
+                        <div class="account">
+                            <div class="col-sm-4">
+                                <input class="radio-inline" type="radio" name="status" value="2" ng-change="radioChecked()" ng-model="adminParams.status" ng-checked="true">
+                                <label style="font-weight: normal;">申诉成功</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="radio-inline" type="radio" name="status" value="3" ng-change="radioChecked()" ng-model="adminParams.status">
+                                <label style="font-weight: normal;">申诉失败</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;" style="margin-bottom:15px">
+                        <label class="control-label">审核结果：</label>
+                        <label class="col-lg-9" style="font-weight: normal;">{{userdetail.result}}</label>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;" style="margin-bottom:15px">
+                        <label class="control-label">证据上传：</label>
+                        <div class="col-xs-8 imgFileWrap" style="margin-left: -15px;">
+                            <input id="input-b1" name="pFile" type="file" class="file imgFile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">审核意见：</label>
+                        <br>
+                        <textarea class="form-control" rows="4" style="width:80%"  name="remark" ng-model="adminParams.remark" required></textarea>
+                        <span style="color:#d70000;margin-left: 78px;" ng-show="myForm.remark.$error.required">审核意见必填</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="verify()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

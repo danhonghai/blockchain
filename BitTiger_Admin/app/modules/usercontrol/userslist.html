@@ -1,0 +1,58 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">用户列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box" style="margin-bottom: 25px;">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="手机号/邮箱/用户ID" ng-model="params.keyword">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">实名认证状态:</label>
+                            <select class="form-control" ng-model="params.authenticationStatus">
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinList" value="{{item.value}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">谷歌验证码绑定:</label>
+                             <select class="form-control" ng-model="params.verificationStatus" >
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinLists" value="{{item.value}}" >{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">注册时间：</label>
+                            <input size="16" type="text" ng-model="params.registerStartTime " readonly class="form_datetime"> 至
+                            <input size="16" type="text" ng-model="params.registerEndTime" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-refresh" ng-click="searchFun(1)">重置</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>手机号</th>
+                            <th>邮箱</th>
+                            <th>实名认证状态</th>
+                            <th>谷歌验证码绑定</th>
+                            <th>注册时间</th>
+                            <th>最后登录时间</th>
+                            <th>IP地址</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,83 @@
+<!-- 购买页面 -->
+<!-- <div class="container-full aboutus" style="padding-top: 6rem;background: #0E1118;height: 640px;">
+    <div class="container" style="padding: 0;overflow: hidden;">
+        <div class="carding"  ng-class="{carding:activityCardType==1,carding1:activityCardType==2,carding2:activityCardType==3}">
+            <div class="carding-name">{{activityCardType==1?'王者卡':activityCardType==2?'黄金卡':'白金卡'}}</div>
+            <div class="cardingdetail" style=" margin-top: 51.5px;">
+                <p class="caril">会员卡包含</p>
+                <p class="carill" ng-show="activityCardType==1">400000HYKT</p>
+                <p class="carill" ng-show="activityCardType==2">37500HYKT</p>
+                <p class="carill" ng-show="activityCardType==3">16000HYKT</p>
+                <p class="carilll">终身免交易手续费；优先提现；VIP专属客服</p>
+            </div>
+        </div>
+        <div class="payment">
+            <form class="info-form" novalidate name="myForm">
+                <div class="form-group">
+                    <label>购买份数</label> <span style="float: right; display: inline-block;">每人限买一份</span>
+                    <div class="new_tipbox">
+                        <div class="tip_tishi" ng-show="myForm.account.$dirty && myForm.account.$error.required">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" name="account" ng-model="params.account" required disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label>支付币种</label>
+                    <select class="custom-select" name="type" ng-model="params.type" required ng-change="adess()" style=" background-color: #1D2843;border: none;height: 46px;color: #ffffff;text-align: center; padding: 0 0 0 230px;">
+                        <option value="1" label="BTC">BTC</option>
+                        <option value="2" label="ETH ">ETH</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>应付</label>
+                    <input style="color: #C9D9FE; background-color: #0E1118;border: none;height: 46px;font-size: 28px;
+    text-align: center;" type="text" class="form-control" name="credit" ng-model="credit" required disabled="disabled">
+                    <label ng-repeat="item in coinlists">可用{{item.available}}{{item.coinName}}</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-md btn-block" style="margin-bottom: 30px;" ng-click="address(userId, activityId)" ng-if="curty.available >= credit">立即支付</button>
+                <button type="submit" class="btn btn-primarys btn-md btn-block" ng-if="curty.available < $scope.credit">可用余额不足</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+<div class="container-full aboutus" style="padding-top: 6rem;background: #0E1118;height: 640px;">
+    <div class="container" style="padding: 0;overflow: hidden;">
+        <div class="carding" ng-class="{carding:activityCardType==1,carding1:activityCardType==2,carding2:activityCardType==3}">
+            <div class="carding-name">{{activityCardType==1?lang.lang493:activityCardType==2?lang.lang494:lang.lang495}}</div>
+            <div class="cardingdetail" style=" margin-top: 51.5px;">
+                <p class="caril">{{lang.lang501}}</p>
+                <p class="carill" ng-show="activityCardType==1">400000HYKT</p>
+                <p class="carill" ng-show="activityCardType==2">37500HYKT</p>
+                <p class="carill" ng-show="activityCardType==3">16000HYK</p>
+                <p class="carilll">{{lang.lang502}}</p>
+            </div>
+        </div>
+        <div class="payment">
+            <form class="info-form" novalidate name="myForm">
+                <div class="form-group">
+                    <label>{{lang.lang503}}</label> <span style="float: right; display: inline-block;">{{lang.lang508}}</span>
+                    <div class="new_tipbox">
+                        <div class="tip_tishi" ng-show="myForm.account.$dirty && myForm.account.$error.required">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" name="account" ng-model="params.account" required disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label>{{lang.lang504}}</label>
+                    <select class="custom-select" name="type" ng-model="params.type" required ng-change="adess()" style=" background-color: #1D2843;border: none;height: 46px;color: #ffffff;text-align: center; padding: 0 0 0 230px;">
+                        <option value="1" label="BTC">BTC</option>
+                        <option value="2" label="ETH ">ETH</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>{{lang.lang505}}</label>
+                    <input style="color: #C9D9FE; background-color: #0E1118;border: none;height: 46px;font-size: 28px;
+    text-align: center;" type="text" class="form-control" name="credit" ng-model="credit" required disabled="disabled">
+                    <label ng-repeat="item in coinlists">{{lang.lang66}}{{item.available}}{{item.coinName}}</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-md btn-block" style="margin-bottom: 30px;" ng-click="address(userId, activityId)" ng-if="curty.available >= credit">{{lang.lang506}}</button>
+                <button type="submit" class="btn btn-primarys btn-md btn-block" ng-if="curty.available < $scope.credit">{{lang.lang507}}</button>
+            </form>
+        </div>
+    </div>
+</div>

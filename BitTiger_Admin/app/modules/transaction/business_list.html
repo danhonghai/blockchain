@@ -1,0 +1,164 @@
+<main>
+   	<div class="page-content"> 
+        <div class="content container" style="overflow:hidden;"> 
+    	    <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);"> 
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">成交列表</a> 
+            </div>
+        	<div class="widget-content example_alt_pagination">
+        		<div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="手机号/邮箱/订单号" ng-model="params.keyword">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">市场类型：</label>
+                            <select class="form-control" ng-model="params.transPair" >
+                                <option value="">全部</option>
+                                <option ng-repeat="item in transModel" value="{{item.transPair}}" >{{item.transPair}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">交易类型：</label>
+                            <select class="form-control" ng-model="params.entrustType" >
+                                <option value="">全部</option>
+                                <option ng-repeat="item in transType" value="{{item.value}}" >{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">委托时间：</label>
+                            <input size="16" type="text" ng-model="params.entrustStartTime" readonly class="form_datetime" > 至 
+                            <input size="16" type="text" ng-model="params.entrustEndTime" readonly class="form_datetime" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">交易时间：</label>
+                            <input size="16" type="text" ng-model="params.finishStartTime" readonly class="form_datetime" > 至 
+                            <input size="16" type="text" ng-model="params.finishEndTime" readonly class="form_datetime" >
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">交易方向：</label>
+                            <select class="form-control" ng-model="params.direct" >
+                                <option value="">全部</option>
+                                <option ng-repeat="item in entrustType" value="{{item.value}}" >{{item.name}}</option> 
+                            </select>
+                        </div>
+                        <div class="form-group">   
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                    </form>
+                </div>
+        	    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+        	      	<thead>
+        		        <tr>
+                            <th>成交订单号</th>
+        		            <th>挂单订单号</th>
+        		            <th>手机号</th>
+        		            <th>邮箱</th>
+        		            <th>市场类型</th>
+                            <th>委托时间</th>
+        		            <th>交易时间</th>
+        		            <th>交易类型</th>
+        		            <th>交易价格</th>
+                            <th>交易数量</th>
+                            <th>交易金额</th>
+                            <th>交易方向</th>
+                            <th>手续费</th>
+        		            <!-- <th>操作</th> -->
+        		        </tr>
+        	        </thead>
+        	        <tbody>
+                	</tbody>
+        	  	</table>
+            </div>
+        </div> 
+   </div>
+</main>
+<!-- 详情弹窗 -->
+<div class="modal fade add_rule" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">{{ruleParams.id ? "修改" : "新增"}}规则</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline form-model" name="myForm" novalidate >
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">规则名称：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.realName" name="realName" required >
+                        <span style="color:#d70000;" ng-show="myForm.realName.$error.required">规则名称必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">持有债权：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.fullDay" name="fullDay" required pattern="^([1-9]\d{0,}|0)$" >
+                        <span style="color:#d70000;" ng-show="myForm.fullDay.$error.required">持有债权必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.fullDay.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">转让申请在持有该债权满N天</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">还款日之前：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.frontDay" name="frontDay" required pattern="^([1-9]\d{0,}|0)$" >
+                        <span style="color:#d70000;" ng-show="myForm.frontDay.$error.required">还款日必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.frontDay.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">转让申请在还款日的N天之前</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">剩余期数：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.leftStage" name="leftStage" required pattern="^([1-9]\d{0,}|0)$" >
+                        <span style="color:#d70000;" ng-show="myForm.leftStage.$error.required">剩余期数必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.leftStage.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">剩余期数大于或等于N期</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">剩余本金：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.leftMoney" name="leftMoney" required pattern="^([1-9]\d{0,}|0)$" >
+                        <span style="color:#d70000;" ng-show="myForm.leftMoney.$error.required">剩余本金必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.leftMoney.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">剩余本金大于或等于N元</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">单月转让次数：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.monthTime" name="monthTime" required pattern="^\+?[1-9]\d*$" >
+                        <span style="color:#d70000;" ng-show="myForm.monthTime.$error.required">转让次数必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.monthTime.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">同一债权转让不超过N次</p>
+                    </div>
+                    <div class="form-group input-group">
+                        <label class="control-label" style="width:100px;">手续费比例：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.fee" name="fee" required pattern="^\d+(\.\d{1,2})?$" ><span class="input-span" style="right:117px;">%</span>
+                        <span style="color:#d70000;" ng-show="myForm.fee.$error.required">手续费必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.fee.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">转让手续费比例</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">时效：</label>
+                        <input type="text" class="form-control" ng-model="ruleParams.validTime" name="validTime" required pattern="^\+?[1-9]\d*$" >
+                        <span style="color:#d70000;" ng-show="myForm.validTime.$error.required">时效必填</span>
+                        <span style="color:#d70000;" ng-show="myForm.validTime.$error.pattern">数据不合规范</span>
+                        <p style="margin-left:100px;">转让时效(小时数)</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" style="width:100px;">状态：</label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" ng-model="ruleParams.status" value="1"   >
+                                启用
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="status" ng-model="ruleParams.status" value="0"  >
+                                停用
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="saveRule()" >确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

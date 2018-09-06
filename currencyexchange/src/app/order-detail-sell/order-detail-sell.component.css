@@ -1,0 +1,97 @@
+.orderDetail .order-main{
+  margin: 50px auto;
+}
+.orderDetail .order-title{
+  font-size: 16px;
+  height: 48px;
+  align-items: center;
+  background-color: #fff;
+}
+
+.orderDetail .trade-title{
+  font-size: 14px;
+  color: #ABABAB;
+  height: 48px;
+  align-items: center;
+}
+
+.orderDetail .trade-content{
+  height: 80px;
+  font-size: 14px;
+  align-items: center;
+  background-color: #fff;
+}
+
+.orderDetail .trade-content .col:first-child{
+  font-size: 20px;
+  font-weight: bold;
+}
+.pay-info{
+  margin-top: 8px;
+}
+
+.pay-info .row{
+  height: 48px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.pay-info .row:nth-child(odd){
+  background-color: #fff;
+}
+
+.pay-info .pay-title{
+  font-size: 16px;
+}
+
+.order-handle{
+  margin-top: 8px;
+  background-color: #fff;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding: 15px;
+  font-size: 14px;
+}
+
+.order-handle .unpaid{
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.order-handle .unpaid a{
+  margin-left: 30px;
+  color: #659EFF;
+}
+
+.order-handle .promit-wrap{
+  margin-top: 20px;
+  padding-left: 0;
+  color: #6C6C6C;
+  list-style: none;
+
+}
+
+.pay-info .order-lose{
+  padding-top: 45px;
+  height: 192px;
+  background-color: #F8F9FA;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pay-finish span{
+  margin-left: 20px;
+  margin-right: 50px;
+  color: #6C6C6C;
+}
+
+.pay-finish button{
+  padding-left: 55px;
+  padding-right: 55px;
+}
+
+.order-appeal button{
+  margin-left: 60%;
+  padding-left: 55px;
+  padding-right: 55px;
+}

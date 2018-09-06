@@ -1,0 +1,64 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row" style="height: 55rem;">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item active b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_1.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_0.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_0.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<div class="col col-md-9">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header border-152669 font-1">
+				    {{lang.lang146}}
+				  </div>
+				  <div class="card-body font-2">
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang40}}</div>
+						<div class="col" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.hasPhone]" >{{userInfo.phone ? (userInfo.phone | mphone) : lang.lang207 }} <img src="img/icon_free.png" ng-if="userInfo.phone &&  userInfo.isVip == 1" style="position: relative;top:-2px;"></div>
+						<!-- <div class="col col-md-6 text-right text-primary">修改</div> -->
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang210}}</div>
+						<div class="col" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.hasEmail]">{{userInfo.email ? (userInfo.email | memail) : lang.lang207 }} <img ng-if="!userInfo.phone  &&  userInfo.isVip == 1" src="img/icon_free.png" style="position: relative;top:-2px;"></div>
+						<!-- <div class="col col-md-6 text-right text-primary">绑定</div> -->
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang120}}</div>
+						<div class="col c01B274">{{lang.lang212}}</div>
+						<!-- <div class="col col-md-6 text-right text-primary">修改</div> -->
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang215}}</div>
+						<div class="col" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.fundSite]" >{{userInfo.fundSite ? lang.lang212 : lang.lang213 }} </div>
+						<!-- <div class="col col-md-6 text-right text-primary">设置</div> -->
+					</div>
+				  </div>
+				</div>
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  	<div class="card-header info-header border-152669 font-1">
+				    	{{lang.lang317}}
+				  	</div>
+				  	<div class="card-body font-2">
+						<div class="row bottom-split border-152669" style="line-height: 3rem;">
+							<div class="col">{{lang.lang80}}</div>
+							<div class="col text-center">{{lang.lang318}}</div>
+							<div class="col text-center">IP</div>
+							<div class="col text-right">{{lang.lang57}}</div>
+						</div>
+						<div class="row bottom-split border-152669 font-1" style="line-height: 3rem;" ng-repeat="item in pagedatas.dataList">
+							<div class="col">{{item.loginTime | date : 'yyyy-MM-dd HH:mm:ss' }}</div>
+							<div class="col text-center">{{item.loginType == 1 ? 'PC' : item.loginType == 2 ? 'IOS' : 'Android'}}</div>
+							<div class="col text-center">{{item.loginIp}}</div>
+							<div class="col text-right" ng-class="{true:'c01B274',false:'cE45555'}[item.status == 1]" >{{item.status == 0 ? lang.lang92 : lang.lang91 }}</div>
+						</div>
+				  	</div>
+				  	<div class="text-center pagebox" ng-if="pagedatas.dataList">
+						<my-pagination page-option="option"></my-pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

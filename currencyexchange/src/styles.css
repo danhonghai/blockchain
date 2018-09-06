@@ -1,0 +1,274 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+body{
+  margin:0;
+  background-color: #F2F3F8 !important;
+  color: #181E2B !important;
+  height: 100%;
+}
+
+.ptop-3{
+  padding-top: 3.6rem;
+}
+
+.pt-8{
+  padding-top: 8rem;
+}
+
+.col-form-label-sm {
+  color: #6C6C6C;
+}
+
+.c00A774{
+  color: #00A774;
+}
+
+.cED4545{
+  color: #ED4545;
+}
+
+.c659EFF{
+  color: #659EFF;
+}
+.cABABAB{
+  color: #ABABAB;
+}
+.c6C6C6C{
+  color: #6C6C6C;
+}
+
+.cACACAC{
+  color: #ACACAC;
+}
+
+.table{
+  background-color: #FFF;
+}
+
+.table thead th{
+  border: none;
+  height: 48px;
+  color: #ABABAB;
+  font-weight: normal;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #F8F9FA;
+}
+.table th, .table td{
+  border: none;
+}
+.table td{
+  height: 80px;
+  color: #181E2B;
+  vertical-align: middle;
+}
+
+#myTab .nav-link.active,
+.nav-tabs .nav-link:focus{
+  border: none;
+  border-bottom: 2px solid #007bff;
+}
+.nav-tabs .nav-link {
+  border: none;
+  font-size: 16px;
+  margin: 0 1rem;
+  padding-left: 30px;
+}
+.nav-tabs .nav-link.active {
+  background: none;
+}
+.btn-outline-secondary {
+  color: #6c757d;
+  background-color: transparent;
+  background-image: none;
+  border-color: #ced4da;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-secondary.dropdown-toggle {
+  color: #fff;
+  background-color: #ced4da;
+  border-color: #ced4da;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
+.btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-outline-secondary.dropdown-toggle:focus,
+.btn-outline-secondary.focus,
+.btn-outline-secondary:focus {
+  box-shadow: none;
+}
+.dropdown-menu {
+  min-width: 87px;
+  opacity: .8;
+  border: none;
+  background: #131c2b;
+  top: 32px !important;
+  border-radius: 0 0 5px 5px;
+}
+.col-form-label-sm {
+  font-size: 1rem;
+  color: #6C6C6C;
+}
+.dropdown-item {
+  color: #fff !important;
+}
+/* 错误校验提示 */
+.tipbox {
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+}
+.tipbox .tip_tishi {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.cursorClass {
+  cursor: pointer;
+}
+
+/* 微信 */
+.icon-wx{
+  background: url('assets/images/wx.png') no-repeat;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+/* 支付宝 */
+.icon-zfb{
+  background: url('assets/images/zfb.png') no-repeat;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+/* 银联卡 */
+.icon-ylk{
+  background: url('assets/images/ylk.png') no-repeat;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+/* paypal */
+.icon-paypal{
+  background: url('assets/images/paypal.png') no-repeat;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+.icon-interchange{
+  background: url('assets/images/interchange.png') no-repeat;
+  width: 16px;
+  height: 12px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+.icon-arrow{
+  background: url('assets/images/arrow_l.png') no-repeat;
+  width: 24px;
+  height: 16px;
+  display: inline-block;
+}
+
+.icon-back{
+  background: url('assets/images/icon_back.png') no-repeat;
+  width: 15px;
+  height: 14px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+.icon-user{
+  background: url('assets/images/icon_user.png') no-repeat;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+.btn-659EFF {
+  color: #fff;
+  background-color: #659EFF;
+  border-color: #659EFF;
+  font-size: 16px;
+}
+
+.btn-F2F3F8 {
+  color: #fff;
+  background-color: #F2F3F8;
+  border-color: #F2F3F8;
+  font-size: 16px;
+}
+
+.btn-E2E4EB {
+  color: #fff;
+  background-color: #E2E4EB;
+  border-color: #E2E4EB;
+  font-size: 16px;
+}
+
+.page-title{
+  padding-left: 40px;
+  background-color: #FFF;
+  height: 90px;
+  line-height: 90px;
+  border-bottom: 1px solid #E2E4EB;
+  font-size: 24px;
+  color: #6C6C6C;
+}
+
+.page-title .page-promp{
+  position: absolute;
+  top: 30px;
+  font-size: 14px;
+  left: 40px;
+}
+
+
+.d-inline-block{
+  display: inline-block;
+}
+
+.modal-body{
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+/* 下拉选择 */
+.down-menu{
+  background: #fff;
+  opacity: 1;
+  top: 15px !important;
+  box-shadow: 0px 2px 6px 0px rgba(24,30,43,0.1);
+
+}
+
+.down-menu .dropdown-item{
+  color: #181E2B !important;
+  font-size: 0.8rem;
+}
+
+.down-menu .selected{
+  color: #659EFF !important;
+}
+
+.down-menu .dropdown-item:hover{
+  background: #F2F3F8;
+}

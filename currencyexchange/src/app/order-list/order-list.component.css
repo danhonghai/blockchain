@@ -1,0 +1,14 @@
+.orderList{
+  margin-bottom: 50px;
+}
+.orderList .order-title{
+  margin-top: 50px;
+}
+
+.orderList .table tr th:first-child,.orderList .table tr td:first-child{
+  padding-left: 40px;
+}
+
+.orderList .table tr th:last-child,.orderList .table tr td:last-child{
+  padding-right: 40px;
+}

@@ -1,0 +1,232 @@
+#main-content{
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    padding: 10px;
+    .wrapper {
+      display: inline-block;
+      padding: 15px;
+      width: 100%;
+    }
+    .tab-list {
+      height:40px;
+      background: rgba(0,0,0,0.4);
+      line-height:40px;
+      font-size:14px;
+      .tab-item{
+        color:#fff;
+        width: 110px;
+        text-align: center;
+        display: inline-block;
+        border-left: 5px solid #1fb5ad;
+      }
+    }
+    .fr{
+      float: right;
+    }
+    .fl {
+    float: left;
+    }
+    .form-group {
+        margin-right: 10px;
+    }
+}
+
+// 角色权限配置页面
+.set-rolewrapper{
+  .item-box {
+      padding: 20px 40px;
+  }
+}
+// 用户信息
+.user-wrapper{
+  .nav-wrap{
+  	margin-left: 0px;
+  	margin-top: 20px;
+    .btn{
+        float:right;
+        margin-left: 10px;
+    }
+  }
+  .nav-title{
+      float:left;
+      .title{
+          border-bottom:2px solid #1fb5ad;
+          display:inline-block;
+          margin-bottom:20px;
+          padding-bottom: 2px;
+          font-size: 16px;
+          color: #333;
+      }
+  }
+  .item-box{
+  	padding:20px 40px;
+  }
+  .panel-body{
+    padding:0;
+    .box-title{
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+  }
+  .list-vertical{
+  	color:#333;
+  	font-size: 14px;
+    li{
+    	height: 50px;
+    	line-height: 50px;
+    	border:1px solid #dbdbdb;
+    	width:440px;
+      list-style: none;
+      .list-item{
+      	float:left;
+      	padding-left: 20px;
+      	height: 48px;
+      	width: 218px;
+      }
+      .headerUser{
+      	border-right: 1px solid #dbdbdb;
+        padding-left: 20px;
+      }
+    }
+    li+li{
+    	border-top:none;
+    }
+  }
+  .tab-content{
+  	position: absolute;
+  	width: 98%;
+  }
+  .has-header{
+  	top:85px;
+  }
+}
+
+// 以下是页面改版后的样式必须用到的
+
+// 新加样式 以此为准
+// 文章管理页面
+.article {
+  table{
+    tbody{
+      tr{
+        td{
+          &:nth-child(4),&:nth-child(2) {
+            width:4%;
+            word-break:keep-all;
+            overflow:hidden;
+            text-overflow:ellipsis;
+          }
+        }
+      }
+    }
+  }
+}
+// 公共样式
+.fr{
+  float: right;
+}
+.control-right{
+  float: left;
+  text-align: right;
+  font-weight: 300;
+  font-size: 14px;
+  color:#fff;
+}
+// 新增管理员modal页面样式
+.add-admin-modal{
+  .control-right{
+    color:#333;
+    line-height: 34px;
+  }
+}
+// 文件上传
+.file-input{
+	width: 81%;
+	.hidden-xs{
+		display: inline !important;
+	}
+	.input-group .form-control {
+	    float: left;
+	    width: 100% !important;
+	    margin-bottom: 0;
+	}
+}
+.publish-left{
+  .col-sm-offset-1{
+    margin-left: 0;
+  }
+}
+.file-zoom-dialog{
+	.modal-dialog{
+		margin: 30px auto;
+		left: 0;
+	}
+}
+// 文章发布页面 添加banner页面
+.publish-wrapper,.banner-box{
+  label {
+    display: inline-block;
+    line-height: 34px;
+  }
+  .radio-inline{
+    margin-bottom: 2px;
+  }
+  .col-sm-1{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .btn-primary{
+    &:disabled{
+      background-color: ragb(66, 139, 202, 0.45);
+    }
+  }
+  .form-control{
+    padding-left:12px;
+    width:100%;
+  }
+}
+// 后台管理员页面modal 样式修改
+.modal-content{
+  .form-control{
+    background-color: #fff !important;
+    border:1px solid #e2e2e4 !important;
+    color:#666 !important;
+    box-shadow: none  !important;
+  }
+  .icheck{
+    margin-top: 10px;
+    label {
+      font-weight:normal;
+    }
+  }
+  .account{
+    height:34px;
+    line-height: 34px;
+    label {
+      font-weight:normal;
+    }
+  }
+  .modal-body {
+    background-color: #fff;
+  }
+  .modal-footer{
+    margin-top: 0;
+  }
+  .btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+  }
+}
+
+a.aHover{
+  color: #1fb5ad;;
+  &:hover{
+    color: #1fb5ad;;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,47 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row" style="height: 50rem;">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_0.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_0.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669 active" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_1.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<div class="col col-md-9">
+				<div class="card  div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header border-152669 font-1" >
+				    {{lang.lang148}}
+				  </div>
+				  <div class="card-body font-2">
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang40}}</div>
+						<div class="col col-md-7" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.hasPhone]" ><img style="margin-right: .5rem;" src="{{userInfo.phone ? 'img/icon_state_hook.png' : 'img/icon_state_remind.png'}}" alt="">{{userInfo.phone ? (userInfo.phone | mphone) : lang.lang207 }}</div>
+						<div class="col col-md-2 text-right text-primary cursorClass" ui-sref="logged.setmobile_userinfo">{{userInfo.phone ? lang.lang208 : lang.lang209 }}</div>
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang210}}</div>
+						<div class="col col-md-7" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.hasEmail]"><img style="margin-right: .5rem;" src="{{userInfo.email ? 'img/icon_state_hook.png' : 'img/icon_state_remind.png'}}" alt="">{{userInfo.email ? (userInfo.email | memail) : lang.lang207 }}</div>
+						<div class="col col-md-2 text-right text-primary cursorClass" ui-sref="logged.setemail_userinfo">{{userInfo.email ?  lang.lang208 : lang.lang209 }}</div>
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang211}}</div>
+						<div class="col col-md-7" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.googleAuth]"><img style="margin-right: .5rem;" src="{{userInfo.googleAuth ? 'img/icon_state_hook.png' : 'img/icon_state_remind.png'}}" >{{userInfo.googleAuth ? lang.lang212 : lang.lang213 }}</div>
+						<div class="col col-md-2 text-right text-primary cursorClass" ui-sref="logged.verifygoogle_userinfo" >{{userInfo.googleAuth ? lang.lang208 : lang.lang214 }}</div>
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang120}}</div>
+						<div class="col col-md-7 c01B274"><img style="margin-right: .5rem;" src="img/icon_state_hook.png" alt="">{{lang.lang212}}</div>
+						<div class="col col-md-2 text-right text-primary cursorClass" ui-sref="logged.updatepwd_userinfo" >{{lang.lang208}}</div>
+					</div>
+					<div class="row bottom-split border-152669" style="line-height: 3rem;">
+						<div class="col">{{lang.lang215}}</div>
+						<div class="col col-md-7" ng-class="{true:'c01B274',false:'cE45555'}[userInfo.fundSite]"><img style="margin-right: .5rem;" src="{{userInfo.fundSite ? 'img/icon_state_hook.png' : 'img/icon_state_remind.png'}}" >{{userInfo.fundSite ? lang.lang212 : lang.lang213 }}</div>
+						<div class="col col-md-2 text-right text-primary cursorClass" ui-sref="logged.setfundpwd_userinfo">{{userInfo.fundSite ? lang.lang208 : lang.lang214 }}</div>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

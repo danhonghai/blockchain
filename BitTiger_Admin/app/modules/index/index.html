@@ -1,0 +1,179 @@
+<main id="index">
+   <div class="page-content"> 
+    <div class="content container" style="overflow:hidden;"> 
+      <div class="row">
+        <div class="col-lg-12">
+          <h4 class="page-title">平台今日数据</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+              <div class="stats-heading">注册用户/挂单用户</div>
+              <div class="stats-body-alt">
+
+                <div class="text-center"><span class="text-top">{{platformData.todayRegister}}/{{platformData.todayOrderUser}}</span></div>
+                <!-- <small><div class="row"><div class="col-lg-12">同比昨日增加<span style="margin-left:5px;" class="label label-default">{{data.registerAdd}}人</span></div></div></small>  -->
+              </div>
+                <!-- <div class="stats-footer">查看详情</div> -->
+              </a> 
+            </div>
+            <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+              <div class="stats-heading">挂单笔数/挂单金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+              <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.todayOrderCount}}/{{platformData.todayOrderMoney | number: 6}}</span></div>
+              </div>
+              </a> 
+            </div>
+            <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+              <div class="stats-heading">成交笔数/成交金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+              <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.todayDealCount}}/{{platformData.todayDealMoney | number: 6}}</span></div>
+              </div>
+              </a> 
+            </div>
+            <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+              <div class="stats-heading">手续费（BTC/ETH/LTC）</div>
+              <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.todayethFee}}/{{platformData.todayethFee}}/{{platformData.todayltcFee}}</span></div>
+              </div>
+              </a> 
+            </div>
+            <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+              <div class="stats-heading">充值数量（BTC/ETH/LTC）</div>
+              <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.btcRecharge}}/{{platformData.ethRecharge}}/{{platformData.ltcRecharge}}</span></div>
+              </div>
+              </a> 
+            </div>
+            <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+              <div class="stats-heading">提现数量（BTC/ETH/LTC）</div>
+              <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.btcWithdraw}}/{{platformData.ethWithdraw}}/{{platformData.ltcWithdraw}}</span></div>
+              </div>
+              </a> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+        <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">ETH/BTC今日数据</a>
+      </div>
+      <div class="light-bg" style="background:rgba(0,0,0,0.3)">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">最新价/24小时涨跌幅</div>
+                <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.eth_btc  | number:6}}<small>฿</small>/<span style="color:#c7254e;">{{platformData.eth_btc | number:2}}%</span></span></div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">挂单笔数/挂单金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.todayeth_btcOrderCount}}/{{platformData.todayeth_btcOrderMoney | number:6}}</span></div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">成交笔数/成交金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.todayeth_btcDealCount}}/{{platformData.todayeth_btcDealMoney | number:6}}</span></div>
+                </div>
+                </a> 
+              </div>
+              <!-- <div class="col-md-3 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">手续费（BTC/ETH/LTC）</div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.btcFee}}/{{platformData.ethFee}}/{{platformData.ltcFee}}</span></div>
+                </div>
+                </a> 
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+        <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">LTC/BTC今日数据</a>
+      </div>
+      <div class="light-bg" style="background:rgba(0,0,0,0.3)">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">最新价/24小时涨跌幅</div>
+                <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.ltc_btcPrice | number:6}}<small>฿</small>/<span style="color:#c7254e;">{{platformData.ltc_btcOr | number:2}}%</span></span></div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">挂单笔数/挂单金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.todayltc_btcOrderCount}}/{{platformData.todayltc_btcOrderMoney | number:6}}</span></div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-4 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">成交笔数/成交金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.todayltc_btcDealCount}}/{{platformData.todayltc_btcDealMoney | number:6}}</span></div>
+                </div>
+                </a> 
+              </div>
+              <!-- <div class="col-md-3 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">手续费（BTC/ETH/LTC）</div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.btcFee}}/{{platformData.ethFee}}/{{platformData.ltcFee}}</span></div>
+                </div>
+                </a> 
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+        <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">平台整体数据</a>
+      </div>
+      <div class="light-bg" style="background:rgba(0,0,0,0.3)">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-3 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">累计注册用户</div>
+                <div class="stats-body-alt">
+                  <div class="text-center"><span class="text-top">{{platformData.totalUser}}</div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">官方钱包金额（BTC/ETH/LTC）</div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.btcPlatformCount}}/{{platformData.ethPlatformCount}}/{{platformData.ltcPlatformCount}}</span></div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">成交笔数/成交金额<span style="margin-left:5px;" class="label label-primary">฿</span></div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.dealCount}}/{{platformData.dealMoney | number:6}}</span></div>
+                </div>
+                </a> 
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-6"> <a href="#" class="stats-container">
+                <div class="stats-heading">手续费（BTC/ETH/LTC）</div>
+                <div class="stats-body-alt">
+                    <div class="text-center"><span class="text-top">{{platformData.btcFee}}/{{platformData.ethFee}}/{{platformData.ltcFee}}</span></div>
+                </div>
+                </a> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+</main>

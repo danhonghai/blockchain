@@ -1,0 +1,7 @@
+#myTab .nav-item a, #myTab .nav-tabs .nav-link.active {
+  color:#333 !important;
+  background:none !important;
+}
+#myTab {
+  padding-left: 8rem;
+}

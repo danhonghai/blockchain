@@ -1,0 +1,68 @@
+<div class="highAuth container ptop-3">
+  <div class="page-title" style="padding-right: 40px;"><i class="icon-user"></i><span style="color:#090927;margin-left: 10px;">个人中心&nbsp;>&nbsp;</span>高级认证
+    <span class="float-right cursorClass" style="font-size: 14px;" [routerLink]="['/userinfo']"
+     *ngIf="currentStep == 0 || currentStep == 4 || currentStep == 5"><i class="icon-back" style="margin-right: 10px;"></i>返回个人中心</span>
+    <span class="float-right cursorClass" style="font-size: 14px;" *ngIf="currentStep == 1 || currentStep == 2 || currentStep == 3" (click)="back()" ><i class="icon-back" style="margin-right: 10px;" ></i>返回</span>
+  </div>
+  <div class="highAuth-main text-center" *ngIf="currentStep == 0">
+    <div class="image-auth position-relative">
+      <div class="image-border"></div>
+      <div class="pic">
+        <img src="./assets/images/icon_auth2.png" alt="" >
+        <p class="c659EFF mt-1">上传照片</p>
+      </div>
+      <div class="pic_auth">
+        <img src="./assets/images/icon_auth1.png" alt="">
+        <p class="c6C6C6C mt-1">系统审核</p>
+      </div>
+    </div>
+    <button class="btn btn-659EFF" style="padding:10px 118px;margin-top: 100px;" (click)="authClick()"  >开始高级认证</button>
+  </div>
+
+
+  <div class="highAuth-main" *ngIf="currentStep == 1">
+    <div class="highAuth-title" >上传正面图像</div>
+    <div style="margin-left: 150px">
+      <app-upload-picture [(previewImgObj)]="previewImgObj" ></app-upload-picture>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-659EFF" style="padding:10px 118px;margin-top: 30px;" (click)="nextStep()" [disabled]="!previewImgObj" >下一步</button>
+    </div>
+  </div>
+
+  <div class="highAuth-main" *ngIf="currentStep == 2">
+    <div class="highAuth-title" >上传背面图像</div>
+    <div style="margin-left: 150px">
+      <app-upload-picture [(previewImgObj)]="previewImgObj" ></app-upload-picture>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-659EFF" style="padding:10px 118px;margin-top: 30px;" (click)="nextStep()" [disabled]="!previewImgObj" >下一步</button>
+    </div>
+  </div>
+
+  <div class="highAuth-main" *ngIf="currentStep == 3">
+    <div class="highAuth-title" >上传手持证件照正面图像</div>
+    <div style="margin-left: 150px">
+      <app-upload-picture [(previewImgObj)]="previewImgObj" ></app-upload-picture>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-659EFF" style="padding:10px 118px;margin-top: 30px;" (click)="nextStep()" [disabled]="!previewImgObj" >确认</button>
+    </div>
+  </div>
+
+  <div class="highAuth-main text-center" *ngIf="currentStep == 4">
+      <img src="./assets/images/icon_card.png" alt="">
+      <p style="margin-top: 50px;">您的验证文件已提交，请耐心等待系统审核。</p>
+  </div>
+
+  <div class="highAuth-main text-center" *ngIf="currentStep == 5">
+    <img src="./assets/images/icon_unpass.png" alt="">
+    <p style="margin-top: 50px;">抱歉由于您上传的信息有误，审核未能通过；如需进行高级认证，可再次发起申请</p>
+    <span class="c659EFF cursorClass" (click)="nextStep()">重新高级认证</span>
+  </div>
+
+  <div class="highAuth-main text-center" *ngIf="currentStep == 6">
+    <img src="./assets/images/icon_passing.png" alt="">
+    <p style="margin-top: 50px;">你的验证文件正在上传，请勿关闭浏览器。</p>
+  </div>
+</div>

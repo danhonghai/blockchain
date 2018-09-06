@@ -1,0 +1,79 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">交易列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box" style="margin-bottom: 25px;">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="广告订单号/交易订单号/昵称" ng-model="params.name">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label class="control-label">实名认证状态:</label>
+                            <select class="form-control" ng-model="params.authenticationStatus">
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinList" value="{{item.value}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">谷歌验证码绑定:</label>
+                             <select class="form-control" ng-model="params.verificationStatus" >
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinLists" value="{{item.value}}" >{{item.name}}</option>
+                            </select>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="control-label">交易时间：</label>
+                            <input size="16" type="text" ng-model="params.startTime" readonly class="form_datetime"> 至
+                            <input size="16" type="text" ng-model="params.endTime" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">广告交易类型：</label>
+                            <select class="form-control" ng-model="params.direct">
+                                <option value="">全部</option>
+                                <option value="1">买入</option>
+                                <option value="2">卖出</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">交易状态：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="0">未付款</option>
+                                <option value="1">已取消</option>
+                                <option value="2">已付款</option>
+                                <option value="3">申诉中</option>、
+                                <option value="4">已完成</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-refresh" ng-click="searchFun(1)">重置</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>交易订单号</th>
+                            <th>广告订单号</th>
+                            <th>广告用户昵称</th>
+                            <th>下单用户昵称</th>
+                            <th>广告交易类型</th>
+                            <th>成交单价</th>
+                            <th>成交数量</th>
+                            <th>成交金额</th>
+                            <th>订单状态</th>
+                            <th>交易时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

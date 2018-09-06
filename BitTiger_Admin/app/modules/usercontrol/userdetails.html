@@ -1,0 +1,61 @@
+<main id="userinfo">
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">{{userdetail.name}}(个人信息汇总)</a>
+            </div>
+            <div class="row" style="background: rgba(0,0,0,0.3);">
+                <div class="col-lg-12">
+                    <span style=" line-height:40px; padding-left:15px;">基本信息:</span>
+                    <table class="table table-bordered" style="text-align:center; margin-left:15px; margin-right:15px;">
+                        <tbody>
+                            <tr>
+                                <td style="width:20%; background:rgba(0,0,0,0.3)">
+                                    <a>姓名</a>
+                                </td>
+                                <td style="width:20%">
+                                    <span class="label label-primary">{{userdetail.name}}</span>
+                                </td>
+                                <td style="width:20%; background:rgba(0,0,0,0.3)">
+                                    <a>手机号</a>
+                                </td>
+                                <td style="width:20%">
+                                    <span class="label label-success">{{userdetail.phone}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style=" background:rgba(0,0,0,0.3)">
+                                    <a>证件号码</a>
+                                </td>
+                               <td style="width:20%">
+                                    <span class="label label-success">{{userdetail.idno}}</span>
+                                </td>
+                                <td style=" background:rgba(0,0,0,0.3)">
+                                    <a>邮箱</a>
+                                </td>
+                                 <td style="width:20%">
+                                    <span class="label label-success">{{userdetail.email}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12">
+                    <span style=" line-height:40px; padding-left:15px;">账户信息:</span>
+                    <table class="table table-bordered" style="text-align:center; margin-left:15px; margin-right:15px;">
+                        <tbody>
+                            <tr ng-repeat="k in userdetaillist">
+                                <td style="width:20%; background:rgba(0,0,0,0.3)">
+                                    <a>{{k.coinName}}</a>
+                                </td>
+                                <td style="width:20%">
+                                    <span class="label label-primary">{{k.coinAvailable}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,99 @@
+<div class="userinfo container ptop-3">
+  <div class="page-title">基本信息</div>
+  <div class="userinfo-main">
+    <div class="row" style="line-height: 2rem;">
+      <div class="col-3">昵称：</div>
+      <div class="col">{{userinfo.nickName ? userinfo.nickName : '--'}}</div>
+    </div>
+    <!-- <div class="row" style="line-height: 2rem;">
+      <div class="col-3">UID：</div>
+      <div class="col">--</div>
+    </div> -->
+    <div class="row" style="line-height: 2rem;">
+      <div class="col-3">总成单：</div>
+      <div class="col">{{userinfo.tradeNumber}}次</div>
+    </div>
+  </div>
+  <div class="page-title">账号安全</div>
+  <div class="userinfo-main">
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">手机号：</div>
+      <div class="col col-md-7"><img style="margin-right: .5rem;" >{{userinfo.phone ? userinfo.phone : '--'}}</div>
+    </div>
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">邮箱：</div>
+      <div class="col col-md-7"><img style="margin-right: .5rem;">{{userinfo.email ? userinfo.email : '--'}}</div>
+    </div>
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">谷歌验证：</div>
+      <div class="col col-md-7"><img style="margin-right: .5rem;">{{userinfo.googleAuth ? '已设置' : '--'}}</div>
+    </div>
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">登录密码：</div>
+      <div class="col col-md-7"><img style="margin-right: .5rem;">已设置</div>
+    </div>
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">资金密码：</div>
+      <div class="col col-md-7"><img style="margin-right: .5rem;">{{userinfo.fundSite ? '******' : '--'}}</div>
+    </div>
+  </div>
+  <div class="page-title position-relative">身份认证<span class="page-promp cED4545">请如实填写填写您的身份信息，一经认证不可修改</span></div>
+  <div class="userinfo-main">
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">实名认证：</div>
+      <div class="col col-md-7">{{userinfo.identification ? '已认证' : '--'}}</div>
+      <div class="col col-md-2 text-right" >{{userinfo.identification ? '已认证' : '未认证'}}</div>
+    </div>
+    <div class="row" style="line-height: 2rem;">
+      <div class="col">高级认证：</div>
+      <div class="col col-md-7">{{userinfo.certification == 0 ? '未认证' : userinfo.certification == 1 ? '审核中' : userinfo.certification == 2 ? '已认证' : '认证失败'}}</div>
+      <div class="col col-md-2 text-right text-primary cursorClass" [routerLink]="['/highAuth']" *ngIf="userinfo.certification == 0 || userinfo.certification == 3" >{{userinfo.certification == 0 ? '去认证' : '重新认证'}}</div>
+      <div class="col col-md-2 text-right" *ngIf="userinfo.certification == 1" >审核中</div>
+      <div class="col col-md-2 text-right" *ngIf="userinfo.certification == 2" >已认证</div>
+    </div>
+  </div>
+  <div class="page-title position-relative">支付方式<span class="page-promp cED4545">请务必使用本人的实名账户，被激活的支付方式将在交易时向买家展示</span><button class="btn float-right btn-659EFF" style="margin-right: 80px;margin-top: 42px;" [routerLink]="['/paymentMethod']">添加支付方式+</button></div>
+  <div class="userinfo-main">
+    <div class="row" style="line-height: 2rem;" *ngFor="let item of userinfo.paymentInfoList">
+      <div class="col">{{item.transMode == 1 ? '银行卡' : item.transMode == 2 ? '微信' : item.transMode == 3 ? '支付宝' : 'paypal' }}：</div>
+      <div class="col col-md-7" *ngIf="item.transMode == 1">{{item.userName}}，{{item.transAccountNo}}，{{item.transName}}，{{item.qrCodeOrBank}}</div>
+      <div class="col col-md-7" *ngIf="item.transMode != 1">{{item.userName}}，{{item.transAccountNo}}</div>
+      <div class="col col-md-2 text-right text-primary cursorClass" >
+        <a style="margin-right: 40px;" (click)="updateStatus(item.paymentId,item.status)" > {{item.status == 1 ? '禁用':'启用'}}</a>
+        <a (click)="openFundpwdModal(item.paymentId)">删除</a>
+      </div>
+    </div>
+    <div *ngIf="userinfo.paymentInfoList.length == 0" >
+      <p>您暂时没有添加任何支付方式{{userinfo.paymentInfoList.length == 0}}</p>
+    </div>
+  </div>
+</div>
+
+<!-- 输入资金密码 -->
+<div class="modal fade bd-example-modal-sm" id="fundpwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">资金密码</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  #myForm="ngForm" >
+          <div class="form-group">
+            <label class="form-label" >资金密码</label>
+            <div class="row">
+              <div class="col-12">
+                <input type="password" class="form-control" name="fundPwd" ngModel required >
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-659EFF w-50" [disabled]="!myForm.form.valid" (click)="delPayment(myForm.form.value)" >确认</button>
+      </div>
+    </div>
+  </div>
+</div>

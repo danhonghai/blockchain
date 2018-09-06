@@ -1,0 +1,88 @@
+<div class="orderList container ptop-3">
+  <div class="order-title page-title">我的订单</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 155px;">订单号</th>
+        <th scope="col">
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              交易类型
+            </a>
+            <div class="dropdown-menu down-menu">
+              <a class="dropdown-item cursorClass" [class.selected]="currentDirect == 0" (click)="selectDirect(0)" >全部</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentDirect == 1" (click)="selectDirect(1)" >购买</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentDirect == 2" (click)="selectDirect(2)" >出售</a>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              交易币种
+            </a>
+            <div class="dropdown-menu down-menu">
+              <a class="dropdown-item cursorClass" (click)="switchCoin(item.coinId,i)"
+                [class.selected]="currentCoinIndex == i" *ngFor="let item of coinList;let i = index " >{{item.name}}</a>
+            </div>
+          </div>
+        </th>
+        <th scope="col">交易数量</th>
+        <th scope="col">交易总价</th>
+        <th scope="col">交易单价</th>
+        <th scope="col">
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              法币类型
+            </a>
+            <div class="dropdown-menu down-menu">
+              <a class="dropdown-item cursorClass" [class.selected]="currentFiatType == 0" (click)="selectFiat(0)" >全部</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentFiatType == 1" (click)="selectFiat(1)" >CNY</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentFiatType == 2" (click)="selectFiat(2)" >SGD</a>
+            </div>
+          </div>
+        </th>
+        <th scope="col" style="width: 100px">交易时间</th>
+        <th scope="col">
+          <div class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              交易状态
+            </a>
+            <div class="dropdown-menu down-menu">
+              <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 5" (click)="selectStatus(5)" >全部</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 0" (click)="selectStatus(0)" >未付款</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 1" (click)="selectStatus(1)" >已取消</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 2" (click)="selectStatus(2)" >已付款</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 3" (click)="selectStatus(3)" >申诉中</a>
+              <a class="dropdown-item cursorClass" [class.selected]="currentStatus == 4" (click)="selectStatus(4)" >已完成</a>
+            </div>
+          </div>
+        </th>
+        <th scope="col" style="width: 120px">交易对象</th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataList">
+        <td><span class="c659EFF">{{item.orderNo}}</span></td>
+        <td>{{item.orderDirect == 1 ? '购买' : '出售'}}</td>
+        <td>{{item.coinName}}</td>
+        <td>{{item.orderAmount}} {{item.coinName}}</td>
+        <td>{{item.orderTotalPrice}} {{item.orderFiatName}}</td>
+        <td>{{item.orderPerPrice}} {{item.orderFiatName}}/{{item.coinName}}</td>
+        <td>{{item.orderFiatName}}</td>
+        <td>{{item.orderTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{item.orderStatus == 0 ? '未付款' : item.orderStatus == 1 ? '已取消' : item.orderStatus == 2 ? '已付款' : item.orderStatus == 3 ? '申诉中' : '已完成'}}</td>
+        <td>{{item.orderUserName}}</td>
+        <td>
+          <a *ngIf="item.orderDirect == 1" [routerLink]="['/orderDetail']" [queryParams]="{orderNo: item.orderNo }" >查看</a>
+          <a *ngIf="item.orderDirect == 2" [routerLink]="['/orderSell']" [queryParams]="{orderNo: item.orderNo }" >查看</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center" style="margin-top:40px;" *ngIf="option.total != 0">
+    <app-pagination (pageChange)="queryFun($event)" [option]="option"></app-pagination>
+  </div>
+  <app-no-data [dataLength]="dataList.length"></app-no-data>
+</div>

@@ -1,0 +1,105 @@
+.mobile{
+	padding: 2.25rem 1.25rem;
+	.form-group{
+		margin-bottom: 10px;
+	}
+	.nav {
+		margin-top:38px;
+		border-bottom-width: 2px;
+    	border-bottom-style: solid;
+		.nav-link{
+			display: inline-block;
+			padding: 0;
+			font-family: 'microsoft yahei';
+			font-size: 18px;
+			height: 40px;
+		}
+		.nav-link.active{
+			color: #0082FF;
+			border-bottom: 2px solid #0082FF;
+		}
+	}
+	.info-form {
+		label{
+			color: #8993AA;
+			font-size: 12px;
+			margin-bottom: 6px;
+		}
+	    select,
+	    input {
+	    	height: 40px;
+	        background-color: #1A2A60;
+            border:1px solid #1E2E66;
+	    }
+	    .custom-select {
+	        color: #D3D8EE;
+	    }
+	    .custom-select:disabled {
+	        background-color: #1A2A60;
+	    }
+	    .form-control {
+	        color: #D3D8EE;
+	        font-size: 0.8rem;
+	    }
+	    .form-control:focus {
+	        background-color: #1A2A60;
+            box-shadow:none;
+	    }
+	    .form-control:disabled {
+	        background-color: #1A2A60;
+	    }
+	}
+	.form-check{
+		padding-left: 0;
+		.check-box{
+			display: inline-block;
+			padding-left: 0;
+			margin-right: 6px;
+			.form-check-input{
+				opacity: 0;
+				position: absolute;
+			    left: 23px;
+			    z-index: 1;
+			}
+			.checkbox-inner{
+				position: relative;
+				top:1.5px;
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				background: url('../img/icon_check.png') no-repeat center;
+			}
+			.form-check-input:checked+.checkbox-inner{
+				background: url('../img/icon_checked.png') no-repeat center;
+			};
+		}
+	}
+	.btn-code {
+	    background-color: #1A2A60;
+	    font-size: 0.8rem;
+	    color: #489AFF;
+	}
+	.btn-code:disabled{
+	    color: #8993AA;
+	};
+	.text-8993AA{
+		color: #8993AA !important;
+		font-family: 'microsoft yahei';
+	}
+	.text-D3D8EE{
+		color: #D3D8EE !important;
+		font-family: 'microsoft yahei';
+	}
+
+}
+
+@media (min-width: 576px){
+	body{
+		background: #0f1126;
+	}
+	.mobile,.registerok{
+		width: 375px;
+		margin: 0 auto;
+		margin-top: 40px;
+	}
+}

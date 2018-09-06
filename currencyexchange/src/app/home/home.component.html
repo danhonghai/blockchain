@@ -1,0 +1,138 @@
+<div class="home container ptop-3">
+  <div class="home-tab text-center">
+    <button type="button" class="btn" [class.active1]="pageParams.direct == 2" (click)="swithTab(2)">我要购买</button>
+    <button type="button" class="btn" [class.active2]="pageParams.direct == 1" (click)="swithTab(1)">我要出售</button>
+  </div>
+  <div class="currency-type">
+    <span class="currency-label">币种:</span>
+    <span class="currency-name cursorClass" *ngFor="let item of coinList; let i = index " (click)="switchCoin(item.coinId,i,item.name)"
+    [class.active]="currentCoinIndex == i">{{item.name}}</span>
+  </div>
+  <div class="sell-list">
+    <table class="table table-light table-striped">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 130px;">商家</th>
+          <th scope="col">信用 (单数/完成率)</th>
+          <th scope="col">数量</th>
+          <th scope="col">限额</th>
+          <th scope="col">单价</th>
+          <th scope="col">
+            <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                支付方式
+              </a>
+              <div class="dropdown-menu down-menu">
+                <a class="dropdown-item cursorClass " [class.selected]="currentPayType == 0" (click)="selectPayMent(0)" >全部</a>
+                <a class="dropdown-item cursorClass " [class.selected]="currentPayType == 1" (click)="selectPayMent(1)">银行卡</a>
+                <a class="dropdown-item cursorClass " [class.selected]="currentPayType == 3" (click)="selectPayMent(3)">支付宝</a>
+                <a class="dropdown-item cursorClass " [class.selected]="currentPayType == 2" (click)="selectPayMent(2)">微信</a>
+                <a class="dropdown-item cursorClass " [class.selected]="currentPayType == 4" (click)="selectPayMent(4)">PayPal</a>
+              </div>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                法币类型
+              </a>
+              <div class="dropdown-menu down-menu">
+                <a class="dropdown-item cursorClass" [class.selected]="currentFiatType == 0" (click)="selectFiat(0)" >全部</a>
+                <a class="dropdown-item cursorClass" [class.selected]="currentFiatType == 1" (click)="selectFiat(1)" >CNY</a>
+                <a class="dropdown-item cursorClass" [class.selected]="currentFiatType == 2" (click)="selectFiat(2)" >SGD</a>
+              </div>
+            </div>
+          </th>
+          <th scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of dataList;let i = index " >
+        <tr *ngIf="!item.isBuy" >
+          <td><span class="icon-circle rounded-circle">{{item.nickName | slice:0:1}}</span><b>{{item.nickName}}</b></td>
+          <td>{{item.credit}}</td>
+          <td>{{item.amountWait}}</td>
+          <td>{{item.applyMinPrice}} - {{item.applyMaxPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</td>
+          <td style="font-size: 20px;"><b>{{item.applyPerPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}/{{currentCoinname}}</b></td>
+          <td>
+            <span *ngFor="let key of item.transMode">
+              <i class="icon-ylk" *ngIf="key == 1"></i>
+              <i class="icon-wx" *ngIf="key == 2"></i>
+              <i class="icon-zfb" *ngIf="key == 3"></i>
+              <i class="icon-paypal" *ngIf="key == 4"></i>
+            </span>
+          </td>
+          <td><b>{{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</b></td>
+          <td>
+            <a class="sell-btn cursorClass" (click)="buyBits(i,0,item.isAdvance)">{{pageParams.direct == 1 ? '出售':'购买'}}{{currentCoinname}}
+              <img *ngIf="item.isAdvance == 1" style="margin-left:5px;position: relative;top:-1px;" src="./assets/images/x_1.png" alt=""></a>
+          </td>
+        </tr>
+        <tr style="background-color: #F2F3F8;box-shadow: 0px 2px 4px 0px rgba(24,30,43,0.16)" *ngIf="item.isBuy" >
+          <td colspan="2" >
+            <span class="icon-circle rounded-circle float-left">{{item.nickName | slice:0:1}}</span>
+            <div><b>{{item.nickName}}</b>({{item.credit}})<div>数量 {{item.amountWait}}</div></div>
+          </td>
+          <td colspan="2" >
+            <b style="font-size: 20px;" >{{item.applyPerPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}/{{currentCoinname}}</b>
+            <div>{{item.applyMinPrice}} - {{item.applyMaxPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</div>
+          </td>
+          <td colspan="4">
+            <form class="order-form" #myForm="ngForm" >
+              <div class="position-relative d-inline-block">
+                <input type="text" style="height: 0;width: 0;border:none;float: left;">
+                <input type="text" placeholder="0.00" style="padding: 2px 8px;" name="transTotalMoney" [(ngModel)]="params.transTotalMoney" (ngModelChange)="checkTotalMoney($event,item.applyPerPrice)" autocomplete="off" #transTotalMoney="ngModel" required >
+                <span style="position: absolute;right: 8px;top:4px;color: #ABABAB;">{{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</span>
+                <div class="position-absolute tipbox">
+                  <div class="tip_tishi mt-0" *ngIf="params.transTotalMoney && (params.transTotalMoney < item.applyMinPrice)" >最小下单金额为{{item.applyMinPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}} </div>
+                  <div class="tip_tishi mt-0" *ngIf="params.transTotalMoney && (params.transTotalMoney > item.applyMaxPrice)" >最大下单金额为{{item.applyMaxPrice}} {{item.applyFiatType == 1 ? 'CNY' : 'SGD'}}</div>
+                </div>
+              </div>
+              <i class="icon-interchange"></i>
+              <div class="position-relative d-inline-block">
+                <input type="text" style="height: 0;width: 0;border:none;float: left;">
+                <input type="text" placeholder="0.000000" style="padding: 2px 8px;" name="transAmount" [(ngModel)]="params.transAmount" (ngModelChange)="checkTransAmount($event,item.applyPerPrice)" autocomplete="off" required >
+                <span style="position: absolute;right: 8px;top:4px;color: #ABABAB;">{{currentCoinname}}</span>
+              </div>
+              <input type="password" style="height: 0;width: 0;border:none;float: left;">
+              <input type="password"  placeholder="请输入交易密码" style="padding: 2px 8px;width: 120px;" *ngIf="pageParams.direct == 1" name="tradePwd" [(ngModel)]="params.tradePwd" autocomplete="off" required >
+              <button class="order-btn cursorClass" [disabled]="!myForm.form.valid" (click)="tradeFun(item)">下单</button>
+              <span class="cursorClass" (click)="buyBits(i,1)">取消</span>
+            </form>
+          </td>
+        </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="text-center" style="margin-top:40px;" *ngIf="option.total != 0">
+      <app-pagination (pageChange)="queryFun($event)" [option]="option"></app-pagination>
+    </div>
+    <app-no-data [dataLength]="dataList.length"></app-no-data>
+  </div>
+</div>
+
+<!-- 设置昵称 -->
+<div class="modal fade bd-example-modal-sm" id="nickModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">设置昵称</h5>
+      </div>
+      <div class="modal-body">
+        <form  #myForm="ngForm" >
+          <div class="form-group">
+            <label class="form-label" >给自己起个昵称吧</label>
+            <div class="row">
+              <div class="col-12">
+                <input type="text" class="form-control" name="nickName" ngModel required >
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-659EFF w-50" [disabled]="!myForm.form.valid" (click)="setNickName(myForm.form.value)" >确认</button>
+      </div>
+    </div>
+  </div>
+</div>

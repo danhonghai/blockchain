@@ -1,0 +1,138 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">活动列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                       <!--  <div class="form-group">
+                           <label class="control-label">活动名称：</label>
+                           <input type="text" class="form-control" placeholder="活动名称" ng-model="params.masterTeam">
+                       </div>
+                       <div class="form-group">
+                           <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                           <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                       </div> -->
+                        <div class="form-group navbar-right">
+                            <button type="button" class="btn btn-info" ng-click="addCoin()"><i class="fa fa-plus"></i>添加活动</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>活动名称</th>
+                            <th>开始时间</th>
+                            <th>截止时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 新增弹窗 -->
+<div class="modal fade add_coin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加活动</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">活动名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="programName" class="form-control" ng-model="zNodes.programName" required pattern="^[\u4e00-\u9fa5]{2,5}">
+                            <span style="color:#d70000;" ng-show="myForm.programName.$error.required">活动名称必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.programName.$error.pattern">格式为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label  col-xs-4" style="width: 130px;">限额：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" class="form-control" name="totalCredit" ng-model="zNodes.totalCredit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.totalCredit.$error.required">限额必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.totalCredit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">开始时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="zNodes.startTime" readonly class="form_datetime form-control" required>
+                            <span style="color:#d70000;" ng-show="myForm.startTime.$error.required">数据必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">截止时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="zNodes.endTime" readonly class="form_datetime form-control" required>
+                            <span style="color:#d70000;" ng-show="myForm.endTime.$error.required">数据必填</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="savecoins()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改弹窗 -->
+<div class="modal fade add_coinss" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改活动</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="mForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">活动名称：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="programName" class="form-control" ng-model="zNns.programName" required pattern="^[\u4e00-\u9fa5]{2,5}">
+                            <span style="color:#d70000;" ng-show="mForm.programName.$error.required">活动名称必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.programName.$error.pattern">格式为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label  col-xs-4" style="width: 130px;">限额：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" class="form-control" name="totalCredit" ng-model="zNns.totalCredit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="mForm.totalCredit.$error.required">限额必填</span>
+                            <span style="color:#d70000;" ng-show="mForm.totalCredit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">开始时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="zNns.startTime" readonly class="form_datetime form-control" required>
+                            <span style="color:#d70000;" ng-show="mForm.startTime.$error.required">数据必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">截止时间：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input size="16" type="text" ng-model="zNns.endTime" readonly class="form_datetime form-control" required>
+                            <span style="color:#d70000;" ng-show="mForm.endTime.$error.required">数据必填</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="mForm.$invalid" ng-click="amendDit()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

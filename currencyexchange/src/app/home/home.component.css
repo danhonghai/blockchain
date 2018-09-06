@@ -1,0 +1,113 @@
+.home{
+  margin-bottom: 50px;
+}
+.home-tab{
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.home-tab .btn{
+  width: 200px;
+  height: 60px;
+  border: 1px solid #E2E4EB;
+  color: #181E2B;
+  background-color: #FFF;
+  border-radius: 4px  0px  0px  4px  ;
+}
+
+.home-tab .active1{
+  border-color: #00A774;
+  color: #00A774;
+}
+
+.home-tab .active2{
+  border-color: #ED4545;
+  color: #ED4545;
+}
+
+.currency-type{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.currency-type .currency-label{
+  font-size: 14px;
+  color: #181E2B;
+  margin-right: 30px;
+}
+
+.currency-type .currency-name{
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #6C6C6C;
+  margin-right: 30px;
+}
+
+.currency-type .active{
+    color: #659EFF;
+    background-color: rgba(101, 158, 255, 0.2);
+    border-radius:4px;
+}
+
+.sell-list{
+  margin-top: 20px;
+  font-size: 14px;
+}
+.icon-circle{
+  display: inline-block;
+  margin-right: 10px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  background: linear-gradient(#9ECDFF, #659EFF);
+}
+
+.sell-btn{
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 4px;
+  background-color: #4A88F1;
+  color: #FFFFFF !important;
+  font-size: 14px;
+}
+.order-form{
+  float: right;
+}
+
+.order-btn{
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 5px 11px;
+  border-radius: 4px;
+  color: #FFFFFF;
+  background-color: #FF5858;
+  border: 1px solid transparent;
+}
+
+.order-btn:disabled{
+  opacity: 0.65;
+}
+
+
+.down-menu{
+  background: #fff;
+  opacity: 1;
+  top: 15px !important;
+
+}
+
+.down-menu .dropdown-item{
+  color: #181E2B !important;
+}
+
+.down-menu .selected{
+  color: #659EFF !important;
+}
+
+.down-menu .dropdown-item:hover{
+  background: #F2F3F8;
+}

@@ -1,0 +1,144 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">平台钱包地址管理</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group navbar-left">
+                            <a class="btn btn-info" ng-click="viewDitails()">
+                          <i class="fa fa-plus"></i>
+                         添加钱包地址
+                        </a>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>币种</th>
+                            <th>公钥</th>
+                            <th>私钥</th>
+                            <th>账户数量</th>
+                            <th>可用数量</th>
+                            <th>冻结数量</th>
+                            <th>账户类型</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 新增钱包地址 -->
+<div class="modal fade add-admin-modal in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">{{coinParams.id ? "修改" : "添加"}}钱包地址</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="qbForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">币种：</label>
+                        <select class="form-control" ng-model="zNosort.coinType" name="coinType" style="width: 250px; margin-left: -15px;" required>
+                             <option value="" > 请选择币种</option>
+                            <option ng-repeat="item in coinList" value="{{item.name}}">{{item.name}}</option>
+                        </select>
+                         <span style="color:#d70000;margin-left: 100px;"" ng-show="qbForm.coinType.$error.required">请选择币种</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">钱包公钥：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="coinAccount" ng-model="zNosort.coinAccount" style="padding-right: 15px;">
+                        <span style="color:#d70000;margin-left: 100px;" ng-show="qbForm.coinAccount.$error.required">钱包公钥必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">钱包私钥：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="coinKey" ng-model="zNosort.coinKey" style="padding-right: 15px;">
+                        <span style="color:#d70000;margin-left:100px;" ng-show="qbForm.coinKey.$error.required">钱包私钥必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">初始数量：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="account" ng-model="zNosort.account" style="padding-right: 15px;" pattern="^(([1-9]\d*(\.\d+)?)|(0\.\d*[1-9]))|(0)$">
+                        <span style="color:#d70000;margin-left:100px;" ng-show="qbForm.account.$error.required">初始数量必填</span>
+                        <span style="color:#d70000;margin-left:100px;" ng-show="qbForm.account.$error.pattern">初始数量不符合要求</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">账户类型：</label>
+                        <select class="form-control" ng-model="zNosort.isUnified" name="isUnified" style="width: 250px; margin-left: -15px;" required>
+                            <option value="0">普通账户</option>
+                            <option value="1">归拢账户</option>
+                            <option value="2">矿工手续费账户</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="qbForm.$invalid" ng-click="addition()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改钱包地址 -->
+<div class="modal fade add-admin-modals in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改钱包地址</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">钱包公钥：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px; margin-left: -15px;" name="coinAccount" ng-model="zNns.coinAccount" style="padding-right: 15px;" disabled >
+                        <span style="color:#d70000;margin-left: 100px;" ng-show="myForm.coinAccount.$error.required">钱包公钥必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">钱包私钥：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px; margin-left: -15px;" name="coinKey" ng-model="zNns.coinKey" style="padding-right: 15px;" disabled >
+                        <span style="color:#d70000;margin-left: 100px;" ng-show="myForm.coinKey.$error.required">钱包私钥必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">账户数量：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="coinBalance" ng-model="zNns.coinBalance" style="padding-right: 15px;" disabled >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">可用数量：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="coinAvailable" ng-model="zNns.coinAvailable" style="padding-right: 15px;" disabled >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">冻结数量：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="coinFreeze" ng-model="zNns.coinFreeze" style="padding-right: 15px;" disabled >
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">充值数量：</label>
+                        <input type="text" required class="form-control" style="width: 250px; margin-left: -15px;" name="account" ng-model="zNns.account" style="padding-right: 15px;" pattern="^(([1-9]\d*(\.\d+)?)|(0\.\d*[1-9]))$">
+                        <span style="color:#d70000;margin-left:100px;" ng-show="myForm.account.$error.required">充值数量必填</span>
+                        <span style="color:#d70000;margin-left:100px;" ng-show="myForm.account.$error.pattern">充值数量不符合要求</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 100px;">账户类型：</label>
+                        <select class="form-control" ng-model="zNns.isUnified" name="isUnified" style="width: 250px; margin-left: -15px;" disabled>
+                            <option value="0">普通账户</option>
+                            <option value="1">归拢账户</option>
+                            <option value="2">矿工手续费账户</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="update()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

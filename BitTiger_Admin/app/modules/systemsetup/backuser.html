@@ -1,0 +1,129 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">后台用户</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group navbar-right">
+                            <a class="btn btn-info" ng-click="changeFun()">
+                               <i class="fa fa-plus"></i>
+                               增加管理员
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>登录名</th>
+                            <th>手机号</th>
+                            <th>状态</th>
+                            <th>权限</th>
+                            <th>姓名</th>
+                            <th>注册时间</th>
+                            <th>最后登录时间</th>
+                            <th>IP地址</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!--修改弹出框  -->
+<!--modal  -->
+<div class="modal fade add-admin-modal in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">{{adminParams.id ? '修改': '新增'}}后台用户</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <label class="col-sm-3 control-right col-lg-3">登录名：</label>
+                        <div class="col-lg-7">
+                            <div class="input-group" style="width: 350px">
+                                <input type="text" name="userName" class="form-control" ng-model="adminParams.userName" required ng-disabled="adminParams.id">
+                            </div>
+                            <span style="color:#d70000;" ng-show="myForm.userName.$error.required">登录名必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <label class="col-sm-3 control-right col-lg-3">姓名：</label>
+                        <div class="col-lg-7">
+                            <div class="input-group" style="width: 350px">
+                                <input type="text" name="realName" class="form-control" ng-model="adminParams.realName" pattern="^[\u4e00-\u9fa5]{2,5}" required>
+                            </div>
+                            <span style="color:#d70000;" ng-show="myForm.realName.$error.required">姓名必填</span>
+                             <span style="color:#d70000;" ng-show="myForm.realName.$error.pattern">姓名为汉字</span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <label class="col-sm-3 control-right col-lg-3">手机号：</label>
+                        <div class="col-lg-7">
+                            <div class="input-group" style="width: 350px">
+                                <input type="text" name="mobile" class="form-control" ng-model="adminParams.mobile" required pattern="^[1][3456789][0-9]{9}$">
+                            </div>
+                            <span style="color:#d70000;" ng-show="myForm.mobile.$error.required">手机号必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.mobile.$error.pattern">手机号不符合要求</span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <label class="col-sm-3 control-right col-lg-3">邮箱：</label>
+                        <div class="col-lg-7">
+                            <div class="input-group" style="width: 350px">
+                                <input type="email" name="email" class="form-control" ng-model="adminParams.email" pattern="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">
+                            </div>
+                            <span style="color:#d70000;" ng-show="myForm.email.$error.pattern">邮箱不符合要求</span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;" ng-if="!adminParams.id">
+                        <label class="col-sm-3 control-right col-lg-3">密码：</label>
+                        <div class="col-lg-7">
+                            <div class="input-group" style="width: 350px">
+                                <input type="password" style="display:none">
+                                <input type="password" name="password" class="form-control" ng-model="adminParams.password" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$" required autocomplete="off">
+                            </div>
+                            <span style="color:#d70000;" ng-show="myForm.password.$error.required">密码必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.password.$error.pattern">密码为6-12位数字加字母</span>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;" style="margin-bottom:15px">
+                        <label class="col-sm-3 control-right col-lg-3">账户状态：</label>
+                        <div class="col-lg-9 account">
+                            <div class="col-sm-3">
+                                <input class="radio-inline" type="radio" name="status" value="0" ng-model="adminParams.status" ng-checked="true">
+                                <label>正常</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="radio-inline" type="radio" name="status" value="1" ng-model="adminParams.status">
+                                <label>停用</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px;">
+                        <label class="col-sm-3 control-right col-lg-3">角色权限：</label>
+                        <div id="role-list" class="col-lg-9 icheck checkboxWrap">
+                            <div class="col-sm-4" ng-repeat="item in roleList">
+                                <input class="radio-inline" type="checkbox" ng-true-value="{{'\''+ item.roleName + '\''}}" ng-model="$parent.role[$index]">
+                                <label ng-bind="item.roleNameCn"></label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="add-user-submit" class="btn btn-info" ng-disabled="myForm.$invalid" ng-click="saveAdmin()">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

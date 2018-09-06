@@ -1,0 +1,27 @@
+.nav-tabs .nav-item {
+  margin-right:1rem;
+}
+.nav-tabs .nav-item:first-child .nav-link {
+  background: url('../../assets/images/icon_account_0.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:nth-child(2) .nav-link {
+  background: url('../../assets/images/icon_proving_0.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:nth-child(3) .nav-link {
+  background: url('../../assets/images/icon_reset_0.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:last-child .nav-link {
+  background: url('../../assets/images/icon_finish_0.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:first-child .active {
+  background: url('../../assets/images/icon_account_1.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:nth-child(2) .active {
+  background: url('../../assets/images/icon_proving_1.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:nth-child(3) .active {
+  background: url('../../assets/images/icon_reset_1.png') no-repeat .5rem center;
+}
+.nav-tabs .nav-item:last-child .active {
+  background: url('../../assets/images/icon_finish_1.png') no-repeat .5rem center;
+}

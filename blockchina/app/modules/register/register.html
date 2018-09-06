@@ -1,0 +1,266 @@
+<div class="container-full register signMain">
+	<div class="container sign-content div-block">
+		<div class="title font-1">{{lang.lang176}}</div>
+		<ul class="nav border-182b7b">
+		  	<li class="nav-item">
+		    	<a class="nav-link active font-2" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" ng-click="regTypeChange(1)">{{lang.lang177}}</a>
+		  	</li>
+		  	<li class="nav-item">
+		    	<a class="nav-link font-2" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" ng-click="regTypeChange(2)">{{lang.lang178}}</a>
+		  	</li>
+		</ul>
+		<div class="tab-content" id="myTabContent" style=" margin-top: 1rem;">
+			<!-- 手机注册表单 -->
+		  <div class="tab-pane fade show active padding20" id="home" role="tabpanel" aria-labelledby="home-tab">
+		  	<form class="info-form" novalidate name="registerForm">
+		  		<div class="form-group">
+				  	<label>{{lang.lang149}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.countryItem.$dirty && registerForm.countryItem.$error.required">{{lang.lang156}}</div>
+			      	</div>
+				  	<select ng-show="language == 2" class="custom-select" name="countryItem"  ng-model="countryItem" ng-options=" item as item.nameEn for item in countryList" required ng-change="selectCountry()" >
+					</select>
+					<select ng-show="language == 1" class="custom-select" name="countryItem"  ng-model="countryItem" ng-options=" item as item.name for item in countryList" required ng-change="selectCountry()" >
+					</select>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang179}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.account.$dirty && registerForm.account.$error.required">{{lang.lang182}}</div>
+	                	<div class="tip_tishi" ng-show="registerForm.account.$dirty && accountValid">
+	                    {{lang.lang183}}</div>
+			      	</div>
+				  	<div class="input-group">
+					  	<div class="input-group-prepend">
+					    	<button class="btn btn-area" type="button" >{{mobileArea}}</button>
+					  	</div>
+					  	<input type="text" class="form-control" name="account" ng-model="phoneParams.account" required ng-keyup="phoneValid()"  >
+					</div>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang42}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.capCode.$dirty && registerForm.capCode.$error.required">{{lang.lang184}}</div>
+			      	</div>
+				    <div class="input-group">
+				    	<input type="text" class="form-control"  required ng-model="phoneParams.capCode" name="capCode" >
+					  	<div class="input-group-append" ng-click="getCaptcha()" >
+					    	<button class="btn code-bg padding0" type="button"><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" alt={{lang.lang42}} ></button>
+					  	</div>
+					</div>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang44}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.code.$dirty && registerForm.code.$error.required">{{lang.lang185}}</div>
+			      	</div>
+				  	<div class="input-group">
+					  <input type="text" class="form-control"  required ng-model="phoneParams.code" name="code" >
+					  <div class="input-group-append">
+					    <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_reg')" id="sendButton_reg" >{{lang.lang46}}</button>
+					  </div>
+					</div>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang120}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.pwd.$dirty && registerForm.pwd.$error.required">{{lang.lang125}}</div>
+	                	<div class="tip_tishi" ng-show="registerForm.pwd.$dirty && registerForm.pwd.$error.pattern">{{lang.lang126}}</div>
+			      	</div>
+				  	<input type="password" class="form-control"  required ng-model="phoneParams.pwd"  name="pwd" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$" >
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang123}}</label>
+					<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.secondPwd.$dirty && registerForm.secondPwd.$error.required">{{lang.lang350}}</div>
+	                	<div class="tip_tishi" ng-show="registerForm.secondPwd.$dirty && registerForm.secondPwd.$error.pattern">{{lang.lang126}}</div>
+	                	<div class="tip_tishi" ng-show="phoneParams.pwd && phoneParams.secondPwd && phoneParams.pwd != phoneParams.secondPwd">{{lang.lang127}}</div>
+			      	</div>
+				  	<input type="password" class="form-control"  required ng-model="phoneParams.secondPwd"  name="secondPwd" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$" >
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang356}}</label>
+				  	<input type="text" class="form-control"   ng-model="params.inviteCode"  name="inviteCode" >
+			  	</div>
+			  	<div class="form-group" style="margin-bottom:0;">
+				  	<div class="form-check">
+				  		<div class="check-box">
+				      		<input class="form-check-input" type="checkbox" id="phoneCheck" name="phoneCheck" ng-model="phoneCheck" required><span class="checkbox-inner"></span>
+				      	</div>
+				      	<label class="form-check-label" for="phoneCheck">
+				        {{lang.lang180}}<a class="text-primary cursorClass" target="_blank" ui-sref="logged.useragreement" style="font-family: 'microsoft yahei';">{{lang.lang181}}</a>
+				      	</label>
+				  	</div>
+			  	</div>
+			  	<div class="tipbox">
+			      	<!-- <div class="tip_tishi" ng-show="registerForm.countryItem.$dirty && registerForm.countryItem.$error.required">
+                    	{{lang.lang156}}
+	                </div>
+			  		<div class="tip_tishi" ng-show="registerForm.account.$dirty && registerForm.account.$error.required">
+	                    {{lang.lang182}}
+	                </div>
+	                <div class="tip_tishi" ng-show="registerForm.account.$dirty && accountValid">
+	                    {{lang.lang183}}
+	                </div>
+	                <!-- <div class="tip_tishi" ng-show="registerForm.capCode.$dirty && registerForm.capCode.$error.required">
+	                    {{lang.lang184}}
+	                </div> -->
+	                <div class="tip_tishi" ng-show="registerForm.code.$dirty && registerForm.code.$error.required">
+	                    {{lang.lang185}}
+	                </div>
+	                <div class="tip_tishi" ng-show="registerForm.pwd.$dirty && registerForm.pwd.$error.required">
+	                    {{lang.lang125}}
+	                </div>
+	                <div class="tip_tishi" ng-show="registerForm.pwd.$dirty && registerForm.pwd.$error.pattern">
+	                    {{lang.lang126}}
+	                </div>
+	                <div class="tip_tishi" ng-show="registerForm.secondPwd.$dirty && registerForm.secondPwd.$error.required">
+	                    {{lang.lang350}}
+	                </div>
+	                <div class="tip_tishi" ng-show="registerForm.secondPwd.$dirty && registerForm.secondPwd.$error.pattern">
+	                    {{lang.lang126}}
+	                </div>
+	                <div class="tip_tishi" ng-show="phoneParams.pwd && phoneParams.secondPwd && phoneParams.pwd != phoneParams.secondPwd">
+	                    {{lang.lang127}}
+	                </div>
+	                <div class="tip_tishi" ng-show="registerForm.phoneCheck.$dirty && !phoneCheck">{{lang.lang186}}</div>
+		      	</div>
+		      	<button type="submit" class="btn btn-default btn-lg btn-block" style="margin-top: 6px;" ng-disabled="registerForm.$invalid || phoneParams.pwd != phoneParams.secondPwd || !phoneCheck || accountValid" ng-click="registerFun()" >{{lang.lang187}}</button>
+			  	<p class="text-center margin20"><span class="font-2">{{lang.lang188}} </span><a class="font-1 cursorClass" ui-sref="logged.login" > {{lang.lang189}}</a></p>
+			</form>
+		  </div>
+		  <!-- 邮箱注册表单 -->
+		  <div class="tab-pane fade padding20" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+			<form class="info-form" novalidate name="emailForm">
+				<div class="form-group">
+				  	<label>{{lang.lang149}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.countryItem.$dirty && registerForm.countryItem.$error.required">{{lang.lang156}}</div>
+			      	</div>
+				  	<select ng-show="language == 1" class="custom-select" name="country"  ng-model="emialParams.country" ng-options=" item.id as item.name for item in countryList" required >
+					</select>
+					<select ng-show="language == 2" class="custom-select" name="country"  ng-model="emialParams.country" ng-options=" item.id as item.nameEn for item in countryList" required >
+					</select>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang190}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="emailForm.account.$dirty && emailForm.account.$error.required">{{lang.lang191}}</div>
+		                <div class="tip_tishi" ng-show="emailForm.account.$dirty && emailForm.account.$error.pattern">
+		                    {{lang.lang192}}
+		                </div>
+			      	</div>
+				  	<input type="text" class="form-control"  name="account" ng-model="emialParams.account" required  pattern="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" >
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang42}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="emailForm.capCode.$dirty && emailForm.capCode.$error.required">
+		                    {{lang.lang184}}
+		                </div>
+			      	</div>
+				  	<div class="input-group">
+			      		<input type="text" class="form-control"  required ng-model="emialParams.capCode" name="capCode" >
+					  	<div class="input-group-append" ng-click="getCaptcha()" >
+					    	<button class="btn code-bg padding0" type="button"><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" alt={{lang.lang42}} ></button>
+						</div>
+			    	</div>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang119}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="emailForm.code.$dirty && emailForm.code.$error.required">
+		                    {{lang.lang227}}
+		                </div>
+			      	</div>
+				  	<div class="input-group">
+					  	<input type="text" class="form-control" aria-describedby="basic-addon2" required ng-model="emialParams.code" name="code" >
+					  	<div class="input-group-append">
+					    	<button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_email')" id="sendButton_email" >{{lang.lang46}}</button>
+					  	</div>
+					</div>
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang120}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="emailForm.pwd.$dirty && emailForm.pwd.$error.required">
+		                    {{lang.lang125}}
+		                </div>
+		                <div class="tip_tishi" ng-show="emailForm.pwd.$dirty && emailForm.pwd.$error.pattern">
+		                    {{lang.lang126}}
+		                </div>
+			      	</div>
+					<input type="password" class="form-control"  required ng-model="emialParams.pwd"  name="pwd" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$" >
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang123}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="emailForm.secondPwd.$dirty && emailForm.secondPwd.$error.required">
+		                    {{lang.lang350}}
+		                </div>
+		                <div class="tip_tishi" ng-show="emailForm.secondPwd.$dirty && emailForm.secondPwd.$error.pattern">
+		                    {{lang.lang126}}
+		                </div>
+		                <div class="tip_tishi" ng-show="emialParams.pwd && emialParams.secondPwd && emialParams.pwd != emialParams.secondPwd">
+		                    {{lang.lang127}}
+		                </div>
+			      	</div>
+				  	<input type="password" class="form-control"  required ng-model="emialParams.secondPwd"  name="secondPwd" pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$" >
+			  	</div>
+			  	<div class="form-group">
+				  	<label>{{lang.lang356}}</label>
+				  	<div class="new_tipbox" >
+				      	<div class="tip_tishi" ng-show="registerForm.countryItem.$dirty && registerForm.countryItem.$error.required">{{lang.lang156}}</div>
+			      	</div>
+				  	<input type="text" class="form-control"  ng-model="params.inviteCode"  name="inviteCode" >
+			  	</div>
+			  	<div class="form-group" style="margin-bottom:0;">
+				  	<div class="form-check">
+				  		<div class="check-box">
+				      		<input class="form-check-input" type="checkbox" name="invalidCheck" ng-model="invalidCheck" required id="invalidCheck"><span class="checkbox-inner"></span>
+				      	</div>
+					    <label class="form-check-label" for="invalidCheck">{{lang.lang180}}<a class="text-primary cursorClass" target="_blank" ui-sref="logged.useragreement" style="font-family: 'microsoft yahei';" >{{lang.lang181}}</a></label>
+				  	</div>
+			  	</div>
+			  	<div class="tipbox">
+			      	<!-- <div class="tip_tishi" ng-show="emailForm.country.$dirty && emailForm.country.$error.required">
+                    	{{lang.lang156}}
+	                </div>
+			  		<div class="tip_tishi" ng-show="emailForm.account.$dirty && emailForm.account.$error.required">
+	                    {{lang.lang191}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emailForm.account.$dirty && emailForm.account.$error.pattern">
+	                    {{lang.lang192}}
+	                </div>
+	                <!-- <div class="tip_tishi" ng-show="emailForm.capCode.$dirty && emailForm.capCode.$error.required">
+	                    {{lang.lang184}}
+	                </div> -->
+	                <div class="tip_tishi" ng-show="emailForm.code.$dirty && emailForm.code.$error.required">
+	                    {{lang.lang227}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emailForm.pwd.$dirty && emailForm.pwd.$error.required">
+	                    {{lang.lang125}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emailForm.pwd.$dirty && emailForm.pwd.$error.pattern">
+	                    {{lang.lang126}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emailForm.secondPwd.$dirty && emailForm.secondPwd.$error.required">
+	                    {{lang.lang350}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emailForm.secondPwd.$dirty && emailForm.secondPwd.$error.pattern">
+	                    {{lang.lang126}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emialParams.pwd && emialParams.secondPwd && emialParams.pwd != emialParams.secondPwd">
+	                    {{lang.lang127}}
+	                </div>
+	                <div class="tip_tishi" ng-show="emailForm.invalidCheck.$dirty && !invalidCheck">
+	                    {{lang.lang186}}
+	                </div>
+			    </div>
+			  	<button type="submit" class="btn btn-default btn-lg btn-block" style="margin-top: 6px;" ng-disabled="emailForm.$invalid || emialParams.pwd != emialParams.secondPwd || !invalidCheck" ng-click="registerFun()" >{{lang.lang187}}</button>
+			  	<p class="text-center margin20"><span class="font-2">{{lang.lang188}} </span><a class="font-1 cursorClass" ui-sref="logged.login" > {{lang.lang189}}</a></p>
+			</form>
+		  </div>
+		</div>
+	</div>
+</div>

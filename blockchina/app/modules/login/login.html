@@ -1,0 +1,109 @@
+<div class="container-full loginMain loginWrap">
+	<div class="container login-content div-block">
+		<div class="title font-1">{{lang.lang353}}</div>
+		<form class="info-form" novalidate name="myForm">
+		  	<div class="form-group">
+			  	<label>{{lang.lang118}}</label>
+			  	<div class="new_tipbox" >
+			      	<div class="tip_tishi" ng-show="myForm.account.$dirty && myForm.account.$error.required">
+	                	{{lang.lang117}}
+	                </div>
+		      	</div>
+			  	<input type="text" class="form-control border-d" name="account" ng-model="params.account" required>
+		  	</div>
+		  	<div class="form-group">
+			  	<label>{{lang.lang454}}</label>
+			  	<div class="new_tipbox" >
+			      	<div class="tip_tishi" ng-show="myForm.password.$dirty &&  myForm.password.$error.required">
+	                	{{lang.lang122}}
+	                </div>
+		      	</div>
+			  	<input type="password" class="form-control border-d" name="password" ng-model="data.password" required>
+		  	</div>
+		  	<div class="form-group">
+			  	<label>{{lang.lang42}}</label>
+			  	<div class="new_tipbox" >
+			      	<div class="tip_tishi" ng-show="myForm.captcha.$dirty &&  myForm.captcha.$error.required">
+	                	{{lang.lang43}}
+	                </div>
+		      	</div>
+			    <div class="input-group">
+			    	<input type="text" class="form-control border-d" required ng-model="params.captcha" name="captcha" >
+				  	<div class="input-group-append" ng-click="getCaptcha()" >
+				    <button class="btn padding0 code-bg" type="button" ><img style="width: 105px;height: 29px;" ng-src="{{imgCode}}" alt={{lang.lang42}} ></button>
+				  </div>
+				</div>
+		  	</div>
+		  	<!-- <div class="tipbox">
+  			      	<div class="tip_tishi" ng-show="myForm.account.$dirty && myForm.account.$error.required">
+  	                	{{lang.lang117}}
+  	                </div>
+		  		<div class="tip_tishi" ng-show="myForm.password.$dirty &&  myForm.password.$error.required">
+  	                    {{lang.lang122}}
+  	                </div>
+  	                <div class="tip_tishi" ng-show="myForm.captcha.$dirty &&  myForm.captcha.$error.required">
+  	                    {{lang.lang43}}
+  	                </div>
+  		      	</div> -->
+	      	<button type="submit" class="btn btn-md btn-block btn-default" style="margin-top: 30px;" ng-disabled="myForm.$invalid" ng-click="login()">{{lang.lang4}}</button>
+			<p class="text-center margin20"><a class="font-2" ui-sref="logged.forgetpassword"> {{lang.lang144}}？ </a><a class="font-1" ui-sref="logged.register"> {{lang.lang145}}</a></p>
+		</form>
+	</div>
+</div>
+
+<div class="modal fade bd-example-modal-sm loginWrap" id="sliderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false"  data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content div-block">
+        <div class="modal-header font-1">
+            <h5 class="modal-title" id="exampleModalLabel" >{{lang.lang510}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+        </div>
+        <form class="info-form" novalidate name="sliderForm">
+        <div class="modal-body">
+		  	<div class="form-group" ng-if="googleIsExist == 1">
+			  	<label>{{lang.lang47}}</label>
+			  	<div class="new_tipbox" >
+			      	<div class="tip_tishi" ng-show="sliderForm.googleCode.$dirty && sliderForm.googleCode.$error.required">
+	                	{{lang.lang48}}
+	                </div>
+		      	</div>
+			  	<input type="text" class="form-control" name="googleCode" ng-model="slideParams.googleCode" required>
+		  	</div>
+		  	<div class="form-group" ng-if="googleIsExist == 0 && accountType == 1">
+		  		<label>{{lang.lang231}} {{account}}</label>
+                <div class="new_tipbox" >
+			      	<div class="tip_tishi" ng-show="sliderForm.phoneCode.$dirty && sliderForm.phoneCode.$error.required">
+                    	{{lang.lang185}}
+	                </div>
+		      	</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" required name="phoneCode" ng-model="slideParams.phoneCode" >
+                    <div class="input-group-append">
+                        <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_phone')" id="sendButton_phone" >{{lang.lang46}}</button>
+                    </div>
+                </div>
+		  	</div>
+		  	<div class="form-group" ng-if="googleIsExist == 0 && accountType == 2">
+		  		<label>{{lang.lang119}} {{account}}</label>
+                <div class="new_tipbox" >
+			      	<div class="tip_tishi" ng-show="sliderForm.emailCode.$dirty && sliderForm.emailCode.$error.required">
+                    	{{lang.lang227}}
+	                </div>
+		      	</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" required name="emailCode" ng-model="slideParams.emailCode" >
+                    <div class="input-group-append">
+                        <button class="btn btn-code" type="button" ng-click="getphoneCodefun('sendButton_email')" id="sendButton_email" >{{lang.lang46}}</button>
+                    </div>
+                </div>
+		  	</div>
+        </div>
+        <div class="modal-footer justify-content-center" style="border-top:none;padding: 0 2rem 2rem 2rem;">
+            <button type="submit" class="btn btn-default w-100"  ng-disabled="sliderForm.$invalid" ng-click="confirm()" >{{lang.lang368}}</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>

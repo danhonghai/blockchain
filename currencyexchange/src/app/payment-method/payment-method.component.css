@@ -1,0 +1,19 @@
+.payment{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.payment-main{
+  background-color: #fff;
+  padding: 40px 80px;
+  color: #3F3E3E;
+}
+
+.payment-main .form-label{
+  font-size: 16px;
+}
+
+.payment-main .form-control{
+  background:rgba(246,246,246,1);
+  border: none;
+}

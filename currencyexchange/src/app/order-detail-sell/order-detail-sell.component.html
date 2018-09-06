@@ -1,0 +1,229 @@
+<div class="orderDetail container ptop-3">
+  <div class="row order-main">
+    <div class="col-lg-8">
+      <div class="row order-title">
+        <div class="col">您向&nbsp;<span>{{orderInfo.orderUserName}}</span>&nbsp;<b [ngClass]="{'c00A774': orderInfo.orderDirect == 1,'cED4545': orderInfo.orderDirect == 2}" >{{orderInfo.orderDirect == 1 ? '购买':'出售'}}</b>&nbsp;<b>{{orderInfo.orderCoinName}}</b></div>
+        <div class="col text-right">订单编号：{{orderInfo.orderNo}}</div>
+      </div>
+      <div>
+        <div class="row trade-title">
+          <div class="col">交易总价</div>
+          <div class="col">交易数量</div>
+          <div class="col">交易单价</div>
+          <div class="col text-right">交易状态</div>
+        </div>
+        <div class="row trade-content">
+          <div class="col">{{orderInfo.orderTotalPrice}} {{orderInfo.orderFiatType}}</div>
+          <div class="col">{{orderInfo.orderAmount}} {{orderInfo.orderCoinName}}</div>
+          <div class="col">{{orderInfo.orderPerPrice}} {{orderInfo.orderFiatType}}/{{orderInfo.orderCoinName}}</div>
+          <div class="col text-right cED4545" *ngIf="orderInfo.orderStatus == 0">未付款</div>
+          <div class="col text-right c00A774" *ngIf="orderInfo.orderStatus == 2">已付款</div>
+          <div class="col text-right c659EFF" *ngIf="orderInfo.orderStatus == 4">已完成</div>
+          <div class="col text-right c181E2B" *ngIf="orderInfo.orderStatus == 1 || orderInfo.orderStatus == 3">{{orderInfo.orderStatus == 3 ? '申诉中' : '已取消'}}</div>
+        </div>
+      </div>
+      <div class="pay-info">
+        <div class="row pay-title">
+          <div class="col">支付信息</div>
+        </div>
+        <!-- 订单取消时显示 -->
+        <!-- <div class="row order-lose" *ngIf="orderInfo.orderStatus == 1">
+          <img src="./assets/images/icon_lose.png" alt="已取消">
+          <p class="cABABAB" style="margin-top: 25px;">订单已取消，支付信息已失效！</p>
+        </div> -->
+        <ng-container >
+          <div class="row" *ngFor=" let item of orderInfo.paymentInfoList " >
+            <div class="col col-1">
+              <i class="icon-ylk" *ngIf="item.transMode == 1"></i>
+              <i class="icon-wx" *ngIf="item.transMode == 2"></i>
+              <i class="icon-zfb" *ngIf="item.transMode == 3" ></i>
+              <i class="icon-paypal" *ngIf="item.transMode == 4" ></i>
+            </div>
+            <div class="col col-2">{{item.userName}}</div>
+            <div class="col col-3">{{item.transAccountNo}}</div>
+            <div class="col col-3">{{item.transName}}</div>
+            <div class="col col-3 text-right" *ngIf="item.transMode == 1">{{item.qrCodeOrBank}}</div>
+            <div class="col col-3 text-right" *ngIf="item.transMode == 2 || item.transMode == 3" data-toggle="modal" data-target="#codeModel" (click)="openCodeModal(item.qrCodeOrBank)" ><img src="{{item.qrCodeOrBank}}" alt="二维码"></div>
+            <div class="col col-3 text-right" *ngIf="item.transMode == 4" >--</div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="order-handle">
+        <!-- 未支付0 -->
+        <div *ngIf="orderInfo.orderStatus == 0" >
+          <div class="unpaid">等待对方支付，{{orderInfo.orderUserName}}将于请于 <b class="cED4545">{{min}} 分 {{sec}} 秒</b> 内完成内，付款参考号：{{orderInfo.transReferenceNo}}</div>
+          <div>
+            <button type="button" class="btn btn-E2E4EB" >等待对方支付…</button>
+          </div>
+        </div>
+        <!-- 已支付2 -->
+        <div *ngIf="orderInfo.orderStatus == 2" >
+          <div class="unpaid">对方已付款，付款参考号：{{orderInfo.transReferenceNo}}</div>
+          <div>
+            <button type="button" class="btn btn-659EFF" data-toggle="modal" data-target="#fundpwdModal">到账无误，确认放行</button>
+            <a class="c659EFF" href="javaScript:void(0)" style="font-size:16px; margin-left: 40px;" data-toggle="modal" data-target="#appealModal" >提交申诉</a>
+          </div>
+        </div>
+        <!-- 已完成4 -->
+        <div *ngIf="orderInfo.orderStatus == 4" >
+          <div class="unpaid">已完成，付款参考号：{{orderInfo.transReferenceNo}}</div>
+          <div class="pay-finish">
+            <img src="./assets/images/icon_ok.png" alt="已完成">
+          </div>
+        </div>
+        <!-- 已取消1 -->
+        <div *ngIf="orderInfo.orderStatus == 1" >
+          <div class="unpaid">已取消，付款参考号：{{orderInfo.transReferenceNo}}</div>
+          <div>
+            <img src="./assets/images/icon_cancel.png" alt="已取消">
+          </div>
+        </div>
+        <!-- 申诉中3 -->
+        <div class="order-appeal" *ngIf="orderInfo.orderStatus == 3" >
+          <div class="unpaid">申诉中，<span *ngIf="orderInfo.appealPassword">申诉口令：{{orderInfo.appealPassword}}，</span>付款参考号：{{orderInfo.transReferenceNo}}</div>
+          <div>
+            <img src="./assets/images/icon_appeal.png" alt="申诉中">
+            <button type="button" class="btn btn-659EFF" data-toggle="modal" data-target="#cancelAppeal" *ngIf="orderInfo.appealPassword" >取消申诉</button>
+          </div>
+        </div>
+        <ul class="promit-wrap">
+          <li>1、您所出售的数字资产，已交由平台托管冻结。请在确定收到对方付款后，点击“确认放行”支付数字资产！</li>
+          <li>2、请不要相信任何催促放币的理由，确认收到款项后再释放数字资产，避免造成损失！</li>
+          <li>3、在收到账短信后，请务必登录网上银行或手机银行确认款项是否入账，避免因收到诈骗短信错误释放数字资产！</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <!-- 聊天组件 -->
+      
+      <app-wechat *ngIf="orderInfo.imAccid" [orderInfo]="orderInfo"></app-wechat>
+    </div>
+  </div>
+</div>
+
+
+<!-- 输入资金密码 -->
+<div class="modal fade bd-example-modal-sm" id="fundpwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">确认到账并放行</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>请务必登录网上银行或第三方支付账号确认收到该笔款项。</p>
+        <form  #myForm="ngForm" >
+          <div class="form-group">
+            <label class="form-label" >资金密码</label>
+            <div class="row">
+              <div class="col-12">
+                <input type="password" class="form-control" name="fundPwd" ngModel required >
+              </div>
+            </div>
+          </div>
+          <div clss="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="phoneCheck" style="top:-1px;" name="phoneCheck" required ngModel >
+              <label class="form-check-label c6C6C6C" for="phoneCheck">我确认已登录收款账户，并核对收款无误</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-659EFF w-50" [disabled]="!myForm.form.valid" (click)="confirmAccount(myForm.form.value)" >确认</button>
+         <button type="button" class="btn btn-E2E4EB w-50" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 订单申诉 -->
+<div class="modal fade" id="appealModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">订单申诉</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="cED4545">提起申诉后卖方资产将被冻结，申诉专员将介入本次交易，直至申诉 结束。恶意申诉属于扰乱平台正常运营秩序的行为，情节严重将冻结 用户账户！</p>
+        <form #appealFrom="ngForm">
+          <div class="form-group">
+            <label class="form-label">申诉类型</label>
+            <div class="row" style="margin-bottom: 40px;">
+              <div class="col-12">
+                <select class="form-control" name="appealType" ngModel #appealType="ngModel" required >
+                  <option value="1">对方未付款</option>
+                  <option value="2">对方未放行</option>
+                  <option value="3">对方无应答</option>
+                  <option value="4">对方有欺诈行为</option>
+                  <option value="5">其他</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" >申诉理由</label>
+            <div class="row">
+              <div class="col-12">
+                <textarea class="form-control" rows="3" name="appealReason" required #appealReason="ngModel" ngModel ></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="form-group tipbox">
+          <div class="tip_tishi"[hidden]="appealType.valid || appealType.pristine" >
+            请输入选择申诉类型
+          </div>
+          <div class="tip_tishi"[hidden]="appealReason.valid || appealReason.pristine" >
+            请输入申诉理由
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-659EFF w-50" [disabled]="!appealFrom.form.valid" (click)="operateOrder(2,appealFrom.form.value)" >确认</button>
+        <button type="button" class="btn btn-E2E4EB w-50" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 取消申诉 -->
+<div class="modal fade bd-example-modal-sm" id="cancelAppeal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">取消申诉</h5>
+      </div>
+      <div class="modal-body text-center" style="padding-top:30px;padding-bottom:40px;">
+        <div >您确定要取消申诉吗？</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-659EFF w-50"  data-dismiss="modal"  (click)="operateOrder(3)">确认</button>
+         <button type="button" class="btn btn-E2E4EB w-50" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 二维码放大 -->
+<div class="modal fade bd-example-modal-sm" id="codeModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">二维码</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center" style="padding-top:30px;padding-bottom:40px;">
+        <div ><img src="{{imgSrc}}" alt="二维码"></div>
+      </div>
+    </div>
+  </div>
+</div>

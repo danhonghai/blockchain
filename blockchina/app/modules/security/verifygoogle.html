@@ -1,0 +1,120 @@
+<div class="container-full bg-body" style="padding-top: 6rem;">
+	<div class="container">
+		<div class="row">
+			<div class="col col-md-3">
+				<ul class="userinfoside">
+					<li class="side-item b-menu border-152669" ui-sref="logged.userinfo"><img style="margin-right: 15px;" src="img/userinfo_0.png" >{{lang.lang146}}</li>
+					<li class="side-item b-menu border-152669" ui-sref="logged.realname_userinfo"><img style="margin-right: 15px;" src="img/realname_0.png" >{{lang.lang359}}</li>
+					<li class="side-item b-menu border-152669 active" ui-sref="logged.security_userinfo"><img style="margin-right: 15px;" src="img/security_1.png" >{{lang.lang148}}</li>
+				</ul>
+			</div>
+			<!-- 修改谷歌验证器 -->
+			<div class="col col-md-9" ng-if="userInfo.googleAuth">
+				<div class="card div-block" style="margin-bottom: 1rem;">
+				  <div class="card-header info-header font-1">
+				    {{lang.lang253}} <small>( {{lang.lang254}} )</small>
+				  </div>
+				  <div class="card-body info-body info-form">
+				  	<form class="needs-validation" novalidate name="myForm">
+					  	<div class="row form-group bg-182B7B border-1D328A" style="padding: 40px;margin:0;border-width: 1px; border-style: solid;">
+					  		<!-- <div class="col-md-3 cD3D8EE text-right">谷歌验证器密钥:</div> -->
+					  		<div class="col-md-6" style="display: flex;align-items: center;">
+					  			<img ng-src="{{googleAuthRes.qrCode}}"  style="width:128px;height: 128px;">
+					  			<div style="margin-left:30px;">
+					  				<input class="border-0  cD3D8EE bg-182B7B border-1D328A" type="text" ng-value="googleAuthRes.secretKey" id="key" readonly ><br/>
+					  				<span class="text-primary cursorClass" ng-click="copyFun()" >{{lang.lang255}}</span>
+					  			</div>
+					  		</div>
+					  	</div>
+					  	<div class="form-group" style="margin-top:25px;" >
+					  		<label>{{lang.lang257}}:</label>
+					  		<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.preVerifyCode.$dirty && myForm.preVerifyCode.$error.required">
+				                    {{lang.lang259}}
+				                </div>
+					      	</div>
+				  			<input type="text" class="form-control" name="preVerifyCode" ng-model="params.preVerifyCode" required >
+					  	</div>
+					  	<div class="form-group" style="margin-top:25px;" >
+					  		<label>{{lang.lang256}}:</label>
+					  		<div class="new_tipbox" >
+						      	<div class="tip_tishi" ng-show="myForm.currentVerifyCode.$dirty && myForm.currentVerifyCode.$error.required">
+				                    {{lang.lang258}}
+				                </div>
+					      	</div>
+					  		<input type="text" class="form-control" name="currentVerifyCode" ng-model="params.currentVerifyCode" required >
+				  			<!-- <div class="tipbox">
+				  				<div class="tip_tishi" ng-show="myForm.currentVerifyCode.$error.required">
+				  							                    {{lang.lang258}}
+				  							                </div>
+				  							                <div class="tip_tishi" ng-show="myForm.preVerifyCode.$error.required">
+				  							                    {{lang.lang259}}
+				  							                </div>
+				  			</div> -->
+					  	</div>
+					  	<button type="submit" class="btn btn-default btn-block" ng-disabled="myForm.$invalid" ng-click="updateGoogle()" >{{lang.lang208}}</button>
+				  	</form>
+				  </div>
+				</div>
+			</div>
+			<!-- 绑定谷歌验证器 -->
+			<div class="col col-md-9" ng-if="!userInfo.googleAuth">
+				<div class="card form-group div-block">
+				  <div class="card-header info-header font-1">
+				    {{lang.lang260}}
+				  </div>
+				  <div class="card-body">
+				  	<form class="needs-validation" novalidate name="myForm">
+					  	<div class="row form-group" >
+					  		<div class="col-md-1"><img src="img/badge_1.png" alt="1"></div>
+					  		<div class="col-md-6 cD3D8EE align-self-center">{{lang.lang261}}</div>
+					  	</div>
+					  	<div class="row bg-182B7B border-1D328A" style="padding: 40px;margin:0;border-width: 1px; border-style: solid;">
+					  		<div class="col-md-3 cD3D8EE">
+					  			<img src="../../img/anzhuo.png" alt={{lang.lang262}} style="width:128px;height: 128px;" class="img-thumbnail border-0" >
+					  			<div class="text-center" style="margin-top: 10px;">{{lang.lang262}}</div>
+					  			<p class="c8993AA text-center">{{lang.lang263}}</p>
+					  		</div>
+					  		<div class="col-md-3 text-center cD3D8EE">
+					  			<img src="../../img/ios.png" alt={{lang.lang264}} style="width:128px;height: 128px;" class="img-thumbnail border-0" >
+					  			<div style="margin-top: 10px;" >{{lang.lang264}}</div>
+					  			<p class="c8993AA">{{lang.lang263}}</p>
+					  		</div>
+					  	</div>
+					  	<div class="row form-group" style="padding-top: 30px;" >
+					  		<div class="col-md-1"><img src="img/badge_2.png" alt="2"></div>
+					  		<div class="col-md-10 cD3D8EE">
+					  			<div>{{lang.lang265}}</div>
+					  			<div>{{lang.lang266}}</div>
+					  			<div>{{lang.lang267}}</div>
+					  		</div>
+					  	</div>
+					  	<div class="row form-group bg-182B7B border-1D328A" style="padding: 40px;margin:0;border-width: 1px; border-style: solid;">
+					  		<div class="col-md-6" style="display: flex;align-items: center;">
+					  			<img ng-src="{{googleAuthRes.qrCode}}" alt="google" style="width:128px;height: 128px;" >
+					  			<div style="margin-left:30px;">
+					  				<input class="border-0 cD3D8EE bg-182B7B border-1D328A"  type="text" ng-value="googleAuthRes.secretKey" id="key" readonly ><br/>
+					  				<span class="text-primary cursorClass" ng-click="copyFun()" >{{lang.lang255}}</span>
+					  			</div>
+					  		</div>
+					  	</div>
+					  	<div class="row form-group" style="padding-top: 30px;" >
+					  		<div class="col-md-1"><img src="img/badge_3.png" alt="3"></div>
+					  		<div class="col-md-6 cD3D8EE align-self-center">{{lang.lang268}}</div>
+					  	</div>
+					  	<div class="form-group info-form">
+				  			<input type="text" class="form-control" name="currentVerifyCode" ng-model="params.currentVerifyCode" required >
+				  			<div class="tipbox">
+				  				<div class="tip_tishi" ng-show="myForm.currentVerifyCode.$dirty && myForm.currentVerifyCode.$error.required">
+				                    {{lang.lang269}}
+				                </div>
+				  			</div>
+					  	</div>
+					  	<button type="submit" class="btn btn-default btn-block" ng-disabled="myForm.$invalid" ng-click="verifyGoogle()" >{{lang.lang228}}</button>
+					</form>  
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

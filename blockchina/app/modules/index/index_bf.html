@@ -1,0 +1,96 @@
+<!-- 首页 -->
+
+<div class="container-full" style="background: #0E1224;">
+	<!-- banner -->
+	<div id="carouselExampleIndicators" class="carousel slide">
+	  <!-- <ol class="carousel-indicators">
+	    <li data-target="#carouselExampleIndicators" data-slide-to="{{$index}}" ng-class="{true:'active', false:''}[$index==0]" ng-repeat = "banner in banners"></li>
+	  </ol> -->
+	  <div class="carousel-inner">
+	    <div class="carousel-item" ng-class="{true:'active', false:''}[$index==0]" ng-repeat = "banner in banners">
+	    	<a ng-href="{{banner.linkUrl ? banner.linkUrl : 'javaScript:void(0)'}}">
+	      		<img class="d-block w-100" ng-src="{{baseUrl}}{{banner.imgUrl}}" alt="{{banner.title}}">
+	    	</a>
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">上一页</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">下一页</span>
+	  </a>
+	</div>
+	<div class="container-full" style="background: #182033; color: #CEDDEF; line-height: 3rem; margin-bottom: 1.5rem;">
+		<div class="container" style="height: 3rem;">
+			<div class="scroll-left" style="display: inline-block; float: left;">
+				{{lang.lang421}}：
+			</div>
+			<div class="scroll-wrap" style="height: 3rem; overflow: hidden; display: inline-block;">
+			    <ul class="scroll-con fn-left" style="margin-top: 0px;">
+			        <li style="height: 3rem; line-height: 3rem; overflow: hidden;" ng-repeat="noticelist in noticelists">
+			            <a href="javascript:" ng-click="linknotice(noticelist.id)">{{noticelist.title}}</a>
+			        </li>
+			    </ul>
+			</div>
+			<div class="scroll-right" style="display: inline-block; float: right;" ui-sref="logged.noticelist">
+				<a href="javascript:">{{lang.lang422}}>></a>
+			</div>
+
+		</div>
+	</div>
+	<div class="container market" style="background: #0E1224; color: #CEDDEF;border:1px solid rgba(31,41,64,1); padding: 0px;">
+		<div class="card">
+		  <ul class="row" style="margin-bottom: 0px; margin: 0px;">
+		    <li class="col text-center" ng-repeat="b in backdata" ng-click="getejmarket(b.marketCode, $index)" ng-class="{true:'active', false:''}[b.success]"><img style="margin-right: .5rem; vertical-align: text-top;" width="20px;" ng-src="{{b.imgurl}}">{{b.marketName}}{{lang.lang14}}</li>
+		  </ul>
+		</div>
+		<table class="table">
+		  <thead style="background: #182033;">
+		    <tr class="tabletitle">
+		      <th scope="col" style="width: 18%">{{lang.lang15}}</th>
+		      <th scope="col" style="width: 16%">{{lang.lang16}}</th>
+		      <th scope="col" style="width: 16.01%">{{lang.lang17}}</th>
+		      <th scope="col" style="width: 17.98%">{{lang.lang18}}</th>
+		      <th scope="col" style="width: 16%">{{lang.lang19}}</th>
+		      <th scope="col" style="width: 16%">{{lang.lang20}}</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr ng-repeat="m in transactionpair">
+		      <th scope="row" ng-bind="m.transName"></th>
+		      <th scope="row" ng-bind="m.currentPrice != null ? (m.currentPrice | number:6) : '--'"></th>
+		      <th scope="row">{{m.oneDayGains != null ? (m.oneDayGains | number:2) : '--'}} <b ng-if="m.oneDayGains != null">%</b></th>
+		      <th scope="row" ng-bind="m.oneDayMaxPrice != null ? (m.oneDayMaxPrice | number:6) : '--'"></th>
+		      <th scope="row" ng-bind="m.oneDayMinPrice != null ? (m.oneDayMinPrice | number:6) : '--'"></th>
+		      <th scope="row" ng-bind="m.oneDayDealNum != null ? (m.oneDayDealNum | number:6) : '--'"></th>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+	<div class="container">
+		<div class="row text-center advantage">
+			<a class="col" style="padding: 5rem 0;background: #182033;">
+				<img src="img/icon_security.png" alt="">
+				<h5 style="color:#CEDDEF;">{{lang.lang21}}</h5>
+				<p style="color:#CEDDEF;">{{lang.lang22}}</p>
+			</a>
+			<a class="col" style="padding: 5rem 0;background: #182033;">
+				<img src="img/icon_efficient.png" alt="">
+				<h5 style="color:#CEDDEF;">{{lang.lang23}}</h5>
+				<p style="color:#CEDDEF;">{{lang.lang24}}</p>
+			</a>
+			<a class="col" style="padding: 5rem 0;background: #182033;">
+				<img src="img/icon_major.png" alt="">
+				<h5 style="color:#CEDDEF;">{{lang.lang25}}</h5>
+				<p style="color:#CEDDEF;">{{lang.lang26}}</p>
+			</a>
+			<a class="col" style="padding: 5rem 0;background: #182033;">
+				<img src="img/icon_quick.png" alt="">
+				<h5 style="color:#CEDDEF;">{{lang.lang27}}</h5>
+				<p style="color:#CEDDEF;">{{lang.lang28}}</p>
+			</a>
+		</div>
+	</div>
+</div>

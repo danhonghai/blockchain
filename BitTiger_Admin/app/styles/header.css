@@ -1,0 +1,114 @@
+#header span {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 20px;
+}
+.lavalamp {
+  position: relative;
+  padding: 8px;
+  height: 76px;
+  width: 900px;
+  float: left;
+}
+.lavalamp ul {
+  margin: 0;
+  padding: 0;
+  z-index: 300;
+  position: absolute;
+}
+.lavalamp ul li {
+  list-style: none;
+  float: left;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  width: 10%;
+}
+.lavalamp i {
+  font-size: 30px;
+}
+.lavalamp ul li a {
+  text-align: center;
+}
+.floatr {
+  position: absolute;
+  top: 8px;
+  z-index: 50;
+  width: 90px;
+  height: 71px;
+  border-radius: 5px;
+  background: #FF5722;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+/* 搜索框样式  by wuyf 2017-12-19 */
+.search-box .form-inline .form-group {
+  margin-right: 10px;
+}
+.search-box .form-inline .form-control {
+  width: auto;
+}
+/* 弹窗表单样式 */
+.form-model .form-group {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.form-model .form-group .control-label {
+  width: 75px;
+  color: #767676;
+  font-weight: normal;
+}
+.form-model .form-group .form-control {
+  border: 1px solid #e2e2e4;
+  box-shadow: none;
+  background-color: #eee;
+  color: #666 !important;
+}
+.form-inline .form-control {
+  width: auto;
+}
+.loanInfo {
+  margin-top: 5px;
+  padding-left: 10px;
+}
+.loanInfo a {
+  color: #d58512;
+}
+.loanInfo a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.input-group {
+  position: relative;
+}
+.input-group .input-span {
+  position: absolute;
+  right: 20px;
+  top: 9px;
+}
+.inlineBlock {
+  display: inline-block;
+}
+.modal-lg {
+  width: 900px;
+}
+.nonespan .submenu-indicator {
+  display: none;
+}
+.modal-body input::-webkit-input-placeholder {
+  color: #bbb !important;
+}
+/* 图片上传 */
+.file-input .hidden-xs {
+  display: inline !important;
+}
+.file-input .input-group .form-control {
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+}
+.file-zoom-dialog .modal-dialog {
+  margin: 30px auto;
+  left: 0;
+}

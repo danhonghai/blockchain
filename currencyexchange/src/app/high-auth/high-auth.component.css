@@ -1,0 +1,50 @@
+.highAuth{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.highAuth-main{
+  background-color: #fff;
+  padding: 40px 80px;
+  color: #3F3E3E;
+}
+
+.highAuth-main .form-label{
+  font-size: 16px;
+}
+
+.highAuth-main .form-control{
+  background:rgba(246,246,246,1);
+  border: none;
+}
+
+
+.image-auth{
+  margin-top: 50px;
+  border-bottom: 2px solid #D8D8D8;
+}
+
+.image-auth .pic{
+  position: absolute;
+  left: 30%;
+  top: -20px;
+  text-align: center;
+}
+.image-auth .pic_auth{
+  position: absolute;
+  left: 60%;
+  top: -20px;
+  text-align: center;
+}
+
+.image-auth .image-border{
+  width: 35%;
+  border: 1px solid #659EFF;
+  margin-bottom: -2px
+}
+
+.highAuth-main .highAuth-title{
+  font-size:16px;
+  margin-bottom: 40px;
+  margin-left: 100px;
+}

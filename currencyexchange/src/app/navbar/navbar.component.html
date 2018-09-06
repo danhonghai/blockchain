@@ -1,0 +1,61 @@
+<div class="container-full text-white header">
+  <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand"><img src="assets/images/logo.png"  alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse row" id="navbarSupportedContent">
+          <ul class="navbar-nav col">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/home']" >法币交易</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/advertising']" >发布广告</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" href="http://192.168.3.108:82/index" target="_black" >币币交易</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/entrust']" >客户端下载</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav col" style="justify-content: flex-end;">
+            <li class="nav-item" style="margin-right: .5rem" routerLinkActive="active" *ngIf="account">
+              <a class="nav-link" [routerLink]="['/capital']" >资产</a>
+            </li>
+            <li class="nav-item" style="margin-right: .5rem" routerLinkActive="active" *ngIf="account">
+              <a class="nav-link" [routerLink]="['/orderList']" >订单</a>
+            </li>
+            <li class="nav-item dropdown" style="margin-right: .5rem" routerLinkActive="active" *ngIf="account">
+              <a class="dropdown-toggle nav-link cursorClass" data-toggle="dropdown">
+                {{account}}
+              </a>
+              <div class="dropdown-menu mt-2">
+                <a class="dropdown-item" [routerLink]="['/userinfo']">个人中心</a>
+                <!-- <a class="dropdown-item" [routerLink]="['/businessApply']">商家申请</a> -->
+                <a class="dropdown-item" [routerLink]="['/myAd']" >我的广告</a>
+                <a class="dropdown-item" (click) = "loginout()" href="javaScript:void(0)" >退出</a>
+              </div>
+            </li>
+            <li class="nav-item" style="margin-right: .5rem" routerLinkActive="active" *ngIf="!account">
+              <a class="nav-link" [routerLink]="['/login']" >登录</a>
+            </li>
+            <li class="nav-item" style="margin-right: .5rem" routerLinkActive="active" *ngIf="!account">
+              <a class="nav-link" [routerLink]="['/register']" >注册</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle cursorClass" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                简体中文
+              </a>
+              <div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="javaScript:void(0)" >简体中文</a>
+                <a class="dropdown-item" href="javaScript:void(0)" >繁体中文</a>
+                <a class="dropdown-item" href="javaScript:void(0)" >日文</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  </div>
+</div>

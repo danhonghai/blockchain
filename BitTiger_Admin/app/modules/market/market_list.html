@@ -1,0 +1,345 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">市场列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">市场：</label>
+                            <select class="form-control" ng-model="params.transMarket" name="transMarket">
+                                <option value="">全部</option>
+                                <option ng-repeat="ite in params" value="{{ite.id}}">{{ite.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                        <div class="form-group navbar-right">
+                            <button type="button" class="btn btn-info" ng-click="addCoin()"><i class="fa fa-plus"></i>新增交易对</button>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>交易市场</th>
+                            <th>交易对</th>
+                            <th>发行价</th>
+                            <th>交易手续费率</th>
+                            <th>挂单时间(h)</th>
+                            <th>最小挂单价格</th>
+                            <th>最小挂单数量</th>
+                            <th>最小挂单数量小数位</th>
+                            <th>最小交易额</th>
+                            <th>最小交易额小数位控制</th>
+                            <th>市价交易数额最小值</th>
+                            <th>市价交易数额限制位数</th>
+                            <th>市价数量最小值</th>
+                            <th>市价交易数量-位数限制(4位</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 新增弹窗 -->
+<div class="modal fade add_coin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">{{coinParams.id ? "修改" : "新增"}}交易对</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">交易市场：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="params.transMarket" name="transMarket" required>
+                                <option value="">请选择交易市场</option>
+                                <option ng-repeat="ite in params" value="{{ite.id}}">{{ite.name}}</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="myForm.transMarket.$error.required">请选择交易市场</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">交易币种：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="coinList.coinId" name="coinId" required>
+                                <option value=""> 请选择交易币种</option>
+                                <option ng-repeat="item in coinList" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="myForm.coinId.$error.required">请选择交易币种</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">发行价：</label>
+                        <input type="text" class="form-control" style="margin-left: 15px;width: 320px;display: inline-block;" name="openPrice" ng-model="coinParams.openPrice" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">
+                        <br>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="myForm.openPrice.$error.required">发行价必填</span>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="myForm.openPrice.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">交易手续费率：</label>
+                        <input type="text" class="form-control" style="margin-left: 15px;width: 320px;display: inline-block;" name="serviceCharge" ng-model="coinParams.serviceCharge" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">%
+                        <br>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="myForm.serviceCharge.$error.required">交易手续费率必填</span>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="myForm.serviceCharge.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">挂单时间：</label>
+                        <input type="text" class="form-control" style="margin-left: 15px;width: 320px;display: inline-block;" name="entrustOrderHour" ng-model="coinParams.entrustOrderHour" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">h
+                        <br>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="myForm.entrustOrderHour.$error.required">挂单时间必填</span>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="myForm.entrustOrderHour.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单价格：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.minPrice" name="minPrice" required pattern="^(([1-9]\d*(\.\d+)?)|(0\.\d*[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.minPrice.$error.required">最小挂单价格必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.minPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单价格小数位限制：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.priceDecimalLimit" name="priceDecimalLimit" required pattern="^(([1-9]\d*?)|(0))$" >
+                            <span style="color:#d70000;" ng-show="myForm.priceDecimalLimit.$error.required">最小挂单价格小数位必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.priceDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单数量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.minAmount" name="minAmount" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.minAmount.$error.required">最小挂单数量必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.minAmount.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单数量小数位：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.amountDecimalLimit" name="amountDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.amountDecimalLimit.$error.required">最小挂单数量小数位必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.amountDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小交易额：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.minTurnover" name="minTurnover" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.minTurnover.$error.required">最小交易额必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.minTurnover.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小交易额小数位控制：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.turnoverDecimalLimit" name="turnoverDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.turnoverDecimalLimit.$error.required">最小交易额小数位控制必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.turnoverDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价交易数额最小值：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.marketTurnoverPrice" name="marketTurnoverPrice" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.marketTurnoverPrice.$error.required">市价交易数额最小值必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.marketTurnoverPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价交易数额限制位数：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.marketTurnoverDecimalLimit" name="marketTurnoverDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.marketTurnoverDecimalLimit.$error.required">市价交易数额限制位数必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.marketTurnoverDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价数量最小值：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.marketMinAmount" name="marketMinAmount" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.marketMinAmount.$error.required">市价数量最小值必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.marketMinAmount.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价交易数量-位数限制(4位）：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.marketAmountDecimalLimit" name="marketAmountDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.marketAmountDecimalLimit.$error.required">市价交易数量-位数限制(4位)必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.marketAmountDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="addition()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改弹窗 -->
+<div class="modal fade add_coinss" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改交易对</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="xgyForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">交易市场：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.transMarketName" name="transPair" disabled="disabled">
+                            <!-- <select class="form-control" selected="selected " ng-model="conparms.transMarket " id="ismenu" name="transMarket" disabled="disabled">
+                                <option value="0">BTC市场</option>
+                                <option value="1">USDT市场</option>
+                            </select> -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">交易币种：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.transPair" name="transPair" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">发行价：</label>
+                        <input type="text" class="form-control" style="margin-left: 15px;width: 320px;display: inline-block;" name="openPrice" ng-model="conparms.openPrice" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">
+                        <br>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="xgyForm.openPrice.$error.required">发行价必填</span>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="xgyForm.openPrice.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">交易手续费率：</label>
+                        <input type="text" class="form-control" style="margin-left: 15px;width: 320px;display: inline-block;" name="serviceCharge" ng-model="conparms.serviceCharge" required pattern="^[0-9]+([.]{1}[0-9]+){0,1}$">%
+                        <br>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="xgyForm.serviceCharge.$error.required">交易手续费率必填</span>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="xgyForm.serviceCharge.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">挂单时间：</label>
+                        <input type="text" class="form-control" style="margin-left: 15px;width: 320px;display: inline-block;" name="entrustOrderHour" ng-model="conparms.entrustOrderHour" required pattern="^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$">h
+                        <br>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="xgyForm.entrustOrderHour.$error.required">挂单时间必填</span>
+                        <span style="color:#d70000;margin-left: 143px;" ng-show="xgyForm.entrustOrderHour.$error.pattern">数据不合规范</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单价格：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.minPrice" name="minPrice" required pattern="^(([1-9]\d*(\.\d+)?)|(0\.\d*[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.minPrice.$error.required">最小挂单价格必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.minPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单价格小数位限制：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.priceDecimalLimit" name="priceDecimalLimit" required pattern="^(([1-9]\d*?)|(0))$" >
+                            <span style="color:#d70000;" ng-show="xgyForm.priceDecimalLimit.$error.required">最小挂单价格小数位必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.priceDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单数量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.minAmount" name="minAmount" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.minAmount.$error.required">最小挂单数量必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.minAmount.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小挂单数量小数位：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.amountDecimalLimit" name="amountDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.amountDecimalLimit.$error.required">最小挂单数量小数位必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.amountDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小交易额：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.minTurnover" name="minTurnover" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.minTurnover.$error.required">最小交易额必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.minTurnover.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">最小交易额小数位控制：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.turnoverDecimalLimit" name="turnoverDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.turnoverDecimalLimit.$error.required">最小交易额小数位控制必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.turnoverDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价交易数额最小值：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.marketTurnoverPrice" name="marketTurnoverPrice" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.marketTurnoverPrice.$error.required">市价交易数额最小值必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.marketTurnoverPrice.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价交易数额限制位数：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.marketTurnoverDecimalLimit" name="marketTurnoverDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.marketTurnoverDecimalLimit.$error.required">市价交易数额限制位数必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.marketTurnoverDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价数量最小值：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.marketMinAmount" name="marketMinAmount" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.marketMinAmount.$error.required">市价数量最小值必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.marketMinAmount.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 128px;">市价交易数量-位数限制(4位）：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="conparms.marketAmountDecimalLimit" name="marketAmountDecimalLimit" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="xgyForm.marketAmountDecimalLimit.$error.required">市价交易数量-位数限制(4位)必填</span>
+                            <span style="color:#d70000;" ng-show="xgyForm.marketAmountDecimalLimit.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="xgyForm.$invalid" ng-click="additi()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 删除交易对 -->
+<div class="modal fade in info-modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-sm" style="margin-top:200px; width: 300px;">
+        <div class="modal-content" style="border: 1px solid #dbdbdb;box-shadow: 3px 5px 10px #ccc;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title">提示信息</h5>
+            </div>
+            <div class="modal-body">是否刪除该交易对?</div>
+            <div class="modal-footer">
+                <button class="btn btn-primary okBtn" type="button" data-dismiss="modal" ng-click="deleteFun()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

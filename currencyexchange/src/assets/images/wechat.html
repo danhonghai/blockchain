@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>wechat</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <script src="assets/js/NIM_Web_SDK_v5.0.1.js"></script>
+  <script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<style>
+	/*---滚动条默认显示样式--*/
+	::-webkit-scrollbar-thumb{
+	   background-color:#018EE8;
+	   height:50px;
+	   outline-offset:-2px;
+	   outline:2px solid #fff;
+	   -webkit-border-radius:4px;
+	   border: 2px solid #fff;
+	}
+	/*---鼠标点击滚动条显示样式--*/
+	::-webkit-scrollbar-thumb:hover{
+	   background-color:#FB4446;
+	   height:50px;
+	   -webkit-border-radius:4px;
+	}
+	/*---滚动条大小--*/
+	::-webkit-scrollbar{
+	   width:8px;
+	   height:8px;
+	}
+	/*---滚动框背景样式--*/
+	::-webkit-scrollbar-track-piece{
+	   background-color:#fff;
+	   -webkit-border-radius:0;
+	}
+	.wechat {
+	    background: #f8f9fa;
+	}
+	.wechat_tit {
+	    background: #fff;
+	    margin: 0px;
+	    padding: 6px;
+	    width: 100%;
+	    position: fixed;
+	    top: 0;
+	    z-index: 2;
+	    border-bottom: 1px solid #018EE8
+	}
+	.icon-circle {
+	    display: inline-block;
+	    margin-right: 10px;
+	    width: 36px;
+	    height: 36px;
+	    line-height: 36px;
+	    text-align: center;
+	    color: #fff;
+	    font-size: 16px;
+	    background: -webkit-gradient(linear, left top, left bottom, from(#9ECDFF), to(#659EFF));
+	    background: linear-gradient(#9ECDFF, #659EFF);
+	}
+	.rounded-circle {
+	    border-radius: 50% !important;
+	}
+	.wechat_cen {
+		width:100%;
+	    overflow-y: auto;
+	    padding-bottom: 20px;
+	    position: absolute;
+	    height: 532px;
+	    top:48px;
+	    bottom: 48px;
+	    z-index: 1;
+	    background: #f1f1f1;
+	}
+	.chat_con .send {
+	    display: inline-block;
+	    width: auto;
+	    max-width: 60%;
+	    margin-top: 50px;
+	    position: relative;
+	    padding: 5px 10px;
+	    height: auto;
+	    line-height: .2rem;
+	    font-size: .14rem;
+	    border-radius: 5px
+	}
+
+	.chat_con .send span {
+	    width: 30px;
+	    position: absolute;
+	    top: 0;
+	    height: 30px;
+	    border-radius: 15px;
+	    text-align: center;
+	    line-height: 30px;
+	    left: -50px;
+	    background: linear-gradient(#9ECDFF, #659EFF);
+	    color: #fff;
+	}
+
+	.chat_con .send .arrow {
+	    position: absolute;
+	    width: 0;
+	    height: 0;
+	    font-size: 0;
+	    border: 8px solid
+	}
+
+	.chat_con .send img.touxiang {
+	    position: absolute;
+	    max-width: 30px;
+	    width: 30px;
+	    height: 30px;
+	    top: 0
+	}
+
+	.chat_con .send .chatbox_chatcontent {
+	    text-align: Justify;
+	    margin-bottom: 0
+	}
+
+	.chat_con .send .chatbox_chatcontent img {
+	    position: inherit;
+	    width: 100%;
+	    height: auto;
+	    margin-bottom: 10px;
+	    display: block;
+	    border: 4px solid #fff
+	}
+
+	.chat_conright img {
+	    right: -46px;
+      max-width: 150px;
+	}
+
+	.chat_conright .send {
+	    margin: 30px 60px 0 auto;
+	    background: #96f154;
+	    float: right
+	}
+
+	.chat_conright .send span {
+	    color: #fff;
+	    left: auto;
+	    right: -50px;
+	    text-align: center;
+	}
+
+	.chat_conright .send .arrow {
+	    top: 5px;
+	    right: -16px;
+	    border-color: transparent transparent transparent #96f154
+	}
+
+	.chat_conleft img {
+	    left: -46px;
+      max-width: 150px;
+	}
+	.chat_conleft .errormsg{
+		margin-top: 0px;
+    	margin-left: 5px;
+	}
+	.chat_conright .errormsg{
+		float: right;
+	    margin-top: 37px;
+	    margin-right: 5px;
+	}
+
+	.chat_conleft .send {
+	    background: #FFF;
+	    margin: 30px auto 0 60px
+	}
+
+	.chat_conleft .send .arrow {
+	    top: 5px;
+	    left: -16px;
+	    border-color: transparent #FFF transparent transparent
+	}
+	.wechat_text {
+	    margin: 0px;
+	    padding: 6px;
+	    background: #fff;
+	    width:100%;
+	    position: fixed;
+	    bottom: 0;
+	    z-index: 2;
+	    border-top: 1px solid #018EE8
+	}
+</style>
+<body>
+	<div class="wechat" style="position: relative;" ng-app="myApp" ng-controller="myCtrl">
+		<div class="wechat_tit row">
+			<div class="col">
+				<div class="icon-circle rounded-circle" style="font-size: 12px;">{{codeobj.orderUserName | limitTo:1}}</div>
+				{{codeobj.orderUserName}}
+			</div>
+			<div class="col text-right" style="line-height: 36px;font-size: 12px; color: #49c734;">
+				在线
+			</div>
+		</div>
+		<div class="wechat_cen" id="scrolldIV">
+			<div class="chat_con" ng-repeat="msg in data.msgdata" ng-class="{true:'chat_conright', false:'chat_conleft'}[msg.flow=='out']">
+				<p style="margin-bottom: 0px; margin-top:20px;" class="text-center tishi"><span style="background: #ddd; color: #fff; padding:3px 5px; border-radius: 5px; font-size: 12px;">{{msg.time | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>
+				<div style="clear: both;overflow: hidden;">
+					<div class="send">
+						<!-- <img style="top:-25px" src="http://192.168.3.108:82/img/logo.png" /> -->
+						<span ng-class="{true:'right10', false:'left10'}[msg.flow=='out']">{{msg.fromNick | limitTo:1}}</span>
+						<p ng-if="msg.type=='text'" style="text-align:Justify; margin-bottom: 0px; line-height: 2em;">{{msg.text}}</p>
+						<p ng-if="msg.type=='file'" style="text-align:Justify; margin-bottom: 0px; line-height: 2em;"><img ng-src="{{msg.file.url}}"></p>
+						<div class="arrow"></div>
+					</div>
+					<img ng-if="msg.status != 'success'" class="errormsg" src="assets/images/errormsg.png">
+				</div>
+			</div>
+		</div>
+		<div class="wechat_text">
+			<div style="padding-left: 0; padding-right: 0px; width: 70%; height: 30px; float: left;">
+				<!-- <input> -->
+				<textarea style="border: 1px solid #ccc; width:90%; border-radius: 5px; min-height: 30px;  height: 30px; max-height: 80px; resize:none" type="text" ng-model="data.text"></textarea>
+			</div>
+			<div style="padding-left: 0; padding-right: 0px; width:10%; width: 15%; float: left;">
+				<input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="angular.element(this).scope().uploadImage(this)">
+				<img id="fileSelect" width="31" src="assets/images/img.png">
+			</div>
+			<div style="padding-left: 0; padding-right: 0px; width:10%; width: 15%; float: left;">
+				<button class="btn btn-primary btn-sm" ng-click="wcsendmsg()">发送</button>
+			</div>
+		</div>
+	</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+	//url参数转对象
+	function GetRequest() { 
+		var url = decodeURI(location.search); //获取url中"?"符后的字串
+		 
+		var theRequest = new Object(); 
+		if (url.indexOf("?") != -1) {  
+			var str = url.substr(1);  strs = str.split("&");  
+			for (var i = 0; i < strs.length; i++) {   theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);  
+			} 
+		}
+		console.log(theRequest) 
+		return theRequest;
+	}
+	//滚动到底部
+	function backbottom(){
+		var now = new Date();
+		var div = document.getElementById('scrolldIV');
+		div.scrollTop = div.scrollHeight;
+	}
+	$scope.codeobj = GetRequest();
+	//
+	//页面绑定数据
+	$scope.data = {
+		msgdata:[]
+	};
+	// 初始化im
+	var nim = SDK.NIM.getInstance({
+		// debug: true,
+		appKey: 'c0f7f82eda27b1a5acd34755bd664057',
+		account: $scope.codeobj.myImAccid,
+		token: $scope.codeobj.myImToken,
+		onconnect: onConnect,
+		onwillreconnect: onWillReconnect,
+		ondisconnect: onDisconnect,
+		onerror: onError,
+		//onroamingmsgs: onRoamingMsgs,
+		//onofflinemsgs: onOfflineMsgs,
+		onmsg: onMsg
+	});
+	//收到漫游消息
+	/*function onRoamingMsgs(obj) {
+		console.log('收到漫游消息', obj);
+		pushMsg(obj.msgs);
+	}*/
+	//收到离线消息
+	/*function onOfflineMsgs(obj) {
+		console.log('收到离线消息', obj);
+		pushMsg(obj.msgs);
+	}*/
+	//收到消息
+	function onMsg(msg) {
+		console.log('收到消息', msg.scene, msg.type, msg);
+		pushMsg(msg);
+		switch (msg.type) {
+		case 'custom':
+			onCustomMsg(msg);
+			break;
+		case 'notification':
+			// 处理群通知消息
+			onTeamNotificationMsg(msg);
+			break;
+			// 其它case
+		default:
+			break;
+		}
+	}
+	//消息处理
+	function pushMsg(msgs) {
+		console.log(msgs);
+		$scope.data.msgdata.push(msgs);
+		$scope.$apply();
+		backbottom();
+	}
+	// 处理自定义消息
+	function onCustomMsg(msg) {
+	}
+	//链接成功回调
+	function onConnect() {
+		console.log('连接成功');
+		nim.getHistoryMsgs({
+		    scene: 'p2p',
+		    to: $scope.codeobj.imAccid,
+		    asc: true,
+		    done: getHistoryMsgsDone
+		});
+		function getHistoryMsgsDone(error, obj) {
+		    console.log('获取p2p历史消息' + (!error?'成功':'失败'));
+		    console.log(error);
+		    console.log(obj);
+		    if (!error) {
+		        console.log(obj.msgs);
+		        $scope.data.msgdata = obj.msgs;
+		    }
+		    $scope.$apply();
+		    backbottom();
+		}
+	}
+	// 此时说明 SDK 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
+	function onWillReconnect(obj) {
+		console.log('即将重连');
+		console.log(obj.retryCount);
+		console.log(obj.duration);
+	}
+
+	function onDisconnect(error) {
+		console.log('丢失连接');
+		console.log(error);
+		if (error) {
+			switch (error.code) {
+				// 账号或者密码错误, 请跳转到登录页面并提示错误
+			case 302:
+				break;
+				// 重复登录, 已经在其它端登录了, 请跳转到登录页面并提示错误
+			case 417:
+				break;
+				// 被踢, 请提示错误后跳转到登录页面
+			case 'kicked':
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	function onError(error) {
+		console.log(error);
+	}
+	//发送文本消息
+	$scope.wcsendmsg = function() {
+		console.log($scope.data.text);
+		if ($scope.data.text) {
+			var msg = nim.sendText({
+				scene: 'p2p',
+				to: $scope.codeobj.imAccid,
+				text: $scope.data.text,
+				done: sendMsgDone
+			});
+			$scope.data.text = "";
+			console.log('正在发送p2p text消息, id=' + msg.idClient);
+			function sendMsgDone(error, msg) {
+				pushMsg(msg);
+			}
+		}else{
+			alert("请输入聊天内容");
+		}
+	}
+	//选择图片
+	$scope.uploadImage = function (files) {
+		console.log(files)
+			nim.sendFile({
+				scene: "p2p",
+				to: $scope.codeobj.imAccid,
+				type: "file",
+				fileInput: files,
+				uploadprogress: function(data) {
+				  console && console.log(data.percentageText);
+				},
+				uploaderror: function() {
+				  console && console.log('上传失败');
+				},
+				uploaddone: function(error, file) {
+				  console.log(error);
+				  console.log(file);
+				  console.log('上传' + (!error ? '成功' : '失败'));
+				},
+				beforesend: function(msgId) {
+				  console && console.log('正在发送消息, id=' + msgId);
+				},
+				done: function(error, msg){
+					pushMsg(msg);
+					console.log(msg);
+				}
+			});
+    }
+    var fileSelect = document.getElementById("fileSelect"),
+    fileElem = document.getElementById("fileElem");
+	fileSelect.addEventListener("click", function (e) {
+	  if (fileElem) {
+	    fileElem.click();
+	  }
+	  e.preventDefault(); // prevent navigation to "#"
+	}, false);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<div class="container-full bg-body" style="padding-bottom: 80px;">
+    <div class="header_content" ng-class="{true:'header_content_zn',false:'header_content_en'}[language == 1]">
+        <!-- <p class="invite font-1">{{lang.lang377}}</p> -->
+        <div class="container">
+            <div ng-hide="account" class="btn_select btn-default text-center" ui-sref="logged.login">
+                <a class="font-1" href="javascript:">{{lang.lang378}}</a>
+            </div>
+        </div>
+        <!-- <p ng-hide="account" class="gain font-1" id="brokerage_rate">{{lang.lang379}}</p> -->
+    </div>
+    <div class="contai font-1">
+        <p ng-hide="account" class="gain font-1" id="brokerage_rate"><span class="title-line"></span>{{lang.lang379}}</p>
+        <div class="page_invite" ng-hide="account">
+            <div class="container">
+                <div class="row text-center advantage">
+                    <div class="col">
+                        <img src="img/fee.png" alt="">
+                        <p>{{lang.lang380}}</p>
+                    </div>
+                    <div class="col">
+                        <img src="img/conversion.png" alt="">
+                        <p>{{lang.lang381}}</p>
+                    </div>
+                    <div class="col">
+                        <img src="img/jys.png" alt="">
+                        <p>{{lang.lang382}}</p>
+                    </div>
+                    <div class="col">
+                        <img src="img/Vote.png" alt="">
+                        <p>{{lang.lang383}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="active_rule">
+                <!-- <div class="order">
+                    <img src="img/lines.png" alt="">
+                    <div class="txt">{{lang.lang384}}</div>
+                </div>
+                <ul class="rule_content content" id="rule_content">
+                    <li>1.{{lang.lang385}}</li>
+                    <li>2.{{lang.lang386}}</li>
+                    <li>3.{{lang.lang387}}</li>
+                    <li>4.{{lang.lang388}}</li>
+                    <li>5.{{lang.lang389}}</li>
+                    <li>6.{{lang.lang390}}</li>
+                </ul> -->
+                <div class="order">
+                    <img src="img/lines.png" alt="">
+                    <div class="txt">{{lang.lang391}}</div>
+                </div>
+                <ul class="rule_content content" id="rule_content">
+                    <li>1.{{lang.lang385}}</li>
+                    <li>2.{{lang.lang392}}</li>
+                    <li>3.{{lang.lang393}}</li>
+                    <!-- <li>4.{{lang.lang388}}</li> -->
+                    <li>4.{{lang.lang394}}</li>
+                    <li>5.{{lang.lang389}}</li>
+                    <li>6.{{lang.lang390}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="page_invites div-block" ng-show="account">
+            <div class="card-header" style="font-size: 16px;border-bottom: 1px solid #081A57;">{{lang.lang395}}</div>
+            <div id="invitation" style="overflow: hidden;">
+                <div class="share_style login_show">
+                    <div class="post_btn share_div">
+                        <p>{{lang.lang396}}</p>
+                        <button id="pic1" class="btn-default" ng-click="download()" data-action="poster1">{{lang.lang397}}</button>
+                    </div>
+                    <div class="user_code share_div">
+                        <p>{{lang.lang398}}</p>
+                        <div class="share_code_wrap code-bg">
+                            <input type="text" readonly="readonly" class="share_code code-bg font-2" id="text" value="{{countrydd.qrcode}}">
+                            <a class="copy_url copy_btn copy_url_1 c008DFF" href="javascript:void(0)" ng-click="copyText('text');">{{lang.lang399}}</a>
+                        </div>
+                    </div>
+                    <div class="user_url share_div">
+                        <p>{{lang.lang400}}</p>
+                        <div class="share_code_wrap code-bg">
+                            <input type="text" id="texts" readonly="readonly" class="share_link code-bg font-2" value="{{hostUrl}}{{countrydd.inviteUrl}}">
+                            <a class="copy_url copy_btn copy_url_2 c008DFF" href="javascript:void(0)" ng-click="copyText('texts')">{{lang.lang399}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pages_invites div-block" ng-show="account">
+            <div class="card-header info-header" style="font-size: 16px;">{{lang.lang401}}</div>
+            <div class="invitation" style="height: 100px;">
+                <div class="invitationrs code-bg">
+                    <div style="margin: 20px 0;">
+                        <p class="font-2" style="font-size: 14px;font-weight: 300;margin: 0;margin-bottom: 16px;">{{lang.lang402}}</p>
+                        <p class="font-1" style="font-size: 16px;margin: 0;">{{lang.lang403}}：{{countrydd.inivteNum}}</p>
+                    </div>
+                </div>
+                <div class="invitationjf code-bg">
+                    <div style="margin: 20px 0;">
+                        <p class="font-2" style="font-size: 14px;font-weight: 300;margin: 0;margin-bottom: 16px;">{{lang.lang404}}</p>
+                        <p class="font-1" style="font-size: 16px;margin: 0;">HYKT：{{countrydd.credit}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body info-body" style="margin-bottom: 4rem;height: 235px; position: relative;">
+                <div class="row font-3" style="line-height: 3rem;">
+                    <div class="col ng-binding" style="font-size: 14px;">{{lang.lang405}}</div>
+                    <div class="col ng-binding" style="font-size: 14px;text-align: center;">{{lang.lang406}}</div>
+                    <div class="col ng-binding" style="font-size: 14px;text-align: right;">{{lang.lang57}}</div>
+                </div>
+                <div class="row ng-scope font-2" style="line-height: 3rem;" ng-repeat="p in countryes">
+                    <div class="col ng-binding" style="font-size: 14px;">{{p.name}}</div>
+                    <!-- <div class="col ng-binding" style="font-size: 14px;" ng-if="!p.phone">{{p.email | memail}}</div> -->
+                    <div class="col ng-binding" style="font-size: 14px;text-align: center;">{{p.register | date:'yyyy-MM-dd HH:mm:ss' }}</div>
+                    <div class="col ng-binding" style="font-size: 14px;text-align: right;" ng-if="p.certification ==2">{{lang.lang60}}</div>
+                    <div class="col ng-binding" style="font-size: 14px;text-align: right;" ng-if="p.certification !=2">{{lang.lang349}}</div>
+                    <!--    <div class="col ng-binding" style="font-size: 14px;text-align: right;" ng-if="p.isCertification !=2 && !p.idno">{{lang.lang349}}</div> -->
+                </div>
+                <div class="text-center pagebox ng-scope" ng-if="country">
+                    <my-pagination page-option="option" ng-show="countryes.length != 0"></my-pagination>
+                    <h3 style="margin-top: 50px;" class="text-center text-secondary" ng-show="countryes.length == 0"><img style="width:100px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAQlBMVEUAAABKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJFKYJEajsZWAAAAFnRSTlMAgBhAcHgwBzhIWGhgD3wnIBUKRC1R2aW3AAAABOhJREFUeNrs1sGOpCAUQNF3QQRFUUH//1cnM3ZPJ1NVViVS3TLhrFy4uNHHU6mqqqqqqqqqqqqqqqoKo5tNSrMAkxRGAa0UprzoFNiFcuba8mWRUhg+hSi3ps03WfjejZLLkroNGLo0y43Zk1FI9hsOYhvIy9us0avcmgHwfRY+AAySizWERW7YBuhHySR2ZF2tY6vkVgt0kpEDGnmvARorOXlAyVsZSJKVA5y8kwVWyWoGkryTzf/vp/49Jf91tI2lRcfUQOjnkqInw247ip2c/i0Bmz6hnXNEzwGeVS99IBuj7dlo2wCmSwOPX/wayKpZTka3wGA/dry/30xuZjwX3UMYP6+IcmsJgF9Hm0NUKQDDuWgP/uuZK7m1ZV7+SwNM7422AYbs3+3+7HhwOB4TMEtWA4TTB9H/bnXcf6IOguSlgfg02spjDWC2zj9aeRqM5OWA5Th69dB0UR5QgU+dfF+0Oozu+KMZ5YHZsEtyleiV3cEGsNoHzKbkMtEe6Duz33bsMtEW6Pe95YqJjvusLoAuJloMGBU3YC0neuODieVEj4adk2zRc3tMnY2WxQMEJ9miNc9MZ6J3k05tlHzRPc+k09G7jNEtTwR1vWgZ1bEoF4x+qkbX6Bpdo+9Hx/FF9jrRA68K01WiFa/rrxJtDS9LV4mWxekXtdeZ6TK3x9WinRlicdEBXGnRFtBlRVs7AsnagqJd4IO3xUQ3/LUeRLe+uce3PxLd85d6HG0D94UfiY5OJ2DQej6a6UfR5srbY+qHe/rpytHXOoi/2jm35QZBIICyAqIiN8X//9WWOgxpGWxSS7vMcJ5ymYQTZuVidglIANuctPBDe2uPJhdMXbpLd+ku/UfSm5noPNPRilakFZUQ0esoGpB2h4ZP8F1gl96jMmOMR22PWlpJCEhqxRnaM4PAIfBKuw/F1ZIH/PnahlXa8RALY5bucu6KcUoLllJG8xThBaf0EZxVMY9rwihtQmykfs7fUwil2VUV0AwABz5pf518xgC0Qie9AoC9dqLYpFVMDxejK5SqgcQmPcbxgabGsrFFIZM+Yn4rA1PMFPbIpCWAPltj5Tp5ikw6hqyHo3xv7UAmHfPtp2J3aoAFmTS0KJ2FRwbgk2bPXIgzMuklDXmiWII0IZOm0clZUpxcLDJpm62X8mlcY5vGCU+NlibEBZ30nlllWzGDTlrpklb8SQzfJoDsF1sqC+94hNKCxYqvjIFnl2lZOhW7V5ZO3SlVoTyJu+ek07OxsnRqCbjJb9YEpHhFWgKAqy+dCgOWIbstFljF89J73LxVl06nwMjJkYCw+6nMdG5dlnYLvGMqSyeG2K9aShkfwyEMJOuytFwD58f0+pW9ljQRlMMXpImFeauZ/FaU/hZTRzqwUQYPrP6zFDc/lvYVpBPDtEiuNZfHqDIrbcrhccn8H3/JsW9TkckNKklDRJt2pPmDdTPSMzxYtyK9scy6Uv18eR8iyKuoK+u56hlX6TS3e9Y2G1sWUhcGwLbftKZ1T5dMU4H7Dev0fVzcTGkrlciq+A4PrS7T+CoUEtoMH9hJwv2OXkurFcGhGjO5R7E4xUENbhUp53XlWQBKqAKbFbmNK5bIuuE+lkVZPgTcRhpg4HCykIYYeCzLbgnLzjShthCejk2EcqfT6XQ6nU6n0+l0Op1O52neACAfQqQmWt3NAAAAAElFTkSuQmCC"><br><span style="font-size: 14px;color: #525e8e;">{{lang.lang59}}</span></h3>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,34 @@
+<div class="business-apply container ptop-3">
+  <div class="apply-title page-title">商家申请</div>
+  <div class="apply-content text-center">
+    <div class="row">
+      <div class="col apply-item">
+        <img src="./assets/images/icon_1.png" alt="广告发布">
+        <div style="margin-top: 40px;">商家自由发布广告</div>
+        <div>买卖更灵活，更便捷</div>
+        <p style="font-size: 24px; color: #A29BF7;margin-top: 50px;">广告发布</p>
+      </div>
+      <div class="col apply-item">
+        <img src="./assets/images/icon_2.png" alt="专属标识">
+        <div style="margin-top: 40px;">商家名称后会显示专属</div>
+        <div>的V标识，增加交易方信任</div>
+        <p style="font-size: 24px; color: #FFDB6A;margin-top: 50px;">专属标识</p>
+      </div>
+      <div class="col apply-item">
+        <img src="./assets/images/icon_3.png" alt="一对一服务">
+        <div style="margin-top: 40px;">我们将向商家提供</div>
+        <div>一对一专属服务</div>
+        <p style="font-size: 24px; color: #F48FAC;margin-top: 50px;">一对一服务</p>
+      </div>
+    </div>
+    <div style="margin-top: 60px;margin-bottom: 20px;font-size: 12px;">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="phoneCheck" id="phoneCheck" >
+        <label class="form-check-label" for="phoneCheck">
+          我已阅读并同意<span class="text-primary cursorClass">《认证商家协议》</span>
+        </label>
+      </div>
+    </div>
+    <button class="btn btn-659EFF" style="padding:10px 140px;" [disabled]="!phoneCheck"  (click)="apply()" >立即申请</button>
+  </div>
+</div>

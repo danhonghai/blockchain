@@ -1,0 +1,10 @@
+.footernav dl {
+  width: 10rem;
+}
+.footernav dl dt {
+  color: rgba(255,255,255,0.4);
+  margin-bottom: .5rem;
+}
+.icon img {
+  margin: 0 .2rem;
+}

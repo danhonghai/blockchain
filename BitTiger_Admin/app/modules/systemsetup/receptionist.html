@@ -1,0 +1,184 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">前台轮播图管理</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group navbar-left">
+                            <a class="btn btn-info" ng-click="changeFun()">
+                          <i class="fa fa-plus"></i>
+                         添加轮播图
+                        </a>
+                        </div>
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>轮播图名称</th>
+                            <th>客户端</th>
+                            <th>关联地址</th>
+                            <th>上架状态</th>
+                            <th>轮播图排序</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 删除轮播图 -->
+<div class="modal fade in info-modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-sm" style="margin-top:200px; width: 300px;">
+        <div class="modal-content" style="border: 1px solid #dbdbdb;box-shadow: 3px 5px 10px #ccc;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title">提示信息</h5>
+            </div>
+            <div class="modal-body">是否刪除该轮播图?</div>
+            <div class="modal-footer">
+                <button class="btn btn-primary okBtn" type="button" data-dismiss="modal" ng-click="deleteFun()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增轮播图 -->
+<div class="modal fade add-admin-modal in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加轮播图</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="xzForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">轮播图名称：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="title" ng-model="condition.title" style="padding-right: 15px;" required>
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="xzForm.title.$error.required">名称必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">关联地址：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="linkUrl" autocomplete="off" ; ng-model="condition.linkUrl" style="padding-right: 15px;"><!--  pattern="^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$" -->
+                       <!--  <span style="color:#d70000;margin-left: 115px;" ng-show="xzForm.linkUrl.$error.required">关联地址必填</span> -->
+                  <!--       <span style="color:#d70000;margin-left: 115px;" ng-show="xzForm.linkUrl.$error.pattern">格式为http://</span> -->
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">类型：</label>
+                        <div class="col-lg-6">
+                            <select class="form-control" ng-model="condition.type" style="width: 250px;margin-left: -15px;" name="type">
+                                <option value="0">PC</option>
+                                <option value="1">微信端</option>
+                                <option value="2">移动端</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">轮播图上传：</label>
+                        <div class="col-xs-8 imgFileWrap" style="margin-left: -15px;">
+                            <input id="input-b1" name="pFile" type="file" class="file imgFile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">语言版本：</label>
+                        <div class="col-lg-6">
+                            <select class="form-control" ng-model="condition.language" style="width: 250px;margin-left: -15px;" name="language">
+                                <option value="0">简体中文</option>
+                                <option value="1">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="xzForm.$invalid" ng-click="viewDit()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改轮播图 -->
+<div class="modal fade add-admin-modals in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">修改轮播图</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">轮播图名称：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px;" name="title" ng-model="coinParams.title" style="padding-right: 15px;">
+                        <span style="color:#d70000;margin-left: 115px;" ng-show="myForm.title.$error.required">名称必填</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">关联地址：</label>
+                        <input type="text" class="form-control" style="width: 250px;" name="linkUrl" ng-model="coinParams.linkUrl"  style="padding-right: 15px;" ><!-- pattern="^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9_-](\?)?)*)*$" -->
+                      <!--   <span style="color:#d70000;margin-left: 115px;" ng-show="myForm.linkUrl.$error.required">关联地址必填</span>
+                      <span style="color:#d70000;margin-left: 115px;" ng-show="myForm.linkUrl.$error.pattern">格式为http://</span> -->
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">类型：</label>
+                        <div class="col-lg-6">
+                            <select class="form-control" ng-model="coinParams.type" style="width: 250px;margin-left: -15px;" name="type">
+                                <option value="0">PC</option>
+                                <option value="1">微信端</option>
+                                <option value="2">APP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">轮播图上传：</label>
+                        <div class="col-xs-8 imgFileWrap" style="margin-left: -15px;">
+                            <input id="input-b2" name="pFile" type="file" class="file imgFile">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 115px;">语言版本：</label>
+                        <div class="col-lg-6">
+                            <select class="form-control" ng-model="coinParams.language" style="width: 250px;margin-left: -15px;" name="language">
+                                <option value="0">简体中文</option>
+                                <option value="1">English</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="amendDit()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 轮播图排序-->
+<div class="modal fade add-admin-modalss in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">排序</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="lbForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 130px;">轮播图权重值：</label>
+                        <input type="text" required="required" class="form-control" style="width: 250px;" name="name" ng-model="zNosort.orders" style="padding-right: 15px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="sorts()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

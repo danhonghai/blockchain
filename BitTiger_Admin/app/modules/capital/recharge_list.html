@@ -1,0 +1,232 @@
+<main>
+    <div class="page-content">
+        <div class="content container" style="overflow:hidden;">
+            <div class="tab-list" style=" height: 40px;background: rgba(0,0,0,0.4);">
+                <a class="tab-item active" style="display: inline-block;border-left: 5px solid #1fb5ad;padding: 10px;">充币列表</a>
+            </div>
+            <div class="widget-content example_alt_pagination">
+                <div class="search-box">
+                    <form class="form-inline" role="form">
+                        <div class="form-group">
+                            <label class="control-label">关键字：</label>
+                            <input type="text" class="form-control" placeholder="手机号/邮箱" ng-model="params.userName">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">币种：</label>
+                            <select class="form-control" ng-model="params.coinId">
+                                <option value="">全部</option>
+                                <option ng-repeat="item in coinList" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">充币状态：</label>
+                            <select class="form-control" ng-model="params.status">
+                                <option value="">全部</option>
+                                <option value="0">待审核</option>
+                                <option value="1">充币中</option>
+                                <option value="2">充币成功</option>
+                                <option value="3">充币失败</option>
+                                <option value="4">驳回撤销</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">充币时间：</label>
+                            <input size="16" type="text" ng-model="params.startTime" readonly class="form_datetime"> 至
+                            <input size="16" type="text" ng-model="params.endTime" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">到账时间：</label>
+                            <input size="16" type="text" ng-model="params.finishStartTime" readonly class="form_datetime"> 至
+                            <input size="16" type="text" ng-model="params.finishEndTime" readonly class="form_datetime">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" ng-click="searchFun(0)">搜索</button>
+                            <button class="btn btn-default" ng-click="searchFun(1)">重置</button>
+                        </div>
+                       <!--  <div class="form-group navbar-right">
+                           <button type="button" class="btn btn-info" ng-click="addCoin()"><i class="fa fa-plus"></i>新增充币记录</button>
+                       </div> -->
+                    </form>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+                    <thead>
+                        <tr>
+                            <th>充币订单号</th>
+                            <th>手机号</th>
+                            <th>邮箱</th>
+                            <th>充币币种</th>
+                            <th>充币地址</th>
+                            <th>充币数量</th>
+                            <th>充币状态</th>
+                            <th>提交时间</th>
+                            <th>到账时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 新增弹窗 -->
+<div class="modal fade add_coin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">{{coinParams.id ? "修改" : "新增"}}充币记录</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="myForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">手机号/邮箱：</label>
+                        <div class="col-xs-8" style="position: relative;">
+                            <input type="text" name="userName" class="form-control" ng-model="coinParams.userName" required pattern="^([1][3456789][0-9]{9})|(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)$" ng-blur="checkUserName()">
+                            <div style="position: absolute;left: 345px;top: 7px;width:80px;">{{coinParams.realName}}</div>
+                            <span style="color:#d70000;" ng-show="myForm.userName.$error.required">数据必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.userName.$error.pattern">格式有误</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">充币币种：</label>
+                        <div class="col-xs-8">
+                            <select class="form-control" ng-model="coinParams.coinId" name="coinId" required>
+                                <option value=""> 请选择充币币种</option>
+                                <option ng-repeat="item in coinList" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                            <span style="color:#d70000;" ng-show="myForm.coinId.$error.required">请选择充币币种</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">充币数量：</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" ng-model="coinParams.charge" name="charge" required pattern="^(([1-9]\d*(\.\d{0,7}[1-9])?)|(0\.\d{0,7}[1-9]))$">
+                            <span style="color:#d70000;" ng-show="myForm.charge.$error.required">充币数量必填</span>
+                            <span style="color:#d70000;" ng-show="myForm.charge.$error.pattern">数据不合规范</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">来源币地址：</label>
+                        <div class="col-xs-8">
+                            <input type="text" name="from" class="form-control" ng-model="coinParams.from" required>
+                            <span style="color:#d70000;" ng-show="myForm.from.$error.required">充币地址必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">交易ID：</label>
+                        <div class="col-xs-8">
+                            <input type="text" name="tradeNo" class="form-control" ng-model="coinParams.tradeNo" required>
+                            <span style="color:#d70000;" ng-show="myForm.tradeNo.$error.required">交易ID必填</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">充币凭据：</label>
+                        <div class="col-xs-8 imgFileWrap">
+                            <input name="pFile" type="file" class="file imgFile">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="savecoin()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 审核弹窗 -->
+<div class="modal fade audit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">{{auditParams.status == 0 ? "审核资料" : "充币结果"}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-model" name="auditForm" novalidate>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">手机号/邮箱：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.userName}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">充币币种：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.coinName}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">充币数量：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.charge}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">来源币地址：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.sourceAccount}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">交易ID：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.tradeNo}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">充币凭据：</label>
+                        <div class="col-xs-8">
+                            <div class="image-wrap">
+                                <a class="example-image-link" data-lightbox="example-set"> <img class="example-image" ng-src="{{auditParams.tradeImg}}"  width="150" height="150"/></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-4" style="width: 120px;">审核意见：</label>
+                        <div class="col-xs-8">
+                            <textarea class="form-control" rows="4" ng-model="auditParams.verifyMsg" ng-disabled="auditParams.status != 0"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="auditParams.status != 0">
+                        <label class="control-label col-xs-4" style="width: 120px;">审核结果：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.status == 2 ? '通过' : '驳回'}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="auditParams.status == 2 || auditParams.status == 3">
+                        <label class="control-label col-xs-4" style="width: 120px;">确认结果：</label>
+                        <div class="col-xs-8">
+                            <div style="padding-top: 5px;">{{auditParams.confirmMsg}}</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" ng-if="auditParams.status == 0">
+                <button type="button" class="btn btn-default" ng-click="verify(1)">通过</button>
+                <button type="button" class="btn btn-default" ng-click="verify(0)">驳回</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 确认弹窗 -->
+<div class="modal fade confirm_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog " style="width: 300px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myLargeModalLabel">提示</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    钱包确认到账？
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="coinConfirm(1)">成功</button>
+                <button type="button" class="btn btn-default" ng-click="coinConfirm(0)">失败</button>
+            </div>
+        </div>
+    </div>
+</div>

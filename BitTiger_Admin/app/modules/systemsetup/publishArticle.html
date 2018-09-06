@@ -1,0 +1,73 @@
+<section id="main-content">
+    <section class="wrapper publish-wrapper">
+        <div class="tab-list">
+            <a class="tab-item active">公告发布</a>
+        </div>
+        <div class="panel-body light-bg" style="background: rgba(0,0,0,0.3);">
+            <section id="unseen">
+                <form class="form-horizontal" novalidate name="publishName">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-right col-lg-1">公告标题：</label>
+                        <div class="col-lg-3">
+                           <input type="text" id="title" placeholder="必填信息" ng-model="article.title" class="form-controlrequired" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <label class="col-sm-3 control-right col-lg-1">类型：</label>
+                        <div class="col-lg-9 icheck">
+                            <select class="form-control" ng-model="article.type" style="width: 184px;" name="type">
+                                <option value="1">公告</option>
+                                <option value="2">新闻</option>
+                                <option value="2">简介</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-right col-lg-1">公告内容：}</label>
+                        <div class="col-lg-7">
+                            <textarea ckeditor class="form-control" ng-model="article.content" name="content" ></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-right col-lg-1">公告状态：</label>
+                        <div class="col-lg-9 icheck">
+                            <input type="checkbox" name="status" {{checkedtext2}} ng-model="article.status" data-on-text="上架" data-off-text="下架" data-on-color="success" data-off-color="danger" data-size="small">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-right col-lg-1">语言版本：</label>
+                        <div class="col-lg-9 icheck">
+                            <select class="form-control" ng-model="article.language" style="width: 184px;" name="language">
+                                <option value="0">简体中文</option>
+                                <option value="1">English</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-8" style="margin-top: 30px;">
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-default" style="width:100%;" onclick="window.history.back()">取消
+                            </button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button id="btn_submit" type="button" class="btn btn-primary" ng-disabled="publishName.$invalid" ng-click="publishFun()" style="width:100%;">确认</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </section>
+</section>
+<div class="modal fade in info-modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-sm" style="margin-top:200px;">
+        <div class="modal-content" style="border: 1px solid #dbdbdb;box-shadow: 3px 5px 10px #ccc;">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="goBackFun()" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title">提示信息</h5>
+            </div>
+            <div class="modal-body">操作成功</div>
+            <div class="modal-footer">
+                <button class="btn btn-primary okBtn" ng-click="goBackFun()" type="button" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

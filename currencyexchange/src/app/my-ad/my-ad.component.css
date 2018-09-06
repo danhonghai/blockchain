@@ -1,0 +1,18 @@
+.adWrap{
+  margin-bottom: 50px;
+}
+.adWrap .ad-title{
+  margin-top: 50px;
+}
+
+.adWrap .table tr th:first-child,.adWrap .table tr td:first-child{
+  padding-left: 40px;
+}
+
+.adWrap .table tr th:last-child,.adWrap .table tr td:last-child{
+  padding-right: 40px;
+}
+
+.orderTable tr td{
+  height: auto;
+}
